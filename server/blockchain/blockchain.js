@@ -1,26 +1,6 @@
 const crypto = require('crypto');
 
-/**
- * ============================================================================
- * MILIGRAMS AGRICULTURAL BLOCKCHAIN LEDGER
- * ============================================================================
- * 
- * Educational Notes for Review:
- * 1. Cryptographic Hash (SHA-256): A one-way function that produces a unique
- *    64-character hexadecimal digest from any input data. Changing even a single
- *    character in the crop data completely changes the hash (Avalanche Effect).
- * 
- * 2. Previous Hash Linkage: Each block points to the cryptographic hash of the
- *    block immediately preceding it. This creates an unbroken chain.
- *    If an attacker modifies historical crop data in Block #2, its hash changes,
- *    which breaks the link stored in Block #3, immediately invalidating the entire
- *    subsequent chain.
- * 
- * 3. Merkle Root: A cryptographic summary of all key-value items inside the
- *    block's data payload. Leaf nodes are hashed in pairs up to a single root hash,
- *    providing fast and tamper-proof verification of data integrity.
- * ============================================================================
- */
+
 
 class Block {
   /**
