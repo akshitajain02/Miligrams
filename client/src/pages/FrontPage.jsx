@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
   Sprout, Building2, ShoppingBag, ShieldCheck, ArrowRight, 
-  Sparkles, CheckCircle2, Star, Mic, Shield, Award, 
-  Clock, Truck, Users, Layers, ChevronRight, Globe, Sun, Moon,
-  HeartHandshake, Compass
+  Sparkles, CheckCircle2, Star, Shield, Award, 
+  Clock, Truck, Users, Layers, Globe, Sun, Moon,
+  HeartHandshake, Compass, ArrowUpRight, Check, Send
 } from 'lucide-react';
 import PhotoCards3D from '../components/PhotoCards3D';
 import NatureBackground from '../components/NatureBackground';
@@ -12,17 +12,70 @@ import { soundFX } from '../utils/audioFX';
 
 export default function FrontPage({ lang = 'hi', setLang, theme = 'dark', toggleTheme }) {
   const navigate = useNavigate();
+  const [newsletterEmail, setNewsletterEmail] = useState('');
+  const [newsletterSent, setNewsletterSent] = useState(false);
 
   const handleTryMiligrams = () => {
     soundFX.click();
     navigate('/login');
   };
 
+  const handleNewsletterSubmit = (e) => {
+    e.preventDefault();
+    if (!newsletterEmail) return;
+    soundFX.success();
+    setNewsletterSent(true);
+    setTimeout(() => {
+      setNewsletterEmail('');
+      setNewsletterSent(false);
+    }, 3500);
+  };
+
+  // Produce Shelf items matching Figma product row
+  const produceItems = [
+    {
+      id: 1,
+      nameHi: 'शरबती गेहूं (Sharbati Wheat)',
+      nameEn: 'Sharbati Wheat',
+      price: '₹28 / kg',
+      grade: 'Grade A',
+      farmer: 'Gurpreet Singh',
+      image: '/farmer-sunset-field.jpg'
+    },
+    {
+      id: 2,
+      nameHi: 'देसी बाजरा (Pearl Millet)',
+      nameEn: 'Organic Pearl Millet',
+      price: '₹24 / kg',
+      grade: 'Grade A+',
+      farmer: 'Balwant Yadav',
+      image: '/farm-aerial-harvest.jpg'
+    },
+    {
+      id: 3,
+      nameHi: 'शाही बासमती (Basmati Rice)',
+      nameEn: 'Royal Basmati 1121',
+      price: '₹68 / kg',
+      grade: 'Export Grade',
+      farmer: 'Harinder Mann',
+      image: '/nature-farm-banner.jpg'
+    },
+    {
+      id: 4,
+      nameHi: 'पीली सरसों (Mustard Seeds)',
+      nameEn: 'Yellow Mustard Seeds',
+      price: '₹52 / kg',
+      grade: 'Grade A',
+      farmer: 'Rajesh Meena',
+      image: '/farmer-thumbs-up-sold.jpg'
+    }
+  ];
+
   const supplyChainNodes = [
     {
       id: 'farm',
       icon: Sprout,
-      titleHi: 'खेत (Farm)',
+      titleHi: 'खेत (Farm Source)',
       titleEn: 'Farm Source',
       subHi: 'आवाज AI फसल पंजीकरण व डिजिटल पर्ची',
       subEn: 'Voice AI harvest logging & Kisan receipt',
@@ -31,7 +84,7 @@ export default function FrontPage({ lang = 'hi', setLang, theme = 'dark', toggle
     {
       id: 'transport',
       icon: Truck,
-      titleHi: 'परिवहन (Transport)',
+      titleHi: 'परिवहन (Cold-Chain Transit)',
       titleEn: 'Cold-Chain Transit',
       subHi: 'जीपीएस व तापमान निगरानी पारगमन',
       subEn: 'GPS tracked farm-to-silo transit dispatch',
@@ -40,7 +93,7 @@ export default function FrontPage({ lang = 'hi', setLang, theme = 'dark', toggle
     {
       id: 'storage',
       icon: Building2,
-      titleHi: 'भंडारण (Storage)',
+      titleHi: 'भंडारण (Smart Silo)',
       titleEn: 'Smart Silo Storage',
       subHi: '20,000 क्विंटल क्षमता व <12% नमी सेंसर',
       subEn: '20k quintal silos & digital moisture audit',
@@ -49,7 +102,7 @@ export default function FrontPage({ lang = 'hi', setLang, theme = 'dark', toggle
     {
       id: 'market',
       icon: ShoppingBag,
-      titleHi: 'मंडी (Market)',
+      titleHi: 'मंडी (Fair-Trade Market)',
       titleEn: 'Fair-Trade Market',
       subHi: '15-दिन एजिंग छूट व सीधी थोक खरीद',
       subEn: '15-day aging discounts & fair procurement',
@@ -58,7 +111,7 @@ export default function FrontPage({ lang = 'hi', setLang, theme = 'dark', toggle
     {
       id: 'consumer',
       icon: Users,
-      titleHi: 'उपभोक्ता (Consumer)',
+      titleHi: 'उपभोक्ता (Consumer Trust)',
       titleEn: 'Consumer Trust',
       subHi: 'क्यूआर कोड से किसान की प्रामाणिकता जांच',
       subEn: 'Farm-to-fork origin and purity trace',
@@ -67,7 +120,7 @@ export default function FrontPage({ lang = 'hi', setLang, theme = 'dark', toggle
     {
       id: 'traceable',
       icon: ShieldCheck,
-      titleHi: 'सत्यापित (Traceable)',
+      titleHi: 'सत्यापित (Safe & Sustainable)',
       titleEn: 'Safe & Sustainable',
       subHi: 'क्रिप्टोग्राफिक SHA-256 ब्लॉकचेन मुहर',
       subEn: 'Zero-waste mathematical trust ledger',
@@ -183,43 +236,35 @@ export default function FrontPage({ lang = 'hi', setLang, theme = 'dark', toggle
 
   return (
     <div className="front-page-container">
-      {/* Animated Nature Atmosphere in Background */}
+      {/* Ambient background aura */}
       <NatureBackground />
 
-      {/* Nature Top Navigation Bar */}
-      <header className="front-navbar">
-        <div className="front-navbar-brand" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-          <div className="front-brand-icon">
-            <Sprout size={24} />
-          </div>
-          <div>
-            <span className="front-brand-title">MiliGrams</span>
-            <span className="front-brand-sub">Agri-Blockchain v2.0</span>
-          </div>
+      {/* 1. FIGMA TOP SUB-NAVBAR */}
+      <nav className="figma-top-bar">
+        <div className="figma-top-links">
+          <a href="#produce" className="figma-top-link">
+            {lang === 'hi' ? 'ताज़ा उपज (Shop)' : 'Shop Mandi'}
+          </a>
+          <a href="#editorial" className="figma-top-link">
+            {lang === 'hi' ? 'लेजर समाचार (Newsstand)' : 'Newsstand'}
+          </a>
+          <a href="#ecosystem" className="figma-top-link">
+            {lang === 'hi' ? 'आपूर्ति श्रृंखला' : 'Who we are'}
+          </a>
+          <a href="#portals" className="figma-top-link">
+            {lang === 'hi' ? 'कार्यक्षेत्र (4 Portals)' : '4 Portals'}
+          </a>
         </div>
 
-        {/* Quick Nav Anchors */}
-        <nav className="front-nav-links">
-          <a href="#ecosystem" className="front-nav-link">
-            {lang === 'hi' ? 'आपूर्ति श्रृंखला' : 'Supply Chain'}
-          </a>
-          <a href="#portals" className="front-nav-link">
-            {lang === 'hi' ? '4 कार्यक्षेत्र' : 'Portals'}
-          </a>
-          <a href="#testimonials" className="front-nav-link">
-            {lang === 'hi' ? 'उपयोगकर्ताओं की राय' : 'Reviews'}
-          </a>
-        </nav>
-
-        {/* Action Controls: Lang Toggle, Theme Toggle & Try Miligrams */}
-        <div className="front-navbar-actions">
+        <div className="figma-top-actions">
           {/* Language Switch */}
           <button
             onClick={() => setLang(lang === 'hi' ? 'en' : 'hi')}
-            className="btn btn-secondary btn-sm front-lang-btn"
+            className="btn btn-secondary btn-sm"
+            style={{ fontSize: '0.8rem', padding: '0.35rem 0.75rem' }}
             title="Switch Language"
           >
-            <Globe size={14} />
+            <Globe size={13} />
             <span>{lang === 'hi' ? 'English' : 'हिन्दी'}</span>
           </button>
 
@@ -229,346 +274,567 @@ export default function FrontPage({ lang = 'hi', setLang, theme = 'dark', toggle
               onClick={toggleTheme}
               className="btn btn-secondary btn-sm"
               title="Toggle Theme"
-              style={{ padding: '0.4rem 0.65rem' }}
+              style={{ padding: '0.35rem 0.65rem' }}
             >
-              {theme === 'dark' ? <Sun size={15} color="#fbbf24" /> : <Moon size={15} color="#60a5fa" />}
+              {theme === 'dark' ? <Sun size={14} color="#fbbf24" /> : <Moon size={14} color="#183b28" />}
             </button>
           )}
 
-          {/* Try MiliGrams CTA */}
+          {/* Connect / Enter CTA */}
           <button
             onClick={handleTryMiligrams}
-            className="btn btn-primary front-cta-btn"
+            className="figma-btn-forest"
+            style={{ padding: '0.45rem 1.15rem', fontSize: '0.82rem' }}
           >
-            <span>{lang === 'hi' ? 'लॉगिन करें' : 'Sign In'}</span>
-            <ArrowRight size={15} />
+            <span>{lang === 'hi' ? 'लॉगिन करें' : 'Open Portal'}</span>
+            <ArrowRight size={14} />
           </button>
         </div>
+      </nav>
+
+      {/* 2. FIGMA MASSIVE EDITORIAL MASTHEAD */}
+      <header className="figma-masthead-section">
+        <h1 className="figma-masthead-logo" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+          <span>MiliGrams</span>
+          <span className="figma-registered-mark">®</span>
+        </h1>
+        <p className="figma-mission-statement">
+          {lang === 'hi'
+            ? 'पारदर्शिता व किसान-सम्मान मिलीग्राम्स की आत्मा है — हम केवल सत्यापित किसानों और वैज्ञानिक साइलो से सीधे व्यापारियों को बिना बिचौलियों के जोड़ते हैं।'
+            : 'Sustainability is at the heart of what MiliGrams stands for — connecting verified growers directly with institutional buyers on an immutable sovereign ledger.'}
+        </p>
       </header>
 
-      {/* Main Hero Section with 3D Perspective Card (ContainerScroll) */}
-      {/* Main Hero Section with Compact 3D Photo Cards */}
-      <main className="front-main-content">
-        <section className="front-hero-section">
-          <div className="front-hero-header">
-            <div className="nature-badge-pill">
-              <Sparkles size={14} color="#34d399" />
-              <span>
-                {lang === 'hi' 
-                  ? 'भारत की पहली प्रकृति-आधारित कृषि ब्लॉकचेन • BHARAT AGRI-LEDGER'
-                  : 'BHARAT\'S NATURE-POWERED AGRI-BLOCKCHAIN ECOSYSTEM'}
-              </span>
+      {/* 3. FIGMA CENTERPIECE FLOATING HERO WINDOW (Node 2012-278) */}
+      <section className="figma-hero-window-wrapper">
+        <div className="figma-hero-window">
+          {/* Left Hero Content */}
+          <div className="figma-hero-content">
+            <div className="figma-hero-tag">
+              <Sparkles size={13} />
+              <span>{lang === 'hi' ? 'एग्रीस्टैक व ब्लॉकचेन सत्यापित' : 'AgriStack & Blockchain Verified'}</span>
             </div>
 
-            <h1 className="front-hero-title">
+            <h2 className="figma-hero-title">
               {lang === 'hi' ? (
-                <>
-                  खेत से थाली तक, हर दाने का <br />
-                  <span className="front-title-gradient">सच्चा व सुरक्षित हिसाब</span>
-                </>
+                <>खेत से मंडी तक, <br />हर ग्राम का सच्चा हिसाब।</>
               ) : (
-                <>
-                  From Soil to Settlement: <br />
-                  <span className="front-title-gradient">100% Traceable Agri-Blockchain</span>
-                </>
+                <>From farm to buyer, <br />every gram accountable.</>
               )}
-            </h1>
+            </h2>
 
-            <p className="front-hero-description">
+            <p className="figma-hero-sub">
               {lang === 'hi'
-                ? 'असाक्षर किसानों के लिए आवाज आधारित AI, 20,000 क्विंटल आधुनिक साइलो, 15-दिवसीय शेल्फ-लाइफ मूल्य सुरक्षा, और छेड़छाड़-रोधी SHA-256 क्रिप्टोग्राफिक लेजर।'
-                : 'Empowering low-literacy farmers with voice-AI intake, 20,000 quintal climate silos, 15-day fair-trade aging, and mathematical zero-trust transparency.'}
+                ? 'बीज से लेकर थोक मंडी तक प्रत्येक लेनदेन SHA-256 ब्लॉकचेन पर दर्ज। शून्य बिचौलिया कटौती, 15-दिन फसल शेल्फ लाइफ सुरक्षा, और 20,000 क्विंटल आधुनिक साइलो।'
+                : 'All crops are cryptographically traced from farmer to certified warehouse, and directly to wholesale buyers. Zero middleman cuts, 15-day price security, every grain accounted for.'}
             </p>
 
-            <div className="front-hero-cta-group">
-              <button
-                onClick={handleTryMiligrams}
-                className="btn btn-primary btn-lg front-hero-primary-btn"
-              >
-                <Sparkles size={18} />
+            <div className="figma-hero-actions">
+              <button onClick={handleTryMiligrams} className="figma-btn-forest">
+                <Sprout size={18} />
                 <span>{lang === 'hi' ? 'मिलीग्राम्स आज़माएँ (Try MiliGrams)' : 'Try MiliGrams Now'}</span>
-                <ArrowRight size={18} />
+                <ArrowRight size={17} />
               </button>
 
-              <button
-                onClick={() => navigate('/overview')}
-                className="btn btn-secondary btn-lg"
-                style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}
-              >
+              <button onClick={() => navigate('/overview')} className="figma-btn-outline">
                 <Compass size={17} />
-                <span>{lang === 'hi' ? '3D इकोसिस्टम एक्सप्लोरर' : 'Explore 3D Ecosystem'}</span>
+                <span>{lang === 'hi' ? '3D क्वेस्ट देखें' : 'Launch 3D Quest'}</span>
               </button>
+            </div>
+
+            {/* Stat Counters */}
+            <div className="figma-hero-stats">
+              <div className="figma-stat-item">
+                <span className="figma-stat-num">12,400+</span>
+                <span className="figma-stat-label">{lang === 'hi' ? 'सत्यापित किसान' : 'Verified Farmers'}</span>
+              </div>
+              <div className="figma-stat-item">
+                <span className="figma-stat-num">99.8%</span>
+                <span className="figma-stat-label">{lang === 'hi' ? 'वितरण विश्वसनीयता' : 'Delivery Reliability'}</span>
+              </div>
+              <div className="figma-stat-item">
+                <span className="figma-stat-num">15 Days</span>
+                <span className="figma-stat-label">{lang === 'hi' ? 'एजिंग सुरक्षा चक्र' : 'Aging Price Cycle'}</span>
+              </div>
             </div>
           </div>
 
-          {/* Compact 3D Photo Cards - Space-efficient & interactive */}
-          <div style={{ marginTop: '2.5rem', marginBottom: '1.5rem' }}>
-            <PhotoCards3D lang={lang} />
+          {/* Right Hero Image Card with Floating Ledger Badge */}
+          <div className="figma-hero-media">
+            <img 
+              src="/farmer-sunset-field.jpg" 
+              alt="Verdant Agricultural Farmland" 
+              className="figma-hero-img" 
+            />
+            
+            {/* Dark Translucent Floating Ledger Badge */}
+            <div className="figma-hero-media-badge">
+              <div className="figma-badge-title">
+                <CheckCircle2 size={15} color="#34d399" />
+                <span>{lang === 'hi' ? 'लॉट #1042 — 100% क्रिप्टोग्राफिक अखंडता' : 'Wheat Lot #1042 — 100% Verified'}</span>
+              </div>
+              <div className="figma-badge-sub">
+                {lang === 'hi' ? '15-दिन री-वेरिफिकेशन सक्रिय • ग्रेड A प्रमाणित • किसान: राम सिंह' : '15-Day Aging Protection Active • Grade A Certified • Farmer: Ram Singh'}
+              </div>
+            </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Section 2: Supply Chain Nodes Breakdown */}
-        <section id="ecosystem" className="front-section">
-          <div className="front-section-header">
-            <span className="badge" style={{ background: 'rgba(16, 185, 129, 0.15)', color: '#34d399', borderColor: 'rgba(16, 185, 129, 0.3)' }}>
-              <HeartHandshake size={13} />
-              <span>{lang === 'hi' ? 'संपूर्ण आपूर्ति श्रृंखला' : 'INTEGRATED SUPPLY CHAIN'}</span>
-            </span>
-            <h2 className="front-section-title">
-              {lang === 'hi' ? 'पारदर्शिता के 6 स्तंभ' : '6 Pillars of Farm-to-Fork Traceability'}
-            </h2>
-            <p className="front-section-sub">
-              {lang === 'hi'
-                ? 'बीज बोने से लेकर अंतिम उपभोक्ता की थाली तक, प्रत्येक चरण पर प्रामाणिक डिजिटल मुहर।'
-                : 'From sowing and harvest to end consumers, every step is mathematically recorded and tamper-proof.'}
-            </p>
+      {/* 4. FIGMA FRESH PRODUCE SHELF (Horizontal Cards with Price) */}
+      <section id="produce" className="figma-produce-section">
+        <div className="figma-produce-header">
+          <h3 className="figma-produce-title">
+            {lang === 'hi' ? 'मंडी में उपलब्ध ताज़ा प्रमाणित उपज' : 'Fresh Certified Crops in Marketplace'}
+          </h3>
+          <button 
+            onClick={handleTryMiligrams}
+            className="btn-link" 
+            style={{ color: 'var(--primary)', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}
+          >
+            <span>{lang === 'hi' ? 'पूरी मंडी देखें' : 'View All Lots'}</span>
+            <ArrowUpRight size={16} />
+          </button>
+        </div>
+
+        <div className="figma-produce-grid">
+          {produceItems.map((item) => (
+            <div 
+              key={item.id} 
+              className="figma-produce-card"
+              onClick={handleTryMiligrams}
+            >
+              <div className="figma-produce-img-wrap">
+                <img src={item.image} alt={item.nameEn} className="figma-produce-img" />
+                <span 
+                  className="badge" 
+                  style={{ position: 'absolute', top: '0.6rem', left: '0.6rem', background: 'rgba(24, 59, 40, 0.85)', color: '#ffffff', fontSize: '0.68rem', backdropFilter: 'blur(8px)' }}
+                >
+                  {item.grade}
+                </span>
+              </div>
+              
+              <div className="figma-produce-footer">
+                <div>
+                  <div className="figma-produce-name">{lang === 'hi' ? item.nameHi : item.nameEn}</div>
+                  <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)' }}>📍 {item.farmer}</div>
+                </div>
+                <div className="figma-produce-price">{item.price}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 5. FIGMA 3 SIGNATURE EDITORIAL COLOR CARDS (Lilac, Lime, Peach) */}
+      <section id="editorial" className="figma-editorial-section">
+        <div className="figma-editorial-container">
+          {/* Card 1: Wide Lilac Card */}
+          <div className="editorial-card-lilac">
+            <div>
+              <div className="editorial-date">
+                {lang === 'hi' ? 'पारदर्शी मूल्य निर्धारण • 24 सितंबर 2026' : 'EDITORIAL DEEP DIVE • SEP 24, 2026'}
+              </div>
+              <h3 className="editorial-title-large">
+                {lang === 'hi'
+                  ? '"राहत की सांस" — बिचौलियों के बिना किसान का सच्चा हक'
+                  : '"Sigh of re-leaf" — a deeper dive into fair farmer pricing.'}
+              </h3>
+            </div>
+            <div>
+              <p className="editorial-excerpt">
+                {lang === 'hi'
+                  ? 'स्थानीय मंडियों में आढ़तियों की 8-12% मनमानी कमीशन और कम तौल को खत्म करके मिलीग्राम्स ने किसानों को सीधे संस्थागत खरीदारों से जोड़ा है। हर खरीद का भुगतान सीधे किसान के बैंक खाते में और हर बोरी का डिजिटल प्रमाण पत्र लेजर पर हमेशा के लिए दर्ज रहता है।'
+                  : 'By completely eliminating the arbitrary 8-12% broker commissions and unauthorized weight cuts in conventional mandis, MiliGrams bridges grassroots growers directly to institutional buyers. Payments settle instantly to bank accounts with immutable provenance receipts.'}
+              </p>
+            </div>
           </div>
 
-          <div className="front-nodes-grid">
-            {supplyChainNodes.map((node) => {
-              const Icon = node.icon;
-              return (
-                <div key={node.id} className="front-node-card glass-panel">
+          {/* Row of 2 Cards: Lime & Peach */}
+          <div className="editorial-row-split">
+            {/* Card 2: Lime Yellow-Green */}
+            <div className="editorial-card-lime">
+              <div>
+                <div className="editorial-date">
+                  {lang === 'hi' ? 'स्मार्ट साइलो तकनीक' : 'SMART SILO TECH'}
+                </div>
+                <h4 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.5rem', fontWeight: 500, margin: '0.6rem 0 0.8rem', lineHeight: 1.2 }}>
+                  {lang === 'hi' ? 'शून्य सड़ांध साइलो — 20,000 क्विंटल वैज्ञानिक भंडारण' : 'Zero-Rot Silos — 20,000Q automated IoT audit'}
+                </h4>
+                <p style={{ fontSize: '0.88rem', lineHeight: 1.6, opacity: 0.9 }}>
+                  {lang === 'hi'
+                    ? 'स्वचालित डिजिटल नमी सेंसर (<12%) और पृथक तापमान नियंत्रण से अनाज के सड़ांध को जड़ से खत्म किया गया है।'
+                    : 'Real-time moisture sensors under 12% and climate segregation safeguard crops against rot and post-harvest wastage.'}
+                </p>
+              </div>
+              <div style={{ fontSize: '0.78rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.04em', marginTop: '1rem' }}>
+                {lang === 'hi' ? 'गोदाम सुरक्षा ढांचा →' : 'Read Silo Blueprint →'}
+              </div>
+            </div>
+
+            {/* Card 3: Warm Terracotta Peach */}
+            <div className="editorial-card-peach">
+              <div>
+                <div className="editorial-date">
+                  {lang === 'hi' ? '15-दिन एजिंग चक्र' : 'AGING ALGORITHM'}
+                </div>
+                <h4 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.5rem', fontWeight: 500, margin: '0.6rem 0 0.8rem', lineHeight: 1.2 }}>
+                  {lang === 'hi' ? '15-दिन मूल्य सुरक्षा — संकटकालीन बिक्री से बचाव' : '15-Day Aging Engine — fair-trade discounts'}
+                </h4>
+                <p style={{ fontSize: '0.88rem', lineHeight: 1.6, opacity: 0.9 }}>
+                  {lang === 'hi'
+                    ? '15 दिन न बिकने पर स्वतः 20% मूल्य छूट और ब्लॉकचेन री-वेरिफिकेशन दर्ज होता है, जिससे उपज तुरंत बिक जाती है।'
+                    : 'Smart contracts automatically apply transparent 20% discounts after 15 days, ensuring inventory turn without distressed sales.'}
+                </p>
+              </div>
+              <div style={{ fontSize: '0.78rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.04em', marginTop: '1rem' }}>
+                {lang === 'hi' ? 'एजिंग नियम देखें →' : 'Explore Aging Logic →'}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 6. INTERACTIVE 3D PHOTO CARDS */}
+      <section className="front-section" style={{ paddingTop: 0 }}>
+        <div className="front-section-header">
+          <span className="badge" style={{ background: 'rgba(24, 59, 40, 0.08)', color: 'var(--primary)', borderColor: 'rgba(24, 59, 40, 0.2)' }}>
+            <Sparkles size={13} />
+            <span>{lang === 'hi' ? 'वास्तविक जीवन परिप्रेक्ष्य' : 'FIELD PERSPECTIVES'}</span>
+          </span>
+          <h2 className="front-section-title">
+            {lang === 'hi' ? 'भारतीय कृषि का नया डिजिटल सवेरा' : 'A New Digital Dawn for Indian Agriculture'}
+          </h2>
+        </div>
+        <PhotoCards3D lang={lang} />
+      </section>
+
+      {/* 7. THE 4 DEDICATED PORTALS */}
+      <section id="portals" className="front-section">
+        <div className="front-section-header">
+          <span className="badge" style={{ background: 'rgba(56, 189, 248, 0.12)', color: '#0284c7', borderColor: 'rgba(56, 189, 248, 0.3)' }}>
+            <Layers size={13} />
+            <span>{lang === 'hi' ? 'समर्पित कार्यक्षेत्र' : '4 DEDICATED ROLES'}</span>
+          </span>
+          <h2 className="front-section-title">
+            {lang === 'hi' ? 'हर हितधारक के लिए अलग पोर्टल' : 'Tailored Portals for Every Actor'}
+          </h2>
+          <p className="front-section-sub">
+            {lang === 'hi'
+              ? 'किसान, गोदाम प्रबंधक, थोक व्यापारी और सरकारी ऑडिटर — सभी के लिए सुगम और सुरक्षित इंटरफेस।'
+              : 'Farmers, warehouse operators, grain traders, and state regulators each enjoy a purpose-built workspace.'}
+          </p>
+        </div>
+
+        <div className="front-portals-grid">
+          {portalCards.map((p) => {
+            const Icon = p.icon;
+            return (
+              <div 
+                key={p.role} 
+                className="front-portal-card glass-panel"
+                style={{ borderTop: `4px solid ${p.color}` }}
+                onClick={handleTryMiligrams}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
                   <div 
-                    className="front-node-icon-wrap"
-                    style={{ background: `${node.color}18`, color: node.color, borderColor: `${node.color}35` }}
+                    style={{ 
+                      width: '46px', 
+                      height: '46px', 
+                      borderRadius: '12px', 
+                      background: `${p.color}20`, 
+                      color: p.color, 
+                      display: 'flex', 
+                      alignItems: 'center', 
+                      justifyContent: 'center',
+                      border: `1px solid ${p.color}40`
+                    }}
                   >
                     <Icon size={24} />
                   </div>
-                  <h3 className="front-node-card-title">
-                    {lang === 'hi' ? node.titleHi : node.titleEn}
-                  </h3>
-                  <p className="front-node-card-desc">
-                    {lang === 'hi' ? node.subHi : node.subEn}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Visual Architecture Diagram from User Blueprint */}
-          <div className="front-architecture-banner glass-panel" style={{ marginTop: '2.5rem', padding: '1.5rem', borderRadius: '20px', textAlign: 'center' }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem', flexWrap: 'wrap', gap: '0.5rem' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-                <ShieldCheck size={20} color="#34d399" />
-                <span style={{ fontWeight: 800, fontSize: '0.98rem', color: 'var(--text-main)' }}>
-                  {lang === 'hi' ? 'प्रणाली स्थापत्य व लेजर सुरक्षा ढांचा' : 'System Architecture & Cryptographic Trust Blueprint'}
-                </span>
-              </div>
-              <span className="badge" style={{ background: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8', borderColor: 'rgba(56, 189, 248, 0.3)', fontSize: '0.72rem' }}>
-                SHA-256 Validated Node Network
-              </span>
-            </div>
-            <div style={{ borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--border)', background: '#0a0f1d' }}>
-              <img 
-                src="/miligrams-ui-architecture.jpg" 
-                alt="MiliGrams UI Architecture Diagram" 
-                style={{ width: '100%', maxHeight: '420px', objectFit: 'contain', display: 'block', margin: '0 auto' }}
-              />
-            </div>
-          </div>
-        </section>
-
-        {/* Section 3: The 4 Portals (Step 3 Preview) */}
-        <section id="portals" className="front-section">
-          <div className="front-section-header">
-            <span className="badge" style={{ background: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8', borderColor: 'rgba(56, 189, 248, 0.3)' }}>
-              <Layers size={13} />
-              <span>{lang === 'hi' ? 'समर्पित कार्यक्षेत्र' : '4 DEDICATED ROLES'}</span>
-            </span>
-            <h2 className="front-section-title">
-              {lang === 'hi' ? 'हर हितधारक के लिए अलग पोर्टल' : 'Tailored Portals for Every Actor'}
-            </h2>
-            <p className="front-section-sub">
-              {lang === 'hi'
-                ? 'किसान, गोदाम प्रबंधक, थोक व्यापारी और सरकारी ऑडिटर — सभी के लिए सुगम और सुरक्षित इंटरफेस।'
-                : 'Farmers, warehouse operators, grain traders, and state regulators each enjoy a purpose-built workspace.'}
-            </p>
-          </div>
-
-          <div className="front-portals-grid">
-            {portalCards.map((p) => {
-              const Icon = p.icon;
-              return (
-                <div 
-                  key={p.role} 
-                  className="front-portal-card glass-panel"
-                  style={{ borderTop: `4px solid ${p.color}` }}
-                  onClick={handleTryMiligrams}
-                >
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
-                    <div 
-                      style={{ 
-                        width: '46px', 
-                        height: '46px', 
-                        borderRadius: '12px', 
-                        background: `${p.color}20`, 
-                        color: p.color, 
-                        display: 'flex', 
-                        alignItems: 'center', 
-                        justifyContent: 'center',
-                        border: `1px solid ${p.color}40`
-                      }}
-                    >
-                      <Icon size={24} />
-                    </div>
-                    <span className="badge" style={{ background: `${p.color}15`, color: p.color, borderColor: `${p.color}35` }}>
-                      {lang === 'hi' ? p.badgeHi : p.badgeEn}
-                    </span>
-                  </div>
-
-                  <h3 style={{ fontSize: '1.22rem', fontWeight: 800, color: 'var(--text-main)', marginBottom: '0.45rem' }}>
-                    {lang === 'hi' ? p.titleHi : p.titleEn}
-                  </h3>
-                  <p style={{ fontSize: '0.86rem', color: 'var(--text-muted)', lineHeight: 1.55, marginBottom: '1.5rem' }}>
-                    {lang === 'hi' ? p.descHi : p.descEn}
-                  </p>
-
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '0.85rem', borderTop: '1px solid var(--border)' }}>
-                    <span style={{ fontSize: '0.78rem', color: 'var(--text-light)', fontWeight: 700 }}>
-                      {lang === 'hi' ? 'लॉगिन कर देखें' : 'Sign in to access'}
-                    </span>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', color: p.color, fontWeight: 800, fontSize: '0.84rem' }}>
-                      <span>{lang === 'hi' ? 'प्रवेश करें' : 'Open'}</span>
-                      <ArrowRight size={14} />
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </section>
-
-        {/* Section 4: What Our Users Say (Testimonials) */}
-        <section id="testimonials" className="front-section">
-          <div className="front-section-header">
-            <span className="badge" style={{ background: 'rgba(245, 158, 11, 0.15)', color: '#fbbf24', borderColor: 'rgba(245, 158, 11, 0.3)' }}>
-              <Star size={13} />
-              <span>{lang === 'hi' ? 'विश्वसनीयता व अनुभव' : 'USER REVIEWS & TESTIMONIALS'}</span>
-            </span>
-            <h2 className="front-section-title">
-              {lang === 'hi' ? 'हमारे उपयोगकर्ताओं की जुबानी' : 'What Our Community Says'}
-            </h2>
-            <p className="front-section-sub">
-              {lang === 'hi'
-                ? 'पंजाब के खेतों से लेकर दिल्ली की मंडियों और सरकारी ऑडिटरों तक का सच्चा अनुभव।'
-                : 'Real perspectives from grassroots farmers, silo operators, grain traders, and agricultural auditors.'}
-            </p>
-          </div>
-
-          <div className="front-testimonials-grid">
-            {testimonials.map((t) => (
-              <div key={t.id} className="front-testimonial-card glass-panel">
-                {/* Rating Stars */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', marginBottom: '0.85rem' }}>
-                  {Array.from({ length: t.rating }).map((_, i) => (
-                    <Star key={i} size={15} fill="#fbbf24" color="#fbbf24" />
-                  ))}
-                  <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#fbbf24', marginLeft: '0.35rem' }}>
-                    5.0 / 5.0
+                  <span className="badge" style={{ background: `${p.color}15`, color: p.color, borderColor: `${p.color}35` }}>
+                    {lang === 'hi' ? p.badgeHi : p.badgeEn}
                   </span>
                 </div>
 
-                {/* Quote Text */}
-                <p className="front-testimonial-quote">
-                  "{lang === 'hi' ? t.quoteHi : t.quoteEn}"
+                <h3 style={{ fontSize: '1.22rem', fontWeight: 800, color: 'var(--text-main)', marginBottom: '0.45rem' }}>
+                  {lang === 'hi' ? p.titleHi : p.titleEn}
+                </h3>
+                <p style={{ fontSize: '0.86rem', color: 'var(--text-muted)', lineHeight: 1.55, marginBottom: '1.5rem' }}>
+                  {lang === 'hi' ? p.descHi : p.descEn}
                 </p>
 
-                {/* Author Info */}
-                <div className="front-testimonial-author">
-                  <div 
-                    className="front-testimonial-avatar"
-                    style={{ background: t.avatarBg }}
-                  >
-                    {(lang === 'hi' ? t.nameHi : t.nameEn).charAt(0)}
-                  </div>
-                  <div>
-                    <h4 className="front-testimonial-name">
-                      {lang === 'hi' ? t.nameHi : t.nameEn}
-                    </h4>
-                    <p className="front-testimonial-role">
-                      {lang === 'hi' ? t.roleHi : t.roleEn}
-                    </p>
-                    <span className="badge" style={{ fontSize: '0.66rem', padding: '0.15rem 0.45rem', marginTop: '0.25rem' }}>
-                      <CheckCircle2 size={10} color="#34d399" />
-                      <span>{lang === 'hi' ? t.badgeHi : t.badgeEn}</span>
-                    </span>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '0.85rem', borderTop: '1px solid var(--border)' }}>
+                  <span style={{ fontSize: '0.78rem', color: 'var(--text-light)', fontWeight: 700 }}>
+                    {lang === 'hi' ? 'लॉगिन कर देखें' : 'Sign in to access'}
+                  </span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', color: p.color, fontWeight: 800, fontSize: '0.84rem' }}>
+                    <span>{lang === 'hi' ? 'प्रवेश करें' : 'Open'}</span>
+                    <ArrowRight size={14} />
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
-        </section>
+            );
+          })}
+        </div>
+      </section>
 
-        {/* Section 5: Grand Bottom CTA (Step 1 -> Step 2 Gate) */}
-        <section className="front-bottom-cta-section">
-          <div className="front-bottom-cta-card glass-panel glass-panel-glow">
-            <div className="front-cta-glow-circle" />
-            
-            <span className="badge" style={{ background: 'rgba(16, 185, 129, 0.2)', color: '#34d399', borderColor: 'rgba(16, 185, 129, 0.4)', marginBottom: '1rem' }}>
-              <Sparkles size={14} />
-              <span>{lang === 'hi' ? '3-चरणीय सुगम यात्रा' : 'STEP 1 COMPLETE • ENTER PLATFORM'}</span>
+      {/* 8. SUPPLY CHAIN NODES & BLUEPRINT */}
+      <section id="ecosystem" className="front-section">
+        <div className="front-section-header">
+          <span className="badge" style={{ background: 'rgba(16, 185, 129, 0.15)', color: '#34d399', borderColor: 'rgba(16, 185, 129, 0.3)' }}>
+            <HeartHandshake size={13} />
+            <span>{lang === 'hi' ? 'संपूर्ण आपूर्ति श्रृंखला' : 'INTEGRATED SUPPLY CHAIN'}</span>
+          </span>
+          <h2 className="front-section-title">
+            {lang === 'hi' ? 'पारदर्शिता के 6 स्तंभ' : '6 Pillars of Farm-to-Fork Traceability'}
+          </h2>
+        </div>
+
+        <div className="front-nodes-grid">
+          {supplyChainNodes.map((node) => {
+            const Icon = node.icon;
+            return (
+              <div key={node.id} className="front-node-card glass-panel">
+                <div 
+                  className="front-node-icon-wrap"
+                  style={{ background: `${node.color}18`, color: node.color, borderColor: `${node.color}35` }}
+                >
+                  <Icon size={24} />
+                </div>
+                <h3 className="front-node-card-title">
+                  {lang === 'hi' ? node.titleHi : node.titleEn}
+                </h3>
+                <p className="front-node-card-desc">
+                  {lang === 'hi' ? node.subHi : node.subEn}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Blueprint Visual */}
+        <div className="front-architecture-banner glass-panel" style={{ marginTop: '2.5rem', padding: '1.5rem', borderRadius: '20px', textAlign: 'center' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+              <ShieldCheck size={20} color="#34d399" />
+              <span style={{ fontWeight: 800, fontSize: '0.98rem', color: 'var(--text-main)' }}>
+                {lang === 'hi' ? 'प्रणाली स्थापत्य व लेजर सुरक्षा ढांचा' : 'System Architecture & Cryptographic Trust Blueprint'}
+              </span>
+            </div>
+            <span className="badge" style={{ background: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8', borderColor: 'rgba(56, 189, 248, 0.3)', fontSize: '0.72rem' }}>
+              SHA-256 Validated Node Network
             </span>
+          </div>
+          <div style={{ borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--border)', background: '#0a0f1d' }}>
+            <img 
+              src="/miligrams-ui-architecture.jpg" 
+              alt="MiliGrams UI Architecture Diagram" 
+              style={{ width: '100%', maxHeight: '420px', objectFit: 'contain', display: 'block', margin: '0 auto' }}
+            />
+          </div>
+        </div>
+      </section>
 
-            <h2 className="front-bottom-cta-title">
-              {lang === 'hi' ? 'कृषि में नई क्रांति का हिस्सा बनें' : 'Ready to Experience Fair Agri-Trade?'}
-            </h2>
+      {/* 9. COMMUNITY TESTIMONIALS */}
+      <section id="testimonials" className="front-section">
+        <div className="front-section-header">
+          <span className="badge" style={{ background: 'rgba(245, 158, 11, 0.15)', color: '#fbbf24', borderColor: 'rgba(245, 158, 11, 0.3)' }}>
+            <Star size={13} />
+            <span>{lang === 'hi' ? 'विश्वसनीयता व अनुभव' : 'USER REVIEWS & TESTIMONIALS'}</span>
+          </span>
+          <h2 className="front-section-title">
+            {lang === 'hi' ? 'हमारे उपयोगकर्ताओं की जुबानी' : 'What Our Community Says'}
+          </h2>
+        </div>
 
-            <p className="front-bottom-cta-sub">
+        <div className="front-testimonials-grid">
+          {testimonials.map((t) => (
+            <div key={t.id} className="front-testimonial-card glass-panel">
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', marginBottom: '0.85rem' }}>
+                {Array.from({ length: t.rating }).map((_, i) => (
+                  <Star key={i} size={15} fill="#fbbf24" color="#fbbf24" />
+                ))}
+                <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#fbbf24', marginLeft: '0.35rem' }}>
+                  5.0 / 5.0
+                </span>
+              </div>
+
+              <p className="front-testimonial-quote">
+                "{lang === 'hi' ? t.quoteHi : t.quoteEn}"
+              </p>
+
+              <div className="front-testimonial-author">
+                <div 
+                  className="front-testimonial-avatar"
+                  style={{ background: t.avatarBg }}
+                >
+                  {(lang === 'hi' ? t.nameHi : t.nameEn).charAt(0)}
+                </div>
+                <div>
+                  <h4 className="front-testimonial-name">
+                    {lang === 'hi' ? t.nameHi : t.nameEn}
+                  </h4>
+                  <p className="front-testimonial-role">
+                    {lang === 'hi' ? t.roleHi : t.roleEn}
+                  </p>
+                  <span className="badge" style={{ fontSize: '0.66rem', padding: '0.15rem 0.45rem', marginTop: '0.25rem' }}>
+                    <CheckCircle2 size={10} color="#34d399" />
+                    <span>{lang === 'hi' ? t.badgeHi : t.badgeEn}</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 10. FIGMA NEWSLETTER SECTION */}
+      <section className="figma-newsletter-section">
+        <div className="figma-newsletter-box">
+          <div>
+            <h3 className="figma-newsletter-title">
+              {lang === 'hi' ? 'ताज़ा बहीखाता समाचार पत्र' : 'Farm fresh Email Newsletter'}
+            </h3>
+            <p className="figma-newsletter-sub">
               {lang === 'hi'
-                ? 'अभी "Try MiliGrams" पर क्लिक करें, अपनी भूमिका चुनें और आधुनिक ब्लॉकचेन पोर्टल का लाइव प्रोटोटाइप आज़माएँ।'
-                : 'Click below to enter the Role Gateway, pick your persona, and experience the full interactive prototype with guided tutorials.'}
+                ? 'नवीनतम फसल आवक, दैनिक मंडी थोक भाव, और ब्लॉकचेन सत्यापन अपडेट सीधे अपने ईमेल पर प्राप्त करें।'
+                : 'Get verified crop arrivals, daily wholesale mandi rates, and cryptographic governance updates straight to your inbox.'}
             </p>
-
-            <button
-              onClick={handleTryMiligrams}
-              className="btn btn-primary btn-lg front-cta-pulse-btn"
-            >
-              <Sprout size={20} />
-              <span style={{ fontSize: '1.08rem', fontWeight: 800 }}>
-                {lang === 'hi' ? 'मिलीग्राम्स आज़माएँ (Try MiliGrams)' : 'Try MiliGrams Now'}
-              </span>
-              <ArrowRight size={20} />
-            </button>
-
-            <div className="front-cta-footer-tags">
-              <span>✓ {lang === 'hi' ? 'आवाज से फसल पंजीकरण' : 'Voice AI Logging'}</span>
-              <span>✓ {lang === 'hi' ? '20,000 क्विंटल साइलो' : 'Smart Silos'}</span>
-              <span>✓ {lang === 'hi' ? '15-दिन मूल्य सुरक्षा' : '15-Day Aging Engine'}</span>
-              <span>✓ {lang === 'hi' ? 'SHA-256 ब्लॉकचेन' : 'Cryptographic Ledger'}</span>
-            </div>
-          </div>
-        </section>
-      </main>
-
-      {/* Nature Footer */}
-      <footer className="front-footer">
-        <div className="front-footer-inner">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-            <div className="front-brand-icon" style={{ width: '32px', height: '32px' }}>
-              <Sprout size={18} />
-            </div>
-            <div>
-              <strong style={{ color: 'var(--text-main)' }}>MiliGrams</strong>
-              <span style={{ color: 'var(--text-muted)', fontSize: '0.75rem', marginLeft: '0.5rem' }}>
-                Agri-Blockchain v2.0
-              </span>
-            </div>
           </div>
 
-          <div style={{ color: 'var(--text-muted)', fontSize: '0.82rem' }}>
-            {lang === 'hi' 
-              ? 'भारतीय किसानों और व्यापारियों के लिए निष्पक्ष, सुरक्षित व पारदर्शी बहीखाता।' 
-              : 'Empowering Indian Agriculture with Cryptographic Transparency & Voice AI.'}
+          <form onSubmit={handleNewsletterSubmit} className="figma-newsletter-form">
+            <div className="figma-email-input-wrap">
+              <input 
+                type="email" 
+                placeholder={lang === 'hi' ? 'आपका ईमेल पता (your.email@domain.com)' : 'your.email@domain.com'}
+                required
+                value={newsletterEmail}
+                onChange={(e) => setNewsletterEmail(e.target.value)}
+                className="figma-email-input" 
+              />
+              <button type="submit" className="figma-email-submit" title="Subscribe">
+                {newsletterSent ? <Check size={20} color="#10b981" /> : <ArrowRight size={20} />}
+              </button>
+            </div>
+
+            <div className="figma-checkbox-group">
+              <label className="figma-checkbox-item">
+                <input type="checkbox" defaultChecked />
+                <span>{lang === 'hi' ? 'दैनिक भाव (Daily Prices)' : 'Daily Mandi Rates'}</span>
+              </label>
+              <label className="figma-checkbox-item">
+                <input type="checkbox" defaultChecked />
+                <span>{lang === 'hi' ? '15-दिन एजिंग छूट' : 'Aging Lot Alerts'}</span>
+              </label>
+              <label className="figma-checkbox-item">
+                <input type="checkbox" />
+                <span>{lang === 'hi' ? 'लेजर ऑडिट रिपोर्ट' : 'Ledger Audits'}</span>
+              </label>
+            </div>
+
+            {newsletterSent && (
+              <div style={{ color: 'var(--primary)', fontSize: '0.82rem', fontWeight: 700 }}>
+                ✓ {lang === 'hi' ? 'सफलतापूर्वक सदस्यता ली गई! धन्यवाद।' : 'Subscribed successfully! Welcome to MiliGrams.'}
+              </div>
+            )}
+          </form>
+        </div>
+      </section>
+
+      {/* 11. GRAND BOTTOM CTA SECTION */}
+      <section className="front-bottom-cta-section">
+        <div className="front-bottom-cta-card glass-panel glass-panel-glow">
+          <div className="front-cta-glow-circle" />
+          
+          <span className="badge" style={{ background: 'rgba(24, 59, 40, 0.12)', color: 'var(--primary)', borderColor: 'rgba(24, 59, 40, 0.25)', marginBottom: '1rem' }}>
+            <Sparkles size={14} />
+            <span>{lang === 'hi' ? 'कृषि में नई क्रांति' : 'ENTER SOVEREIGN AGRI-PLATFORM'}</span>
+          </span>
+
+          <h2 className="front-bottom-cta-title">
+            {lang === 'hi' ? 'कृषि में नई क्रांति का हिस्सा बनें' : 'Ready to Experience Fair Agri-Trade?'}
+          </h2>
+
+          <p className="front-bottom-cta-sub">
+            {lang === 'hi'
+              ? 'अभी "Try MiliGrams" पर क्लिक करें, अपनी भूमिका चुनें और आधुनिक ब्लॉकचेन पोर्टल का लाइव प्रोटोटाइप आज़माएँ।'
+              : 'Click below to enter the Role Gateway, pick your persona, and experience the full interactive prototype with guided tutorials.'}
+          </p>
+
+          <button
+            onClick={handleTryMiligrams}
+            className="figma-btn-forest figma-cta-pulse-btn"
+            style={{ fontSize: '1.05rem', padding: '0.95rem 2.25rem' }}
+          >
+            <Sprout size={20} />
+            <span style={{ fontSize: '1.05rem', fontWeight: 800 }}>
+              {lang === 'hi' ? 'मिलीग्राम्स आज़माएँ (Try MiliGrams)' : 'Try MiliGrams Now'}
+            </span>
+            <ArrowRight size={20} />
+          </button>
+
+          <div className="front-cta-footer-tags">
+            <span>✓ {lang === 'hi' ? 'आवाज से फसल पंजीकरण' : 'Voice AI Logging'}</span>
+            <span>✓ {lang === 'hi' ? '20,000 क्विंटल साइलो' : 'Smart Silos'}</span>
+            <span>✓ {lang === 'hi' ? '15-दिन मूल्य सुरक्षा' : '15-Day Aging Engine'}</span>
+            <span>✓ {lang === 'hi' ? 'SHA-256 ब्लॉकचेन' : 'Cryptographic Ledger'}</span>
+          </div>
+        </div>
+      </section>
+
+      {/* 12. FIGMA EDITORIAL MINIMALIST FOOTER */}
+      <footer className="figma-editorial-footer">
+        <div className="figma-footer-content">
+          <div>
+            <h3 className="figma-footer-brand-title">MiliGrams®</h3>
+            <p style={{ fontSize: '0.86rem', color: 'var(--text-muted)', lineHeight: 1.6, maxWidth: '360px', margin: '0 0 1rem' }}>
+              {lang === 'hi' 
+                ? 'भारतीय किसानों और व्यापारियों के लिए निष्पक्ष, सुरक्षित व पारदर्शी क्रिप्टोग्राफिक बहीखाता।' 
+                : 'Sovereign agricultural provenance protocol empowering grassroots Indian growers with mathematical trust.'}
+            </p>
+            <div style={{ fontSize: '0.78rem', color: 'var(--text-light)', fontFamily: 'var(--font-mono)' }}>
+              AgriStack UID: AGRI-DL-2026-9042
+            </div>
           </div>
 
-          <div style={{ display: 'flex', gap: '1rem', fontSize: '0.82rem' }}>
-            <button onClick={handleTryMiligrams} className="btn-link" style={{ color: '#34d399', fontWeight: 700 }}>
-              {lang === 'hi' ? 'लॉगिन / भूमिका चुनें' : 'Sign In / Roles'}
-            </button>
-            <button onClick={() => navigate('/overview')} className="btn-link" style={{ color: 'var(--text-light)' }}>
-              {lang === 'hi' ? '3D ओवरव्यू' : '3D Overview'}
-            </button>
+          <div>
+            <div className="figma-footer-col-title">{lang === 'hi' ? 'ताज़ा मंडी (Shop)' : 'Shop Mandi'}</div>
+            <ul className="figma-footer-links">
+              <li><span onClick={handleTryMiligrams} className="figma-footer-link">{lang === 'hi' ? 'शरबती गेहूं' : 'Sharbati Wheat'}</span></li>
+              <li><span onClick={handleTryMiligrams} className="figma-footer-link">{lang === 'hi' ? 'शाही बासमती' : 'Royal Basmati'}</span></li>
+              <li><span onClick={handleTryMiligrams} className="figma-footer-link">{lang === 'hi' ? 'देसी बाजरा' : 'Organic Millet'}</span></li>
+              <li><span onClick={handleTryMiligrams} className="figma-footer-link">{lang === 'hi' ? 'पीली सरसों' : 'Yellow Mustard'}</span></li>
+            </ul>
+          </div>
+
+          <div>
+            <div className="figma-footer-col-title">{lang === 'hi' ? 'कार्यक्षेत्र (Portals)' : 'Workspaces'}</div>
+            <ul className="figma-footer-links">
+              <li><span onClick={() => navigate('/farmer')} className="figma-footer-link">{lang === 'hi' ? 'किसान पोर्टल' : 'Farmer Voice Hub'}</span></li>
+              <li><span onClick={() => navigate('/warehouse')} className="figma-footer-link">{lang === 'hi' ? 'साइलो गोदाम' : 'Smart Silos'}</span></li>
+              <li><span onClick={() => navigate('/buyer')} className="figma-footer-link">{lang === 'hi' ? 'थोक मंडी' : 'Buyer Market'}</span></li>
+              <li><span onClick={() => navigate('/admin')} className="figma-footer-link">{lang === 'hi' ? 'एडमिन लेजर' : 'Admin Ledger'}</span></li>
+            </ul>
+          </div>
+
+          <div>
+            <div className="figma-footer-col-title">{lang === 'hi' ? 'संसाधन व सहायता' : 'Resources'}</div>
+            <ul className="figma-footer-links">
+              <li><span onClick={() => navigate('/overview')} className="figma-footer-link">{lang === 'hi' ? '3D इकोसिस्टम' : '3D Provenance Quest'}</span></li>
+              <li><a href="#ecosystem" className="figma-footer-link">{lang === 'hi' ? 'आपूर्ति ढांचा' : 'System Blueprint'}</a></li>
+              <li><span onClick={() => setLang(lang === 'hi' ? 'en' : 'hi')} className="figma-footer-link">Language: {lang === 'hi' ? 'English' : 'हिन्दी'}</span></li>
+              <li><span onClick={toggleTheme} className="figma-footer-link">Theme: {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div style={{ maxWidth: '1200px', margin: '2.5rem auto 0', paddingTop: '1.5rem', borderTop: '1px solid var(--border-light)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', fontSize: '0.78rem', color: 'var(--text-light)' }}>
+          <div>© 2026 MiliGrams Sovereign Agri-Blockchain. All rights reserved.</div>
+          <div style={{ display: 'flex', gap: '1.25rem' }}>
+            <span>Privacy Policy</span>
+            <span>Terms of Provenance</span>
+            <span>AgriStack Governance</span>
           </div>
         </div>
       </footer>
