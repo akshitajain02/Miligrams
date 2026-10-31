@@ -1,15 +1,21 @@
 import React, { useState, useEffect } from 'react';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import { 
   ShoppingBag, CheckCircle2, Shield, RefreshCw, Layers, 
   DollarSign, UserCheck, Tag, Clock, ArrowRight, Sparkles, 
-  Building2, Star, Award, MessageSquare, ThumbsUp, X, User, BookOpen 
+  Building2, Star, Award, MessageSquare, ThumbsUp, X, User, BookOpen, Scan 
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import PortalTutorialModal from '../components/PortalTutorialModal';
+import PortalHeaderBar from '../components/PortalHeaderBar';
 import { soundFX } from '../utils/audioFX';
 
-export default function BuyerPortal({ lang = 'hi' }) {
+export default function BuyerPortal({ lang = 'hi', setLang = () => {}, theme = 'light', toggleTheme = () => {} }) {
   const { currentUser } = useAuth();
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const cropQuery = searchParams.get('crop');
+  const [activeCropFilter, setActiveCropFilter] = useState(cropQuery || '');
   const [availableCrops, setAvailableCrops] = useState([]);
   const [soldCrops, setSoldCrops] = useState([]);
   const [buyers, setBuyers] = useState([]);
@@ -178,6 +184,15 @@ export default function BuyerPortal({ lang = 'hi' }) {
 
   return (
     <div>
+      {/* Universal Two-Way Navigation Header Bar */}
+      <PortalHeaderBar 
+        lang={lang} 
+        setLang={setLang} 
+        theme={theme} 
+        toggleTheme={toggleTheme} 
+        currentPortal="buyer" 
+      />
+
       {/* Header Banner - Clean & Modern */}
       <div className="glass-panel" style={{ padding: '2rem 2.25rem', marginBottom: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1.5rem', background: 'linear-gradient(135deg, rgba(6, 182, 212, 0.1) 0%, rgba(14, 20, 34, 0.8) 100%)', borderColor: 'rgba(6, 182, 212, 0.3)' }}>
         <div>
@@ -211,6 +226,17 @@ export default function BuyerPortal({ lang = 'hi' }) {
               ))}
             </select>
           </div>
+
+          {/* AI Vision Quality Lab Button */}
+          <button 
+            onClick={() => { soundFX.click(); navigate('/vision'); }} 
+            className="btn btn-secondary btn-sm" 
+            style={{ borderColor: 'rgba(16, 185, 129, 0.45)', color: '#34d399', background: 'rgba(16, 185, 129, 0.08)' }}
+            title={lang === 'hi' ? 'कंप्यूटर विज़न से अनाज की शुद्धता जांचें' : 'Inspect crop purity with AI Computer Vision'}
+          >
+            <Scan size={14} />
+            <span>{lang === 'hi' ? '🔬 AI विज़न लैब' : '🔬 AI Vision Lab'}</span>
+          </button>
 
           {/* Interactive Tutorial Button */}
           <button 

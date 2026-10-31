@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { soundFX } from '../utils/audioFX';
+import PortalHeaderBar from '../components/PortalHeaderBar';
 
 export default function LoginPage({ 
   lang = 'hi', 
@@ -233,51 +234,15 @@ export default function LoginPage({
   };
 
   return (
-    <div style={{ maxWidth: '960px', margin: '1.25rem auto 4rem', padding: '0 1rem' }}>
-      {/* Sleek Top Navigation Bar */}
-      <header className="front-navbar" style={{ marginBottom: '2rem', borderRadius: '16px', padding: '0.75rem 1.25rem' }}>
-        <div 
-          className="front-navbar-brand" 
-          onClick={() => { soundFX.click(); navigate('/'); }}
-          title={lang === 'hi' ? 'मुख्य पृष्ठ पर जाएँ' : 'Back to Home'}
-          style={{ cursor: 'pointer' }}
-        >
-          <div className="front-brand-icon" style={{ width: '32px', height: '32px' }}>
-            <Sprout size={18} />
-          </div>
-          <div>
-            <span className="front-brand-title" style={{ fontSize: '1.1rem' }}>MiliGrams</span>
-            <span className="front-brand-sub" style={{ fontSize: '0.66rem' }}>
-              {lang === 'hi' ? '← मुख्य पृष्ठ' : '← Back to Home'}
-            </span>
-          </div>
-        </div>
-
-        <div className="front-navbar-actions">
-          {/* Language Switch */}
-          <button
-            onClick={() => { soundFX.click(); setLang(lang === 'hi' ? 'en' : 'hi'); }}
-            className="btn btn-secondary btn-sm"
-            title="Switch Language"
-            style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.78rem', padding: '0.35rem 0.75rem' }}
-          >
-            <Globe size={13} />
-            <span>{lang === 'hi' ? 'English' : 'हिन्दी'}</span>
-          </button>
-
-          {/* Theme Toggle Button */}
-          {toggleTheme && (
-            <button
-              onClick={() => { soundFX.click(); toggleTheme(); }}
-              className="btn btn-secondary btn-sm"
-              title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
-              style={{ padding: '0.35rem 0.65rem' }}
-            >
-              {theme === 'dark' ? <Sun size={14} color="#fbbf24" /> : <Moon size={14} color="#38bdf8" />}
-            </button>
-          )}
-        </div>
-      </header>
+    <div style={{ maxWidth: '1060px', margin: '0.85rem auto 4rem', padding: '0 1rem' }}>
+      {/* Universal Two-Way Navigation Header Bar */}
+      <PortalHeaderBar 
+        lang={lang} 
+        setLang={setLang} 
+        theme={theme} 
+        toggleTheme={toggleTheme} 
+        currentPortal="login" 
+      />
 
       {/* Brand Header */}
       <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>

@@ -245,6 +245,13 @@ export default function FrontPage({ lang = 'hi', setLang, theme = 'dark', toggle
           <a href="#produce" className="figma-top-link">
             {lang === 'hi' ? 'ताज़ा उपज (Shop)' : 'Shop Mandi'}
           </a>
+          <button 
+            onClick={() => { soundFX.click(); navigate('/vision'); }}
+            className="figma-top-link"
+            style={{ background: 'none', border: 'none', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '0.35rem', fontWeight: 700, color: 'var(--primary)' }}
+          >
+            <span>🔬 {lang === 'hi' ? 'एआई विज़न स्कैनर' : 'AI Vision Lab'}</span>
+          </button>
           <a href="#editorial" className="figma-top-link">
             {lang === 'hi' ? 'लेजर समाचार (Newsstand)' : 'Newsstand'}
           </a>
@@ -388,11 +395,11 @@ export default function FrontPage({ lang = 'hi', setLang, theme = 'dark', toggle
             {lang === 'hi' ? 'मंडी में उपलब्ध ताज़ा प्रमाणित उपज' : 'Fresh Certified Crops in Marketplace'}
           </h3>
           <button 
-            onClick={handleTryMiligrams}
+            onClick={() => { soundFX.click(); navigate('/buyer'); }}
             className="btn-link" 
-            style={{ color: 'var(--primary)', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}
+            style={{ color: 'var(--primary)', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '0.35rem', cursor: 'pointer' }}
           >
-            <span>{lang === 'hi' ? 'पूरी मंडी देखें' : 'View All Lots'}</span>
+            <span>{lang === 'hi' ? 'पूरी मंडी देखें (Buyer Market)' : 'Open Buyer Mandi'}</span>
             <ArrowUpRight size={16} />
           </button>
         </div>
@@ -402,7 +409,8 @@ export default function FrontPage({ lang = 'hi', setLang, theme = 'dark', toggle
             <div 
               key={item.id} 
               className="figma-produce-card"
-              onClick={handleTryMiligrams}
+              onClick={() => { soundFX.click(); navigate(`/buyer?crop=${encodeURIComponent(item.nameEn)}`); }}
+              title={lang === 'hi' ? `${item.nameHi} - मंडी में खरीदने के लिए क्लिक करें` : `Click to view ${item.nameEn} in Buyer Marketplace`}
             >
               <div className="figma-produce-img-wrap">
                 <img src={item.image} alt={item.nameEn} className="figma-produce-img" />
@@ -412,6 +420,19 @@ export default function FrontPage({ lang = 'hi', setLang, theme = 'dark', toggle
                 >
                   {item.grade}
                 </span>
+                
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    soundFX.click();
+                    navigate('/vision');
+                  }}
+                  className="badge"
+                  style={{ position: 'absolute', top: '0.6rem', right: '0.6rem', background: 'rgba(16, 185, 129, 0.9)', color: '#ffffff', fontSize: '0.68rem', border: 'none', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}
+                  title="Scan with AI Computer Vision"
+                >
+                  <span>🔬 {lang === 'hi' ? 'विज़न जांच' : 'AI Scan'}</span>
+                </button>
               </div>
               
               <div className="figma-produce-footer">
@@ -419,10 +440,131 @@ export default function FrontPage({ lang = 'hi', setLang, theme = 'dark', toggle
                   <div className="figma-produce-name">{lang === 'hi' ? item.nameHi : item.nameEn}</div>
                   <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)' }}>📍 {item.farmer}</div>
                 </div>
-                <div className="figma-produce-price">{item.price}</div>
+                <div style={{ textAlign: 'right' }}>
+                  <div className="figma-produce-price">{item.price}</div>
+                  <span style={{ fontSize: '0.7rem', color: 'var(--primary)', fontWeight: 700 }}>
+                    {lang === 'hi' ? 'मंडी देखें →' : 'Trade →'}
+                  </span>
+                </div>
               </div>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* 4.5 NEW FIGMA SHOWCASE: AI COMPUTER VISION QUALITY LAB */}
+      <section id="vision-lab" className="figma-produce-section" style={{ paddingTop: '1rem', paddingBottom: '2.5rem' }}>
+        <div className="glass-panel" style={{ borderRadius: '24px', padding: '2.5rem', background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, var(--surface-card) 100%)', border: '1px solid var(--border-accent)', position: 'relative', overflow: 'hidden' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '2.5rem', alignItems: 'center' }}>
+            {/* Left Content */}
+            <div>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(16, 185, 129, 0.15)', border: '1px solid rgba(16, 185, 129, 0.35)', color: '#10b981', padding: '0.35rem 0.85rem', borderRadius: '9999px', fontSize: '0.78rem', fontWeight: 800, marginBottom: '0.85rem' }}>
+                <Sparkles size={14} />
+                <span>AI COMPUTER VISION & GRAIN QUALITY ENGINE</span>
+              </div>
+
+              <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '2.2rem', fontWeight: 500, color: 'var(--text-main)', margin: '0 0 0.85rem', lineHeight: 1.25 }}>
+                {lang === 'hi'
+                  ? 'अनाज के हर दाने की एआई कंप्यूटर विज़न से 100% सटीक जांच'
+                  : 'Sub-millimeter AI Computer Vision Grain Inspection'}
+              </h3>
+
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.94rem', lineHeight: 1.65, marginBottom: '1.5rem' }}>
+                {lang === 'hi'
+                  ? 'अनाज के दानों की एकरूपता, नमी (<12%) और सूक्ष्म अशुद्धियों की रीयल-टाइम न्यूरल स्कैनिंग। बिना किसी लैब देरी के किसान और व्यापारी दोनों को तुरंत ब्लॉकचेन-प्रमाणित ग्रेड A+ प्रमाणपत्र।'
+                  : 'Instantly detect grain purity, moisture thresholds, and foreign chaff with our real-time neural vision scanner. Mint cryptographic quality certificates straight onto the blockchain ledger.'}
+              </p>
+
+              {/* Feature Points */}
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '2rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-main)' }}>
+                  <CheckCircle2 size={16} color="#10b981" />
+                  <span>{lang === 'hi' ? '98.8% शुद्धता व एकरूपता' : '98.8% Purity & Uniformity'}</span>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-main)' }}>
+                  <CheckCircle2 size={16} color="#10b981" />
+                  <span>{lang === 'hi' ? '<12% नमी साइलो सुरक्षा' : '<12% Moisture Silo Guard'}</span>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-main)' }}>
+                  <CheckCircle2 size={16} color="#10b981" />
+                  <span>{lang === 'hi' ? 'रीयल-टाइम बाउंडिंग बॉक्सेज' : 'Real-time Grain Bounding Boxes'}</span>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-main)' }}>
+                  <CheckCircle2 size={16} color="#10b981" />
+                  <span>{lang === 'hi' ? 'SHA-256 ब्लॉकचेन मुहर' : 'SHA-256 Quality Seal'}</span>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+                <button
+                  onClick={() => { soundFX.click(); navigate('/vision'); }}
+                  className="figma-btn-forest"
+                  style={{ padding: '0.75rem 1.6rem', fontSize: '0.92rem' }}
+                >
+                  <span>🔬 {lang === 'hi' ? 'एआई विज़न स्कैनर खोलें' : 'Open AI Vision Scanner'}</span>
+                  <ArrowRight size={17} />
+                </button>
+
+                <button
+                  onClick={() => { soundFX.click(); navigate('/farmer'); }}
+                  className="figma-btn-outline"
+                  style={{ padding: '0.75rem 1.4rem', fontSize: '0.92rem' }}
+                >
+                  <Sprout size={17} />
+                  <span>{lang === 'hi' ? 'किसान पोर्टल में जांचें' : 'Scan in Farmer Portal'}</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Right Live Visual Simulation Card */}
+            <div 
+              style={{ position: 'relative', borderRadius: '18px', overflow: 'hidden', border: '2px solid rgba(16, 185, 129, 0.4)', background: '#09130d', height: '340px', cursor: 'pointer', boxShadow: '0 12px 36px rgba(0,0,0,0.35)' }}
+              onClick={() => { soundFX.click(); navigate('/vision'); }}
+              title="Click to launch full AI Computer Vision Scanner"
+            >
+              <img 
+                src="/farmer-sunset-field.jpg" 
+                alt="AI Vision Grain Scan" 
+                style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.85 }}
+              />
+
+              {/* Animated Laser Beam */}
+              <div className="cv-laser-sweep">
+                <div className="cv-laser-beam" />
+                <div className="cv-laser-glow" />
+              </div>
+
+              {/* Demo Bounding Boxes */}
+              <div style={{ position: 'absolute', top: '25%', left: '28%', width: '18%', height: '22%', border: '2px solid #10b981', background: 'rgba(16, 185, 129, 0.15)', borderRadius: '4px' }}>
+                <span style={{ position: 'absolute', top: '-18px', left: 0, background: 'rgba(0,0,0,0.85)', color: '#34d399', fontSize: '0.62rem', fontWeight: 800, padding: '0.1rem 0.35rem', borderRadius: '3px', whiteSpace: 'nowrap', fontFamily: 'monospace' }}>
+                  Clean Grain: 99.4%
+                </span>
+              </div>
+
+              <div style={{ position: 'absolute', top: '55%', left: '55%', width: '16%', height: '20%', border: '2px solid #f59e0b', background: 'rgba(245, 158, 11, 0.18)', borderRadius: '4px' }}>
+                <span style={{ position: 'absolute', top: '-18px', left: 0, background: 'rgba(0,0,0,0.85)', color: '#fbbf24', fontSize: '0.62rem', fontWeight: 800, padding: '0.1rem 0.35rem', borderRadius: '3px', whiteSpace: 'nowrap', fontFamily: 'monospace' }}>
+                  Husk: 0.4%
+                </span>
+              </div>
+
+              {/* Floating Verified Quality Badge */}
+              <div style={{ position: 'absolute', bottom: '1rem', left: '1rem', right: '1rem', background: 'rgba(15, 23, 19, 0.92)', backdropFilter: 'blur(10px)', border: '1px solid rgba(16, 185, 129, 0.4)', borderRadius: '12px', padding: '0.75rem 1rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div>
+                  <div style={{ fontSize: '0.78rem', fontWeight: 800, color: '#ffffff', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                    <ShieldCheck size={14} color="#10b981" />
+                    <span>MiliGrams Neural Vision Active</span>
+                  </div>
+                  <div style={{ fontSize: '0.7rem', color: '#94a39b' }}>
+                    Grade A+ Certified • SHA-256 Ledger Verified
+                  </div>
+                </div>
+                <span className="badge" style={{ background: '#10b981', color: '#ffffff', fontWeight: 800, fontSize: '0.72rem' }}>
+                  98.8% Pure
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -533,8 +675,12 @@ export default function FrontPage({ lang = 'hi', setLang, theme = 'dark', toggle
               <div 
                 key={p.role} 
                 className="front-portal-card glass-panel"
-                style={{ borderTop: `4px solid ${p.color}` }}
-                onClick={handleTryMiligrams}
+                style={{ borderTop: `4px solid ${p.color}`, cursor: 'pointer' }}
+                onClick={() => {
+                  soundFX.click();
+                  navigate(p.path);
+                }}
+                title={lang === 'hi' ? `${p.titleHi} खोलें` : `Open ${p.titleEn}`}
               >
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
                   <div 

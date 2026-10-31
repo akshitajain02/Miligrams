@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Package, Building2, CheckCircle2, Shield, RefreshCw, Layers, ArrowRight, MapPin, Cpu, Database, BookOpen } from 'lucide-react';
+import { Package, Building2, CheckCircle2, Shield, RefreshCw, Layers, ArrowRight, MapPin, Cpu, Database, BookOpen, Scan } from 'lucide-react';
 import CropHistoryModal from '../components/CropHistoryModal';
 import PortalTutorialModal from '../components/PortalTutorialModal';
+import PortalHeaderBar from '../components/PortalHeaderBar';
 import { translations } from '../utils/translations';
 
-export default function WarehousePortal({ lang = 'hi' }) {
+export default function WarehousePortal({ lang = 'hi', setLang = () => {}, theme = 'light', toggleTheme = () => {} }) {
   const t = translations[lang] || translations.hi;
 
   const [warehouses, setWarehouses] = useState([]);
@@ -96,6 +97,15 @@ export default function WarehousePortal({ lang = 'hi' }) {
 
   return (
     <div>
+      {/* Universal Two-Way Navigation Header Bar */}
+      <PortalHeaderBar 
+        lang={lang} 
+        setLang={setLang} 
+        theme={theme} 
+        toggleTheme={toggleTheme} 
+        currentPortal="warehouse" 
+      />
+
       {/* Header Banner */}
       <div className="glass-panel" style={{ padding: '2rem 2.25rem', marginBottom: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1.5rem', background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, var(--surface-alt) 100%)', borderColor: 'rgba(245, 158, 11, 0.3)' }}>
         <div>

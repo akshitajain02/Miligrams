@@ -3,7 +3,7 @@ import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { 
   Sprout, Building2, ShoppingBag, ShieldCheck, Layers, 
   Globe, ChevronRight, Sun, Moon, LogIn, LogOut, 
-  CheckCircle2, AlertTriangle, User, Sparkles 
+  CheckCircle2, AlertTriangle, User, Sparkles, Scan
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import RoleSelectModal from './RoleSelectModal';
@@ -245,6 +245,15 @@ export default function Sidebar({
           >
             <span className="sidebar-nav-icon"><ShieldCheck size={18} /></span>
             {!isCollapsed && <span>{lang === 'hi' ? 'एडमिन व लेजर' : 'Admin & Governance'}</span>}
+          </NavLink>
+
+          <NavLink
+            to="/vision"
+            className={({ isActive }) => `sidebar-nav-item ${isActive ? 'active-farmer' : ''} ${isCollapsed ? 'collapsed' : ''}`}
+            title={lang === 'hi' ? 'एआई कंप्यूटर विज़न लैब' : 'AI Computer Vision Lab'}
+          >
+            <span className="sidebar-nav-icon"><Scan size={18} /></span>
+            {!isCollapsed && <span>{lang === 'hi' ? 'एआई विज़न स्कैनर' : 'AI Vision Lab'}</span>}
           </NavLink>
 
           {/* Dedicated Login Link */}

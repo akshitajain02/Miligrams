@@ -3,12 +3,13 @@ import {
   ShieldCheck, AlertOctagon, RefreshCw, Search, ShieldAlert, 
   RotateCcw, UserPlus, Building2, ShoppingBag, CheckCircle2, 
   AlertCircle, Clock, Play, Cpu, Database, Link2, FileText, 
-  X, AlertTriangle, Star, Check, Shield, Award, User, BookOpen
+  X, AlertTriangle, Star, Check, Shield, Award, User, BookOpen 
 } from 'lucide-react';
 import BlockCard from '../components/BlockCard';
 import PortalTutorialModal from '../components/PortalTutorialModal';
+import PortalHeaderBar from '../components/PortalHeaderBar';
 
-export default function AdminPortal({ lang = 'hi' }) {
+export default function AdminPortal({ lang = 'hi', setLang = () => {}, theme = 'light', toggleTheme = () => {} }) {
   const [activeTab, setActiveTab] = useState('kyc'); // 'kyc' | 'ledger' | 'aging' | 'participants' | 'register'
   const [blocks, setBlocks] = useState([]);
   const [verification, setVerification] = useState({ isValid: true, chainLength: 0, summary: 'Checking...' });
@@ -224,6 +225,15 @@ export default function AdminPortal({ lang = 'hi' }) {
 
   return (
     <div>
+      {/* Universal Two-Way Navigation Header Bar */}
+      <PortalHeaderBar 
+        lang={lang} 
+        setLang={setLang} 
+        theme={theme} 
+        toggleTheme={toggleTheme} 
+        currentPortal="admin" 
+      />
+
       {/* Header Banner */}
       <div className="glass-panel" style={{ padding: '2rem 2.25rem', marginBottom: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1.5rem', background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.12) 0%, var(--surface-alt) 100%)', borderColor: 'rgba(139, 92, 246, 0.3)' }}>
         <div>
