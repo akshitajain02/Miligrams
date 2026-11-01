@@ -136,6 +136,18 @@ export default function RoleSelectModal({ isOpen, onClose, currentRole, lang = '
             );
           })}
         </div>
+
+        <div style={{ marginTop: '1.25rem', paddingTop: '1rem', borderTop: '1px solid var(--border)', textAlign: 'center' }}>
+          <button
+            onClick={() => {
+              if (onClose) onClose();
+              navigate('/role-select');
+            }}
+            style={{ background: 'none', border: 'none', color: 'var(--botanical-green)', fontWeight: 700, cursor: 'pointer', fontSize: '0.85rem' }}
+          >
+            {lang === 'hi' ? 'पूर्ण भूमिका चयन पृष्ठ खोलें (Open Dedicated Role Selection Hub) →' : 'Open Dedicated Role Selection Hub →'}
+          </button>
+        </div>
       </div>
     </div>
   );

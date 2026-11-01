@@ -593,6 +593,14 @@ export default function FarmistorPage({
 
                 <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
                   <button 
+                    onClick={() => navigate('/farmistor/results', { state: { recommendations, query: formData } })}
+                    className="figma-btn-forest"
+                  >
+                    <BarChart3 size={15} />
+                    <span>{lang === 'hi' ? 'विस्तृत परिणाम मैट्रिक्स' : 'Full Matrix View'}</span>
+                  </button>
+
+                  <button 
                     onClick={() => { soundFX.click(); setCurrentStep(1); }} 
                     className="btn btn-secondary"
                   >
@@ -602,9 +610,9 @@ export default function FarmistorPage({
 
                   <button 
                     onClick={() => window.print()} 
-                    className="figma-btn-forest"
+                    className="btn btn-secondary"
                   >
-                    <span>{lang === 'hi' ? 'योजना प्रिंट / सेव करें' : 'Export Crop Plan'}</span>
+                    <span>{lang === 'hi' ? 'प्रिंट करें' : 'Export Plan'}</span>
                   </button>
                 </div>
               </div>

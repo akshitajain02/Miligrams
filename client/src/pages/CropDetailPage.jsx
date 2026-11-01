@@ -205,13 +205,22 @@ export default function CropDetailPage({
                     </div>
 
                     <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+                      <button
+                        onClick={() => navigate(`/crop/${crop._id}/trace`)}
+                        className="figma-btn-forest"
+                        style={{ background: 'var(--botanical-green)' }}
+                      >
+                        <Layers size={16} />
+                        <span>{lang === 'hi' ? 'ट्रेसिबिलिटी टाइमलाइन' : 'View Full Trace Timeline'}</span>
+                      </button>
+
                       {crop.currentStage !== 'sold' && (
                         <button
-                          onClick={() => navigate(`/marketplace?crop=${encodeURIComponent(crop.cropType)}`)}
+                          onClick={() => navigate(`/buyer/crop/${crop._id}`)}
                           className="figma-btn-forest"
                         >
                           <ShoppingBag size={16} />
-                          <span>{lang === 'hi' ? 'मंडी में खरीदें (Trade)' : 'Procure in Marketplace'}</span>
+                          <span>{lang === 'hi' ? 'खरीदें (Procure)' : 'Procure Lot'}</span>
                         </button>
                       )}
 

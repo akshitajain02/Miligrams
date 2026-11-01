@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { 
   Sprout, Package, Plus, RefreshCw, Layers, ShieldCheck, User, 
   FileText, CheckCircle2, X, Mic, MicOff, Volume2, Calendar, Scale, 
-  AlertTriangle, FastForward, Building2, ShoppingBag, Sparkles, Award, Shield, Lock, BookOpen
+  AlertTriangle, FastForward, Building2, ShoppingBag, Sparkles, Award, Shield, Lock, BookOpen,
+  Tag
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import KisanReceiptModal from '../components/KisanReceiptModal';
@@ -13,6 +15,7 @@ import { startVoiceRecognition, parseSpokenCrop, speakText } from '../utils/spee
 import { translations } from '../utils/translations';
 
 export default function FarmerPortal({ lang = 'hi', setLang = () => {}, theme = 'light', toggleTheme = () => {} }) {
+  const navigate = useNavigate();
   const t = translations[lang] || translations.hi;
   const { currentUser } = useAuth();
 
@@ -376,7 +379,25 @@ export default function FarmerPortal({ lang = 'hi', setLang = () => {}, theme = 
           </button>
 
           <button
-            onClick={() => setIsUploadOpen(true)}
+            onClick={() => navigate('/farmer/crops')}
+            className="btn btn-secondary"
+            title="View All My Crops"
+          >
+            <Tag size={16} />
+            <span>{lang === 'hi' ? 'मेरी फसलें' : 'My Crops'}</span>
+          </button>
+
+          <button
+            onClick={() => navigate('/farmer/profile')}
+            className="btn btn-secondary"
+            title="Sovereign Farmer Profile & AgriStack KYC"
+          >
+            <User size={16} />
+            <span>{lang === 'hi' ? 'किसान प्रोफाइल' : 'Profile & KYC'}</span>
+          </button>
+
+          <button
+            onClick={() => navigate('/farmer/register-crop')}
             className="btn btn-primary btn-lg"
           >
             <Plus size={20} />

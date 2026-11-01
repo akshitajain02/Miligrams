@@ -1,46 +1,55 @@
-@import url('https://fonts.googleapis.com/css2?family=Alice&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..800;1,6..72,400..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 :root {
   /* Fonts */
-  --font-serif: 'Alice', Georgia, serif;
+  --font-serif: 'Newsreader', 'Playfair Display', Georgia, serif;
   --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
-  /* Ultra-Premium Obsidian & Botanical Green Theme */
-  --bg: #08100b;
-  --bg-subtle: #0d1711;
-  --surface: rgba(17, 28, 21, 0.75);
-  --surface-solid: #111e16;
-  --surface-alt: rgba(23, 37, 28, 0.6);
-  --surface-card: rgba(17, 28, 21, 0.85);
-  --surface-card-hover: rgba(24, 40, 30, 0.95);
+  /* Official MILIGRAMS Brand Identity Tokens */
+  --forest-green: #173D2B;
+  --botanical-green: #2E6847;
+  --leaf-accent: #8DBB78;
+  --warm-ivory: #F6F4EC;
+  --muted-sand: #E8E1D1;
+  --harvest-gold: #D6A75C;
+  --deep-charcoal: #202720;
+
+  /* Ultra-Premium Obsidian & Botanical Green Theme (Dark Mode) */
+  --bg: #0d1611;
+  --bg-subtle: #132018;
+  --surface: rgba(23, 61, 43, 0.45);
+  --surface-solid: #173D2B;
+  --surface-alt: rgba(46, 104, 71, 0.35);
+  --surface-card: rgba(19, 36, 26, 0.85);
+  --surface-card-hover: rgba(27, 52, 38, 0.95);
   
-  --border: rgba(255, 255, 255, 0.09);
-  --border-light: rgba(255, 255, 255, 0.13);
-  --border-accent: rgba(52, 211, 153, 0.35);
-  --border-glow: rgba(52, 211, 153, 0.5);
+  --border: rgba(232, 225, 209, 0.14);
+  --border-light: rgba(232, 225, 209, 0.09);
+  --border-accent: rgba(141, 187, 120, 0.45);
+  --border-glow: rgba(141, 187, 120, 0.55);
 
-  --primary: #22c55e;
-  --primary-hover: #16a34a;
-  --primary-glow: rgba(34, 197, 94, 0.22);
-  --primary-light: rgba(34, 197, 94, 0.1);
+  --primary: #8DBB78;
+  --primary-hover: #72a35d;
+  --primary-glow: rgba(141, 187, 120, 0.25);
+  --primary-light: rgba(141, 187, 120, 0.12);
 
-  --accent: #f59e0b;
-  --cyan: #06b6d4;
-  --violet: #8b5cf6;
+  --accent: #D6A75C;
+  --cyan: #38bdf8;
+  --violet: #a78bfa;
 
-  --text-main: #f1f5f3;
-  --text-muted: #94a39b;
-  --text-light: #64746c;
-  --text-dim: #47554f;
+  --text-main: #F6F4EC;
+  --text-muted: #c5cdb8;
+  --text-light: #94a39b;
+  --text-dim: #64746c;
 
-  --hash-color: #38bdf8;
-  --hash-bg: rgba(56, 189, 248, 0.08);
+  --hash-color: #7dd3fc;
+  --hash-bg: rgba(56, 189, 248, 0.1);
 
-  --success: #22c55e;
-  --warning: #f59e0b;
-  --info: #0ea5e9;
-  --danger: #f43f5e;
+  --success: #8DBB78;
+  --warning: #D6A75C;
+  --info: #38bdf8;
+  --danger: #f87171;
 
   /* Refined, Airy & Compact Sizing */
   --radius-sm: 6px;
@@ -48,44 +57,45 @@
   --radius-lg: 14px;
   --radius-xl: 18px;
   
-  --sidebar-width: 245px;
+  --sidebar-width: 250px;
 
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.25);
   --shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.45);
   --shadow-lg: 0 16px 32px -8px rgba(0, 0, 0, 0.6);
 }
 
-/* Light Theme Variables (Figma Natural Organic Paper & Deep Botanical Green) */
+/* Light Theme Variables (Official Warm Ivory, Forest Green & Muted Sand) */
 [data-theme="light"] {
-  --bg: #faf8f5;
-  --bg-subtle: #f3efe6;
-  --surface: rgba(255, 255, 255, 0.95);
+  --bg: #F6F4EC;
+  --bg-subtle: #ede9dc;
+  --surface: #ffffff;
   --surface-solid: #ffffff;
-  --surface-alt: #f4efe4;
+  --surface-alt: #E8E1D1;
   --surface-card: #ffffff;
-  --surface-card-hover: #faf6ee;
+  --surface-card-hover: #faf8f2;
 
-  --border: rgba(24, 59, 40, 0.1);
-  --border-light: rgba(24, 59, 40, 0.06);
-  --border-accent: rgba(24, 59, 40, 0.4);
-  --border-glow: rgba(24, 59, 40, 0.2);
+  --border: rgba(23, 61, 43, 0.12);
+  --border-light: rgba(23, 61, 43, 0.07);
+  --border-accent: #2E6847;
+  --border-glow: rgba(46, 104, 71, 0.25);
 
-  --primary: #183b28;
-  --primary-hover: #122e1f;
-  --primary-glow: rgba(24, 59, 40, 0.16);
-  --primary-light: rgba(24, 59, 40, 0.08);
+  --primary: #173D2B;
+  --primary-hover: #0e271b;
+  --primary-glow: rgba(23, 61, 43, 0.15);
+  --primary-light: rgba(46, 104, 71, 0.08);
 
-  --text-main: #141c15;
-  --text-muted: #506155;
-  --text-light: #738478;
-  --text-dim: #94a397;
+  --accent: #D6A75C;
+  --text-main: #202720;
+  --text-muted: #4e5f52;
+  --text-light: #708173;
+  --text-dim: #98a79a;
 
-  --hash-color: #0284c7;
-  --hash-bg: rgba(2, 132, 199, 0.08);
+  --hash-color: #0369a1;
+  --hash-bg: rgba(3, 105, 161, 0.08);
 
-  --shadow-sm: 0 1px 3px rgba(24, 59, 40, 0.05);
-  --shadow: 0 6px 20px -2px rgba(24, 59, 40, 0.07);
-  --shadow-lg: 0 16px 36px -4px rgba(24, 59, 40, 0.1);
+  --shadow-sm: 0 1px 3px rgba(23, 61, 43, 0.05);
+  --shadow: 0 8px 24px -4px rgba(23, 61, 43, 0.07);
+  --shadow-lg: 0 16px 36px -6px rgba(23, 61, 43, 0.11);
 }
 
 /* Light Theme Specific Component Overrides */

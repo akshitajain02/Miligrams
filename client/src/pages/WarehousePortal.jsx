@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Package, Building2, CheckCircle2, Shield, RefreshCw, Layers, ArrowRight, MapPin, Cpu, Database, BookOpen } from 'lucide-react';
 import CropHistoryModal from '../components/CropHistoryModal';
 import PortalTutorialModal from '../components/PortalTutorialModal';
@@ -6,6 +7,7 @@ import PortalHeaderBar from '../components/PortalHeaderBar';
 import { translations } from '../utils/translations';
 
 export default function WarehousePortal({ lang = 'hi', setLang = () => {}, theme = 'light', toggleTheme = () => {} }) {
+  const navigate = useNavigate();
   const t = translations[lang] || translations.hi;
 
   const [warehouses, setWarehouses] = useState([]);
@@ -275,14 +277,24 @@ export default function WarehousePortal({ lang = 'hi', setLang = () => {}, theme
                       {new Date(crop.harvestDate).toLocaleDateString(lang === 'hi' ? 'hi-IN' : 'en-US')}
                     </td>
                     <td style={{ padding: '1rem', textAlign: 'right' }}>
-                      <button
-                        className="btn btn-accent btn-sm"
-                        disabled={processingCropId === crop._id}
-                        onClick={() => handleReceiveStock(crop._id)}
-                      >
-                        <Package size={14} />
-                        <span>{processingCropId === crop._id ? 'Minting Block...' : `${t.receiveStockBtn} (${selectedWarehouseId})`}</span>
-                      </button>
+                      <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end' }}>
+                        <button
+                          className="btn btn-secondary btn-sm"
+                          onClick={() => navigate(`/warehouse/verify/${crop._id}`)}
+                          title="Open Weighbridge Scale Verification Station"
+                        >
+                          <Building2 size={14} />
+                          <span>{lang === 'hi' ? 'धर्मकांटा तौल स्टेशन' : 'Scale Audit'}</span>
+                        </button>
+                        <button
+                          className="btn btn-accent btn-sm"
+                          disabled={processingCropId === crop._id}
+                          onClick={() => handleReceiveStock(crop._id)}
+                        >
+                          <Package size={14} />
+                          <span>{processingCropId === crop._id ? 'Minting...' : (lang === 'hi' ? 'तुरंत प्राप्त करें' : 'Quick Intake')}</span>
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))}

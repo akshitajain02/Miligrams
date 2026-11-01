@@ -3,7 +3,8 @@ import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { 
   Sprout, Building2, ShoppingBag, ShieldCheck, Layers, 
   Globe, ChevronRight, Sun, Moon, LogIn, LogOut, 
-  CheckCircle2, AlertTriangle, User, Sparkles, Brain, Link2, Bell, Settings
+  CheckCircle2, AlertTriangle, User, Sparkles, Brain, Link2, Bell, Settings,
+  Tag, Scale
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import RoleSelectModal from './RoleSelectModal';
@@ -205,28 +206,73 @@ export default function Sidebar({
           <NavLink
             to="/overview"
             className={({ isActive }) => `sidebar-nav-item ${isActive ? 'active-farmer' : ''} ${isCollapsed ? 'collapsed' : ''}`}
-            title={lang === 'hi' ? 'सिस्टम ओवरव्यू (3D Ecosystem)' : '3D Ecosystem'}
+            title={lang === 'hi' ? 'सिस्टम ओवरव्यू' : 'System Overview'}
           >
             <span className="sidebar-nav-icon"><Layers size={18} /></span>
-            {!isCollapsed && <span>{lang === 'hi' ? 'सिस्टम ओवरव्यू' : '3D Ecosystem'}</span>}
+            {!isCollapsed && <span>{lang === 'hi' ? 'सिस्टम ओवरव्यू' : 'System Overview'}</span>}
+          </NavLink>
+
+          <NavLink
+            to="/role-select"
+            className={({ isActive }) => `sidebar-nav-item ${isActive ? 'active-farmer' : ''} ${isCollapsed ? 'collapsed' : ''}`}
+            title={lang === 'hi' ? 'भूमिका चयन (Role Selection)' : 'Role Selector'}
+          >
+            <span className="sidebar-nav-icon"><User size={18} /></span>
+            {!isCollapsed && <span>{lang === 'hi' ? 'भूमिका चयन (Roles)' : 'Role Selector'}</span>}
           </NavLink>
 
           <NavLink
             to="/farmer"
             className={({ isActive }) => `sidebar-nav-item ${isActive ? 'active-farmer' : ''} ${isCollapsed ? 'collapsed' : ''}`}
-            title={lang === 'hi' ? 'किसान पोर्टल (Farmer Voice Portal)' : 'Farmer Voice Portal'}
+            title={lang === 'hi' ? 'किसान डैशबोर्ड' : 'Farmer Dashboard'}
           >
             <span className="sidebar-nav-icon"><Sprout size={18} /></span>
-            {!isCollapsed && <span>{lang === 'hi' ? 'किसान पोर्टल' : 'Farmer Voice Portal'}</span>}
+            {!isCollapsed && <span>{lang === 'hi' ? 'किसान डैशबोर्ड' : 'Farmer Dashboard'}</span>}
+          </NavLink>
+
+          <NavLink
+            to="/farmer/crops"
+            className={({ isActive }) => `sidebar-nav-item ${isActive ? 'active-farmer' : ''} ${isCollapsed ? 'collapsed' : ''}`}
+            title={lang === 'hi' ? 'मेरी फसलें (My Crops)' : 'My Crops'}
+          >
+            <span className="sidebar-nav-icon"><Tag size={18} /></span>
+            {!isCollapsed && <span>{lang === 'hi' ? 'मेरी फसलें' : 'My Crops'}</span>}
+          </NavLink>
+
+          <NavLink
+            to="/farmer/register-crop"
+            className={({ isActive }) => `sidebar-nav-item ${isActive ? 'active-farmer' : ''} ${isCollapsed ? 'collapsed' : ''}`}
+            title={lang === 'hi' ? 'फसल दर्ज करें (Register Harvest)' : 'Register Harvest'}
+          >
+            <span className="sidebar-nav-icon"><Sparkles size={18} /></span>
+            {!isCollapsed && <span>{lang === 'hi' ? '+ फसल दर्ज करें' : '+ Register Crop'}</span>}
+          </NavLink>
+
+          <NavLink
+            to="/farmer/profile"
+            className={({ isActive }) => `sidebar-nav-item ${isActive ? 'active-farmer' : ''} ${isCollapsed ? 'collapsed' : ''}`}
+            title={lang === 'hi' ? 'किसान प्रोफाइल (AgriStack KYC)' : 'Farmer Profile'}
+          >
+            <span className="sidebar-nav-icon"><ShieldCheck size={18} /></span>
+            {!isCollapsed && <span>{lang === 'hi' ? 'किसान प्रोफाइल' : 'Farmer Profile'}</span>}
           </NavLink>
 
           <NavLink
             to="/warehouse"
             className={({ isActive }) => `sidebar-nav-item ${isActive ? 'active-warehouse' : ''} ${isCollapsed ? 'collapsed' : ''}`}
-            title={lang === 'hi' ? 'गोदाम / साइलो (Smart Warehouse)' : 'Smart Warehouse'}
+            title={lang === 'hi' ? 'गोदाम साइलो हब (Warehouse)' : 'Smart Warehouse'}
           >
             <span className="sidebar-nav-icon"><Building2 size={18} /></span>
-            {!isCollapsed && <span>{lang === 'hi' ? 'गोदाम / साइलो' : 'Smart Warehouse'}</span>}
+            {!isCollapsed && <span>{lang === 'hi' ? 'गोदाम साइलो हब' : 'Smart Warehouse'}</span>}
+          </NavLink>
+
+          <NavLink
+            to="/warehouse/verify"
+            className={({ isActive }) => `sidebar-nav-item ${isActive ? 'active-warehouse' : ''} ${isCollapsed ? 'collapsed' : ''}`}
+            title={lang === 'hi' ? 'धर्मकांटा तौल सत्यापन (Weighbridge Scale)' : 'Weighbridge Intake'}
+          >
+            <span className="sidebar-nav-icon"><Scale size={18} /></span>
+            {!isCollapsed && <span>{lang === 'hi' ? 'धर्मकांटा तौल सत्यापन' : 'Weighbridge Intake'}</span>}
           </NavLink>
 
           <NavLink
@@ -235,13 +281,22 @@ export default function Sidebar({
             title={lang === 'hi' ? 'व्यापारी मंडी (Buyer Marketplace)' : 'Buyer Marketplace'}
           >
             <span className="sidebar-nav-icon"><ShoppingBag size={18} /></span>
-            {!isCollapsed && <span>{lang === 'hi' ? 'व्यापारी मंडी' : 'Marketplace'}</span>}
+            {!isCollapsed && <span>{lang === 'hi' ? 'थोक कृषि मंडी' : 'Wholesale Mandi'}</span>}
+          </NavLink>
+
+          <NavLink
+            to="/buyer"
+            className={({ isActive }) => `sidebar-nav-item ${isActive ? 'active-buyer' : ''} ${isCollapsed ? 'collapsed' : ''}`}
+            title={lang === 'hi' ? 'खरीदार डैशबोर्ड (Buyer Dashboard)' : 'Buyer Dashboard'}
+          >
+            <span className="sidebar-nav-icon"><User size={18} /></span>
+            {!isCollapsed && <span>{lang === 'hi' ? 'खरीदार डैशबोर्ड' : 'Buyer Dashboard'}</span>}
           </NavLink>
 
           <NavLink
             to="/farmistor"
             className={({ isActive }) => `sidebar-nav-item ${isActive ? 'active-farmer' : ''} ${isCollapsed ? 'collapsed' : ''}`}
-            title={lang === 'hi' ? 'फार्मिस्टर (Smart Crop Planner)' : 'Farmistor Crop Planner'}
+            title={lang === 'hi' ? 'फार्मिस्टर स्मार्ट फसल योजना' : 'Farmistor Crop Planner'}
           >
             <span className="sidebar-nav-icon"><Brain size={18} /></span>
             {!isCollapsed && <span>{lang === 'hi' ? 'फार्मिस्टर (प्लानर)' : 'Farmistor Planner'}</span>}

@@ -55,6 +55,33 @@ Miligrams solves the critical transparency, weight discrepancy, and post-harvest
 
 ---
 
+## 🗺️ Complete Page Directory (All 20 Required Pages)
+
+| # | Page Name | Route | Role / Scope | Key Capabilities |
+|---|---|---|---|---|
+| **1** | **Landing Page** | `/` | Public | Full-screen hero with authentic photography, crop journey animation (Farm ➡️ Warehouse ➡️ Buyer), feature showcase, dual CTAs ("Explore Miligrams", "Discover Farmistor"). |
+| **2** | **Login / Signup** | `/login` | Public | Role-aware credentials, demo quick-switch logins (Farmer, Warehouse, Buyer, Admin), session authentication. |
+| **3** | **Role Selection** | `/role-select` | Public / Onboarding | Visual 4-role selection portal explaining permissions and guiding users to their designated workflow. |
+| **4** | **Farmer Dashboard** | `/farmer` | Farmer | KPI telemetry (Active Lots, Verified Quintals, Escrow Value), quick action triggers, harvest status breakdown. |
+| **5** | **Farmer Profile** | `/farmer/profile` | Farmer | AgriStack sovereign identity, Khatauni land deed record, Aadhaar mask, UPI VPA payout configuration, 5-star rating dossier. |
+| **6** | **Crop Registration** | `/farmer/register-crop` | Farmer | Multi-step harvest lot intake, voice-assisted notes, rapid presets (Wheat, Mustard, Basmati, Soybean, Chana), real `POST /api/crops/upload` genesis minting. |
+| **7** | **My Crops** | `/farmer/crops` | Farmer | Inventory management table comparing Declared vs. Verified weights, stage badges, search/filtering, and links to tracking timelines. |
+| **8** | **Crop Details** | `/crop/:id` | Universal | Comprehensive commodity dossier, storage conditions, discrepancy breakdown, cryptographic block preview. |
+| **9** | **Crop Tracking Timeline** | `/crop/:id/trace` | Universal | 7-stage chronological vertical timeline (Farm Gate ➡️ Weighbridge ➡️ Silo ➡️ Aging ➡️ Mandi ➡️ Inquiry ➡️ Settlement). |
+| **10** | **Digital Ledger Explorer** | `/ledger` | Public / Auditor | SHA-256 block chain browser, Merkle root verification, search by block/crop/hash, live tamper simulation & restore sandbox. |
+| **11** | **Warehouse Dashboard** | `/warehouse` | Warehouse Operator | 25,000 Quintal silo capacity telemetry, inbound intake queue, active aging lot alerts, dockage metrics. |
+| **12** | **Warehouse Crop Verification** | `/warehouse/verify` & `/warehouse/verify/:id` | Warehouse Operator | Certified weighbridge intake station with real-time discrepancy computation (`verified - declared`), silo bay allocation, condition dockage notes. |
+| **13** | **Buyer Marketplace** | `/marketplace` | Buyer / Public | Direct procurement mandi, search & filters (crop type, price, location, verified status), 15-day shelf aging discounts, instant inquiry drawer. |
+| **14** | **Buyer Dashboard** | `/buyer` | Commercial Buyer | Procurement telemetry (Purchased Lots, Escrow Balance, Active Inquiries), purchase order history, supplier ratings. |
+| **15** | **Buyer Crop Details** | `/buyer/crop/:id` | Commercial Buyer | Verified lot dossier, weighbridge moisture and dockage certificates, seller KYC details, direct trade inquiry and checkout. |
+| **16** | **Farmistor Crop Planner** | `/farmistor` | Farmer / Planner | Guided 6-step agronomic planner (Soil, Land, Water, Season, Budget, Goals) with transparent rule-based engine. |
+| **17** | **Crop Recommendation Results** | `/farmistor/results` | Farmer / Planner | Recommendation cards with suitability %, side-by-side multi-crop comparison matrix, yield/cost/profit modeling, ICAR disclaimers. |
+| **18** | **Notifications** | `/notifications` | Universal | Real-time system notifications for weighbridge verification, aging thresholds, price discounts, and order completions. |
+| **19** | **Admin Dashboard** | `/admin` | Administrator | System-wide audit overview, cryptographic blockchain health telemetry, user role management, dispute settlement. |
+| **20** | **Settings** | `/settings` | Universal | Profile preferences, bilingual Hindi/English language toggle, Dark/Light visual theme switcher, notification preferences. |
+
+---
+
 ## 🎨 Visual Identity & Design System
 
 The redesign adheres to **"The Future of Agriculture meets Premium Digital Craft"**:

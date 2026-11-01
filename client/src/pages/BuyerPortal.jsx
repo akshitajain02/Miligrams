@@ -466,7 +466,17 @@ export default function BuyerPortal({ lang = 'hi', setLang = () => {}, theme = '
                   </div>
                 </div>
 
-                <div style={{ display: 'flex', gap: '0.75rem' }}>
+                <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                  <button
+                    onClick={() => navigate(`/buyer/crop/${crop._id}`)}
+                    className="btn btn-secondary btn-sm"
+                    style={{ flex: '1 0 auto' }}
+                    title="View Certified Dossier"
+                  >
+                    <Layers size={14} color="#38bdf8" />
+                    <span>{lang === 'hi' ? 'डोजियर व तौल' : 'Lot Dossier'}</span>
+                  </button>
+
                   <button
                     onClick={() => handleOpenReviewModal(crop.farmerId, crop.farmerName, crop.cropType)}
                     className="btn btn-secondary btn-sm"
@@ -474,17 +484,16 @@ export default function BuyerPortal({ lang = 'hi', setLang = () => {}, theme = '
                     title="Review Farmer"
                   >
                     <Star size={14} color="#f59e0b" />
-                    <span>{lang === 'hi' ? 'रेटिंग' : 'Rate'}</span>
                   </button>
 
                   <button
                     onClick={() => handlePurchase(crop)}
                     disabled={purchasingCropId === crop._id}
-                    className="btn btn-primary"
-                    style={{ flex: 1, fontWeight: 800 }}
+                    className="btn btn-primary btn-sm"
+                    style={{ flex: '1 0 auto', fontWeight: 800 }}
                   >
-                    <ShoppingBag size={16} />
-                    <span>{purchasingCropId === crop._id ? 'Settling...' : lang === 'hi' ? 'तुरंत खरीदें (Buy Now)' : 'Execute Trade'}</span>
+                    <ShoppingBag size={14} />
+                    <span>{purchasingCropId === crop._id ? 'Settling...' : lang === 'hi' ? 'खरीदें' : 'Procure'}</span>
                   </button>
                 </div>
               </div>
