@@ -6,10 +6,42 @@ const CropSchema = new mongoose.Schema({
     required: [true, 'Crop type is required (e.g. Wheat, Rice, Corn)'],
     trim: true
   },
+  variety: {
+    type: String,
+    trim: true,
+    default: 'Standard Desi'
+  },
   quantity: {
     type: Number,
     required: [true, 'Quantity (in kg) is required'],
     min: [0, 'Quantity cannot be negative']
+  },
+  declaredQuantity: {
+    type: Number,
+    default: 0
+  },
+  verifiedQuantity: {
+    type: Number,
+    default: null
+  },
+  discrepancy: {
+    type: Number,
+    default: 0
+  },
+  discrepancyNotes: {
+    type: String,
+    trim: true,
+    default: ''
+  },
+  expectedPrice: {
+    type: Number,
+    default: 28,
+    min: 0
+  },
+  farmLocation: {
+    type: String,
+    trim: true,
+    default: 'Ludhiana, Punjab'
   },
   harvestDate: {
     type: Date,
@@ -39,10 +71,23 @@ const CropSchema = new mongoose.Schema({
     type: String,
     default: null
   },
+  storageLocation: {
+    type: String,
+    trim: true,
+    default: ''
+  },
   currentBuyerId: {
     type: String,
     default: null
   },
+  buyerName: {
+    type: String,
+    trim: true,
+    default: ''
+  },
+  cropImages: [{
+    type: String
+  }],
   blockHash: {
     type: String,
     default: ''

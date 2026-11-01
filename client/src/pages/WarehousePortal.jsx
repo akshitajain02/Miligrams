@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Package, Building2, CheckCircle2, Shield, RefreshCw, Layers, ArrowRight, MapPin, Cpu, Database, BookOpen, Scan } from 'lucide-react';
+import { Package, Building2, CheckCircle2, Shield, RefreshCw, Layers, ArrowRight, MapPin, Cpu, Database, BookOpen } from 'lucide-react';
 import CropHistoryModal from '../components/CropHistoryModal';
 import PortalTutorialModal from '../components/PortalTutorialModal';
 import PortalHeaderBar from '../components/PortalHeaderBar';

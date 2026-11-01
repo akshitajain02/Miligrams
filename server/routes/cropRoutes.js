@@ -11,7 +11,19 @@ const { miligramsBlockchain } = require('../blockchain/blockchain');
  */
 router.post('/upload', async (req, res) => {
   try {
-    const { cropType, quantity, harvestDate, qualityStatus, farmerId, farmerName } = req.body;
+    const { 
+      cropType, 
+      variety, 
+      quantity, 
+      declaredQuantity, 
+      harvestDate, 
+      qualityStatus, 
+      farmerId, 
+      farmerName,
+      expectedPrice,
+      farmLocation,
+      cropImages 
+    } = req.body;
 
     if (!cropType || !quantity || !harvestDate || !farmerId) {
       return res.status(400).json({
@@ -27,15 +39,26 @@ router.post('/upload', async (req, res) => {
       resolvedFarmerName = farmerRecord.name;
     }
 
+    const qty = Number(quantity);
+    const declQty = declaredQuantity ? Number(declaredQuantity) : qty;
+
     // 1. Create crop in MongoDB with initial status 'listed' and stage 'farm'
     const newCrop = new Crop({
       cropType,
-      quantity: Number(quantity),
+      variety: variety || 'Standard Desi',
+      quantity: qty,
+      declaredQuantity: declQty,
+      verifiedQuantity: null,
+      discrepancy: 0,
+      discrepancyNotes: '',
+      expectedPrice: Number(expectedPrice) || 28,
+      farmLocation: farmLocation || (farmerRecord?.location || 'Ludhiana, Punjab'),
       harvestDate: new Date(harvestDate),
       qualityStatus: qualityStatus || 'Grade A',
       farmerId,
       farmerName: resolvedFarmerName,
       currentStage: 'farm',
+      cropImages: Array.isArray(cropImages) ? cropImages : [],
       listedDate: new Date(),
       lastVerifiedDate: new Date(),
       verificationCount: 0,
@@ -51,7 +74,12 @@ router.post('/upload', async (req, res) => {
       action: 'CROP_HARVESTED_AND_REGISTERED',
       cropId: newCrop._id.toString(),
       cropType: newCrop.cropType,
+      variety: newCrop.variety,
+      declaredQuantity: newCrop.declaredQuantity,
+      verifiedQuantity: 'PENDING_WAREHOUSE_VERIFICATION',
       quantity: newCrop.quantity,
+      expectedPrice: newCrop.expectedPrice,
+      farmLocation: newCrop.farmLocation,
       harvestDate: newCrop.harvestDate.toISOString(),
       qualityStatus: newCrop.qualityStatus,
       farmerId: newCrop.farmerId,

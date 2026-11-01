@@ -3,7 +3,7 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import { 
   ShoppingBag, CheckCircle2, Shield, RefreshCw, Layers, 
   DollarSign, UserCheck, Tag, Clock, ArrowRight, Sparkles, 
-  Building2, Star, Award, MessageSquare, ThumbsUp, X, User, BookOpen, Scan 
+  Building2, Star, Award, MessageSquare, ThumbsUp, X, User, BookOpen 
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import PortalTutorialModal from '../components/PortalTutorialModal';
@@ -226,17 +226,6 @@ export default function BuyerPortal({ lang = 'hi', setLang = () => {}, theme = '
               ))}
             </select>
           </div>
-
-          {/* AI Vision Quality Lab Button */}
-          <button 
-            onClick={() => { soundFX.click(); navigate('/vision'); }} 
-            className="btn btn-secondary btn-sm" 
-            style={{ borderColor: 'rgba(16, 185, 129, 0.45)', color: '#34d399', background: 'rgba(16, 185, 129, 0.08)' }}
-            title={lang === 'hi' ? 'कंप्यूटर विज़न से अनाज की शुद्धता जांचें' : 'Inspect crop purity with AI Computer Vision'}
-          >
-            <Scan size={14} />
-            <span>{lang === 'hi' ? '🔬 AI विज़न लैब' : '🔬 AI Vision Lab'}</span>
-          </button>
 
           {/* Interactive Tutorial Button */}
           <button 

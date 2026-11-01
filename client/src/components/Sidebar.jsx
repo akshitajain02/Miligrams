@@ -3,7 +3,7 @@ import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { 
   Sprout, Building2, ShoppingBag, ShieldCheck, Layers, 
   Globe, ChevronRight, Sun, Moon, LogIn, LogOut, 
-  CheckCircle2, AlertTriangle, User, Sparkles, Scan
+  CheckCircle2, AlertTriangle, User, Sparkles, Brain, Link2, Bell, Settings
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import RoleSelectModal from './RoleSelectModal';
@@ -230,30 +230,57 @@ export default function Sidebar({
           </NavLink>
 
           <NavLink
-            to="/buyer"
+            to="/marketplace"
             className={({ isActive }) => `sidebar-nav-item ${isActive ? 'active-buyer' : ''} ${isCollapsed ? 'collapsed' : ''}`}
             title={lang === 'hi' ? 'व्यापारी मंडी (Buyer Marketplace)' : 'Buyer Marketplace'}
           >
             <span className="sidebar-nav-icon"><ShoppingBag size={18} /></span>
-            {!isCollapsed && <span>{lang === 'hi' ? 'व्यापारी मंडी' : 'Buyer Marketplace'}</span>}
+            {!isCollapsed && <span>{lang === 'hi' ? 'व्यापारी मंडी' : 'Marketplace'}</span>}
+          </NavLink>
+
+          <NavLink
+            to="/farmistor"
+            className={({ isActive }) => `sidebar-nav-item ${isActive ? 'active-farmer' : ''} ${isCollapsed ? 'collapsed' : ''}`}
+            title={lang === 'hi' ? 'फार्मिस्टर (Smart Crop Planner)' : 'Farmistor Crop Planner'}
+          >
+            <span className="sidebar-nav-icon"><Brain size={18} /></span>
+            {!isCollapsed && <span>{lang === 'hi' ? 'फार्मिस्टर (प्लानर)' : 'Farmistor Planner'}</span>}
+          </NavLink>
+
+          <NavLink
+            to="/ledger"
+            className={({ isActive }) => `sidebar-nav-item ${isActive ? 'active-admin' : ''} ${isCollapsed ? 'collapsed' : ''}`}
+            title={lang === 'hi' ? 'डिजिटल लेजर एक्सप्लोरर' : 'Digital Ledger Explorer'}
+          >
+            <span className="sidebar-nav-icon"><Link2 size={18} /></span>
+            {!isCollapsed && <span>{lang === 'hi' ? 'डिजिटल लेजर' : 'Ledger Explorer'}</span>}
           </NavLink>
 
           <NavLink
             to="/admin"
             className={({ isActive }) => `sidebar-nav-item ${isActive ? 'active-admin' : ''} ${isCollapsed ? 'collapsed' : ''}`}
-            title={lang === 'hi' ? 'एडमिन व लेजर (Admin & Governance)' : 'Admin & Governance'}
+            title={lang === 'hi' ? 'एडमिन गवर्नेंस (Admin Governance)' : 'Admin Governance'}
           >
             <span className="sidebar-nav-icon"><ShieldCheck size={18} /></span>
-            {!isCollapsed && <span>{lang === 'hi' ? 'एडमिन व लेजर' : 'Admin & Governance'}</span>}
+            {!isCollapsed && <span>{lang === 'hi' ? 'एडमिन गवर्नेंस' : 'Admin Portal'}</span>}
           </NavLink>
 
           <NavLink
-            to="/vision"
+            to="/notifications"
             className={({ isActive }) => `sidebar-nav-item ${isActive ? 'active-farmer' : ''} ${isCollapsed ? 'collapsed' : ''}`}
-            title={lang === 'hi' ? 'एआई कंप्यूटर विज़न लैब' : 'AI Computer Vision Lab'}
+            title={lang === 'hi' ? 'सूचनाएं (Notifications)' : 'Notifications'}
           >
-            <span className="sidebar-nav-icon"><Scan size={18} /></span>
-            {!isCollapsed && <span>{lang === 'hi' ? 'एआई विज़न स्कैनर' : 'AI Vision Lab'}</span>}
+            <span className="sidebar-nav-icon"><Bell size={18} /></span>
+            {!isCollapsed && <span>{lang === 'hi' ? 'सूचनाएं' : 'Notifications'}</span>}
+          </NavLink>
+
+          <NavLink
+            to="/settings"
+            className={({ isActive }) => `sidebar-nav-item ${isActive ? 'active-farmer' : ''} ${isCollapsed ? 'collapsed' : ''}`}
+            title={lang === 'hi' ? 'सेटिंग्स (Settings)' : 'Settings'}
+          >
+            <span className="sidebar-nav-icon"><Settings size={18} /></span>
+            {!isCollapsed && <span>{lang === 'hi' ? 'सेटिंग्स' : 'Settings'}</span>}
           </NavLink>
 
           {/* Dedicated Login Link */}

@@ -105,47 +105,242 @@ async function seedInitialData() {
         purchaseHistory: []
       });
 
-      // Seed a starter Crop and automatically append its block to blockchain
-      const initialCrop = await Crop.create({
-        cropType: 'Sharbati Organic Wheat',
+      // Seed starter Crops with full verification lifecycle
+      const initialCrop1 = await Crop.create({
+        cropType: 'Sharbati Golden Wheat',
+        variety: 'Sharbati C-306 Bold',
         quantity: 1200,
+        declaredQuantity: 1200,
+        verifiedQuantity: 1200,
+        discrepancy: 0,
+        discrepancyNotes: 'Exact weight verification at automated weighbridge. Grade A moisture test (11.2%).',
+        expectedPrice: 28,
+        farmLocation: 'Ludhiana, Punjab',
         harvestDate: new Date('2026-09-01'),
-        qualityStatus: 'Organic Premium',
+        qualityStatus: 'Grade A',
         farmerId: farmer1.uniqueId,
         farmerName: farmer1.name,
-        currentStage: 'farm',
+        currentStage: 'warehouse',
+        currentWarehouseId: warehouse1.warehouseId,
+        storageLocation: 'Silo Alpha — Bay 3 (Dry Aerated)',
+        cropImages: ['/farmer-sunset-field.jpg'],
         blockHash: ''
       });
 
-      farmer1.cropsOwned.push(initialCrop._id);
-      await farmer1.save();
+      warehouse1.cropsStored.push(initialCrop1._id);
+      await warehouse1.save();
 
-      // Mint block in blockchain
-      const cropBlock = miligramsBlockchain.addBlock({
+      const cropBlock1 = miligramsBlockchain.addBlock({
         action: 'CROP_HARVESTED_AND_REGISTERED',
-        cropId: initialCrop._id.toString(),
-        cropType: initialCrop.cropType,
-        quantity: initialCrop.quantity,
-        harvestDate: initialCrop.harvestDate,
-        qualityStatus: initialCrop.qualityStatus,
+        cropId: initialCrop1._id.toString(),
+        cropType: initialCrop1.cropType,
+        variety: initialCrop1.variety,
+        declaredQuantity: 1200,
+        verifiedQuantity: 'PENDING',
+        quantity: 1200,
+        expectedPrice: 28,
+        farmLocation: initialCrop1.farmLocation,
+        harvestDate: initialCrop1.harvestDate,
+        qualityStatus: initialCrop1.qualityStatus,
         farmerId: farmer1.uniqueId,
         farmerName: farmer1.name,
         stage: 'farm',
-        note: 'Demonstration crop record minted on chain'
+        note: 'Harvest logged via Kisan voice portal'
       });
 
-      initialCrop.blockHash = cropBlock.hash;
-      await initialCrop.save();
-
-      // Persist block in DB
-      await BlockModel.create({
-        index: cropBlock.index,
-        timestamp: cropBlock.timestamp,
-        data: cropBlock.data,
-        previousHash: cropBlock.previousHash,
-        hash: cropBlock.hash,
-        merkleRoot: cropBlock.merkleRoot
+      const whBlock1 = miligramsBlockchain.addBlock({
+        action: 'WAREHOUSE_QUANTITY_VERIFIED',
+        cropId: initialCrop1._id.toString(),
+        cropType: initialCrop1.cropType,
+        variety: initialCrop1.variety,
+        declaredQuantity: 1200,
+        verifiedQuantity: 1200,
+        discrepancy: 0,
+        discrepancyStatus: 'EXACT_MATCH',
+        effectiveQuantity: 1200,
+        farmerId: farmer1.uniqueId,
+        farmerName: farmer1.name,
+        warehouseId: warehouse1.warehouseId,
+        warehouseLocation: warehouse1.location,
+        storageLocation: initialCrop1.storageLocation,
+        qualityStatus: initialCrop1.qualityStatus,
+        previousStage: 'farm',
+        currentStage: 'warehouse',
+        notes: initialCrop1.discrepancyNotes,
+        inspectedAt: new Date(Date.now() - 3 * 24 * 3600 * 1000).toISOString()
       });
+
+      initialCrop1.blockHash = whBlock1.hash;
+      await initialCrop1.save();
+
+      farmer1.cropsOwned.push(initialCrop1._id);
+
+      // Seed Crop 2: Royal Basmati 1121 with minor warehouse discrepancy
+      const initialCrop2 = await Crop.create({
+        cropType: 'Royal Basmati Rice',
+        variety: 'Basmati 1121 Extra Long',
+        quantity: 790,
+        declaredQuantity: 800,
+        verifiedQuantity: 790,
+        discrepancy: -10,
+        discrepancyNotes: '10 kg dockage deduction: husk and chaff removed during pre-cleaning intake.',
+        expectedPrice: 68,
+        farmLocation: 'Samrala, Punjab',
+        harvestDate: new Date('2026-09-08'),
+        qualityStatus: 'Organic Premium',
+        farmerId: farmer1.uniqueId,
+        farmerName: farmer1.name,
+        currentStage: 'warehouse',
+        currentWarehouseId: warehouse1.warehouseId,
+        storageLocation: 'Silo Alpha — Bay 1 (Climate Controlled)',
+        cropImages: ['/nature-farm-banner.jpg'],
+        blockHash: ''
+      });
+
+      warehouse1.cropsStored.push(initialCrop2._id);
+      await warehouse1.save();
+
+      const cropBlock2 = miligramsBlockchain.addBlock({
+        action: 'CROP_HARVESTED_AND_REGISTERED',
+        cropId: initialCrop2._id.toString(),
+        cropType: initialCrop2.cropType,
+        variety: initialCrop2.variety,
+        declaredQuantity: 800,
+        verifiedQuantity: 'PENDING',
+        quantity: 800,
+        expectedPrice: 68,
+        farmLocation: initialCrop2.farmLocation,
+        harvestDate: initialCrop2.harvestDate,
+        qualityStatus: initialCrop2.qualityStatus,
+        farmerId: farmer1.uniqueId,
+        farmerName: farmer1.name,
+        stage: 'farm'
+      });
+
+      const whBlock2 = miligramsBlockchain.addBlock({
+        action: 'WAREHOUSE_QUANTITY_VERIFIED',
+        cropId: initialCrop2._id.toString(),
+        cropType: initialCrop2.cropType,
+        variety: initialCrop2.variety,
+        declaredQuantity: 800,
+        verifiedQuantity: 790,
+        discrepancy: -10,
+        discrepancyStatus: 'DEFICIT_SHORTAGE',
+        effectiveQuantity: 790,
+        farmerId: farmer1.uniqueId,
+        farmerName: farmer1.name,
+        warehouseId: warehouse1.warehouseId,
+        warehouseLocation: warehouse1.location,
+        storageLocation: initialCrop2.storageLocation,
+        qualityStatus: initialCrop2.qualityStatus,
+        previousStage: 'farm',
+        currentStage: 'warehouse',
+        notes: initialCrop2.discrepancyNotes,
+        inspectedAt: new Date(Date.now() - 1 * 24 * 3600 * 1000).toISOString()
+      });
+
+      initialCrop2.blockHash = whBlock2.hash;
+      await initialCrop2.save();
+
+      farmer1.cropsOwned.push(initialCrop2._id);
+
+      // Seed Crop 3: Desi Bajra (at farm gate)
+      const initialCrop3 = await Crop.create({
+        cropType: 'Organic Pearl Millet',
+        variety: 'Desi Hybrid Bajra',
+        quantity: 650,
+        declaredQuantity: 650,
+        verifiedQuantity: null,
+        discrepancy: 0,
+        discrepancyNotes: 'Awaiting scheduled warehouse transport truck.',
+        expectedPrice: 24,
+        farmLocation: 'Ludhiana, Punjab',
+        harvestDate: new Date('2026-09-15'),
+        qualityStatus: 'Grade A',
+        farmerId: farmer1.uniqueId,
+        farmerName: farmer1.name,
+        currentStage: 'farm',
+        cropImages: ['/farm-aerial-harvest.jpg'],
+        blockHash: ''
+      });
+
+      const cropBlock3 = miligramsBlockchain.addBlock({
+        action: 'CROP_HARVESTED_AND_REGISTERED',
+        cropId: initialCrop3._id.toString(),
+        cropType: initialCrop3.cropType,
+        variety: initialCrop3.variety,
+        declaredQuantity: 650,
+        verifiedQuantity: 'PENDING_WAREHOUSE_DISPATCH',
+        quantity: 650,
+        expectedPrice: 24,
+        farmLocation: initialCrop3.farmLocation,
+        harvestDate: initialCrop3.harvestDate,
+        qualityStatus: initialCrop3.qualityStatus,
+        farmerId: farmer1.uniqueId,
+        farmerName: farmer1.name,
+        stage: 'farm'
+      });
+
+      initialCrop3.blockHash = cropBlock3.hash;
+      await initialCrop3.save();
+
+      farmer1.cropsOwned.push(initialCrop3._id);
+      await farmer1.save();
+
+      // Seed Crop 4: Yellow Mustard Seeds (Farmer 2)
+      const initialCrop4 = await Crop.create({
+        cropType: 'Yellow Mustard Seeds',
+        variety: 'Pusa Bold Mustard',
+        quantity: 450,
+        declaredQuantity: 450,
+        verifiedQuantity: null,
+        discrepancy: 0,
+        discrepancyNotes: 'Farmer KYC in verification queue.',
+        expectedPrice: 52,
+        farmLocation: 'Karnal, Haryana',
+        harvestDate: new Date('2026-09-18'),
+        qualityStatus: 'Grade A',
+        farmerId: farmer2.uniqueId,
+        farmerName: farmer2.name,
+        currentStage: 'farm',
+        cropImages: ['/farmer-thumbs-up-sold.jpg'],
+        blockHash: ''
+      });
+
+      const cropBlock4 = miligramsBlockchain.addBlock({
+        action: 'CROP_HARVESTED_AND_REGISTERED',
+        cropId: initialCrop4._id.toString(),
+        cropType: initialCrop4.cropType,
+        variety: initialCrop4.variety,
+        declaredQuantity: 450,
+        verifiedQuantity: 'PENDING',
+        quantity: 450,
+        expectedPrice: 52,
+        farmLocation: initialCrop4.farmLocation,
+        harvestDate: initialCrop4.harvestDate,
+        qualityStatus: initialCrop4.qualityStatus,
+        farmerId: farmer2.uniqueId,
+        farmerName: farmer2.name,
+        stage: 'farm'
+      });
+
+      initialCrop4.blockHash = cropBlock4.hash;
+      await initialCrop4.save();
+
+      farmer2.cropsOwned.push(initialCrop4._id);
+      await farmer2.save();
+
+      // Persist all minted blocks to DB
+      for (const blk of [cropBlock1, whBlock1, cropBlock2, whBlock2, cropBlock3, cropBlock4]) {
+        await BlockModel.create({
+          index: blk.index,
+          timestamp: blk.timestamp,
+          data: blk.data,
+          previousHash: blk.previousHash,
+          hash: blk.hash,
+          merkleRoot: blk.merkleRoot
+        });
+      }
 
       console.log(' Starter data and initial blockchain block seeded successfully!');
     } else {

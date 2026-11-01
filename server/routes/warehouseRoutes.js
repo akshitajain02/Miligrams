@@ -11,7 +11,7 @@ const { miligramsBlockchain } = require('../blockchain/blockchain');
  */
 router.put('/update-stock', async (req, res) => {
   try {
-    const { cropId, warehouseId, notes } = req.body;
+    const { cropId, warehouseId, notes, receivedQuantity, storageLocation, conditionStatus } = req.body;
 
     if (!cropId || !warehouseId) {
       return res.status(400).json({
@@ -36,10 +36,33 @@ router.put('/update-stock', async (req, res) => {
       });
     }
 
-    // 1. Update crop stage to 'warehouse'
+    // Ensure declared quantity is populated
+    if (!crop.declaredQuantity || crop.declaredQuantity === 0) {
+      crop.declaredQuantity = crop.quantity;
+    }
+
+    // 1. Determine verified quantity & discrepancy
+    const verifiedQty = receivedQuantity !== undefined && receivedQuantity !== null && receivedQuantity !== ''
+      ? Number(receivedQuantity)
+      : crop.declaredQuantity;
+
+    const discrepancy = verifiedQty - crop.declaredQuantity;
+    const discrepancyStatus = discrepancy === 0 
+      ? 'EXACT_MATCH' 
+      : discrepancy < 0 
+      ? 'DEFICIT_SHORTAGE' 
+      : 'SURPLUS';
+
     const previousStage = crop.currentStage;
     crop.currentStage = 'warehouse';
     crop.currentWarehouseId = warehouseId;
+    crop.verifiedQuantity = verifiedQty;
+    crop.quantity = verifiedQty; // warehouse-verified stock is the effective tradeable quantity
+    crop.discrepancy = discrepancy;
+    crop.discrepancyNotes = notes || (discrepancy === 0 ? 'Quantity verified with 100% match.' : `Discrepancy of ${discrepancy} kg detected at gate scale.`);
+    if (storageLocation) crop.storageLocation = storageLocation;
+    if (conditionStatus) crop.qualityStatus = conditionStatus;
+    crop.lastVerifiedDate = new Date();
 
     // 2. Add crop to warehouse inventory if not already present
     if (!warehouse.cropsStored.includes(crop._id)) {
@@ -49,16 +72,24 @@ router.put('/update-stock', async (req, res) => {
 
     // 3. Mint a new transition block onto the blockchain ledger
     const blockPayload = {
-      action: 'WAREHOUSE_STOCK_RECEIVED',
+      action: 'WAREHOUSE_QUANTITY_VERIFIED',
       cropId: crop._id.toString(),
       cropType: crop.cropType,
-      quantity: crop.quantity,
+      variety: crop.variety || 'Standard Desi',
+      declaredQuantity: crop.declaredQuantity,
+      verifiedQuantity: crop.verifiedQuantity,
+      discrepancy: crop.discrepancy,
+      discrepancyStatus,
+      effectiveQuantity: crop.quantity,
       farmerId: crop.farmerId,
+      farmerName: crop.farmerName,
       warehouseId,
       warehouseLocation: warehouse.location,
+      storageLocation: crop.storageLocation || 'General Silo Storage',
+      qualityStatus: crop.qualityStatus,
       previousStage,
       currentStage: 'warehouse',
-      notes: notes || 'Stock received and inspected at warehouse storage.',
+      notes: crop.discrepancyNotes,
       inspectedAt: new Date().toISOString()
     };
 
@@ -80,7 +111,7 @@ router.put('/update-stock', async (req, res) => {
 
     res.json({
       success: true,
-      message: `Crop #${crop.cropType} successfully received into Warehouse ${warehouseId}. New block #${newBlock.index} minted.`,
+      message: `Crop #${crop.cropType} verified and received into Warehouse ${warehouseId}. Declared: ${crop.declaredQuantity} kg, Verified: ${crop.verifiedQuantity} kg (Discrepancy: ${discrepancy} kg). Block #${newBlock.index} minted.`,
       crop,
       block: newBlock
     });

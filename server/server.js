@@ -10,6 +10,7 @@ const cropRoutes = require('./routes/cropRoutes');
 const warehouseRoutes = require('./routes/warehouseRoutes');
 const marketRoutes = require('./routes/marketRoutes');
 const ledgerRoutes = require('./routes/ledgerRoutes');
+const farmistorRoutes = require('./routes/farmistorRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -31,6 +32,7 @@ app.use('/api/crops', cropRoutes);
 app.use('/api/warehouse', warehouseRoutes);
 app.use('/api/marketplace', marketRoutes);
 app.use('/api/ledger', ledgerRoutes);
+app.use('/api/farmistor', farmistorRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {

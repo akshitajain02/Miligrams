@@ -2,14 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { 
   Sprout, Package, Plus, RefreshCw, Layers, ShieldCheck, User, 
   FileText, CheckCircle2, X, Mic, MicOff, Volume2, Calendar, Scale, 
-  AlertTriangle, FastForward, Building2, ShoppingBag, Sparkles, Award, Shield, Lock, BookOpen, Scan
+  AlertTriangle, FastForward, Building2, ShoppingBag, Sparkles, Award, Shield, Lock, BookOpen
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import KisanReceiptModal from '../components/KisanReceiptModal';
 import CropHistoryModal from '../components/CropHistoryModal';
 import PortalTutorialModal from '../components/PortalTutorialModal';
 import PortalHeaderBar from '../components/PortalHeaderBar';
-import ComputerVisionScanner from '../components/ComputerVisionScanner';
 import { startVoiceRecognition, parseSpokenCrop, speakText } from '../utils/speechUtils';
 import { translations } from '../utils/translations';
 
@@ -26,7 +25,6 @@ export default function FarmerPortal({ lang = 'hi', setLang = () => {}, theme = 
 
   // Modals state
   const [isTutorialOpen, setIsTutorialOpen] = useState(false);
-  const [isVisionScannerOpen, setIsVisionScannerOpen] = useState(false);
   const [isUploadOpen, setIsUploadOpen] = useState(false);
   const [isReceiptOpen, setIsReceiptOpen] = useState(false);
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
@@ -354,17 +352,6 @@ export default function FarmerPortal({ lang = 'hi', setLang = () => {}, theme = 
               ))}
             </select>
           </div>
-
-          {/* AI Computer Vision Quality Scanner Modal Trigger */}
-          <button
-            onClick={() => setIsVisionScannerOpen(true)}
-            className="btn btn-secondary"
-            style={{ display: 'inline-flex', alignItems: 'center', gap: '0.45rem', borderColor: 'rgba(16, 185, 129, 0.45)', color: '#34d399', background: 'rgba(16, 185, 129, 0.08)' }}
-            title={lang === 'hi' ? 'कंप्यूटर विज़न से फसल गुणवत्ता व नमी स्कैन करें' : 'Scan Crop with AI Computer Vision'}
-          >
-            <Scan size={16} />
-            <span>{lang === 'hi' ? '🔬 AI विज़न स्कैन' : '🔬 AI Vision Scan'}</span>
-          </button>
 
           {/* Interactive Tutorial Button */}
           <button
@@ -1159,31 +1146,6 @@ export default function FarmerPortal({ lang = 'hi', setLang = () => {}, theme = 
                 </div>
               </form>
             </div>
-          </div>
-        </div>
-      )}
-
-      {/* AI Computer Vision Crop Quality Scanner Modal */}
-      {isVisionScannerOpen && (
-        <div className="modal-backdrop" onClick={() => setIsVisionScannerOpen(false)}>
-          <div 
-            className="modal-card" 
-            style={{ maxWidth: '1100px', width: '95%', padding: '1.5rem', maxHeight: '90vh', overflowY: 'auto' }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <ComputerVisionScanner 
-              lang={lang} 
-              setLang={setLang} 
-              theme={theme} 
-              toggleTheme={toggleTheme}
-              isModal={true}
-              onClose={() => setIsVisionScannerOpen(false)}
-              onApplyCertificate={(cert) => {
-                setQualityGrade(cert.grade);
-                setIsVisionScannerOpen(false);
-                setSuccessBanner(lang === 'hi' ? `एआई विज़न गुणवत्ता प्रमाणपत्र लागू हुआ: ${cert.grade} (${cert.purity}% शुद्धता)` : `AI Vision Certificate Applied: ${cert.grade} (${cert.purity}% Purity)`);
-              }}
-            />
           </div>
         </div>
       )}
