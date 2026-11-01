@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { 
   ArrowLeft, Sprout, Building2, ShoppingBag, ShieldCheck, 
-  Globe, Sun, Moon, Sparkles, Bell, Compass, Cpu
+  Globe, Sun, Moon, Sparkles, Bell, Brain, Link2
 } from 'lucide-react';
 import { soundFX } from '../utils/audioFX';
 
@@ -22,12 +22,12 @@ export default function PortalHeaderBar({
   };
 
   const navItems = [
-    { id: 'farmer', path: '/farmer', labelHi: '🌾 किसान', labelEn: '🌾 Farmer', color: '#2E6847' },
-    { id: 'warehouse', path: '/warehouse', labelHi: '🏢 गोदाम', labelEn: '🏢 Warehouse', color: '#D6A75C' },
-    { id: 'marketplace', path: '/marketplace', labelHi: '🛍️ मंडी', labelEn: '🛍️ Marketplace', color: '#2E6847' },
-    { id: 'farmistor', path: '/farmistor', labelHi: '🧠 फार्मिस्टर', labelEn: '🧠 Farmistor', color: '#8DBB78' },
-    { id: 'ledger', path: '/ledger', labelHi: '🔗 लेजर', labelEn: '🔗 Ledger', color: '#173D2B' },
-    { id: 'admin', path: '/admin', labelHi: '🛡️ एडमिन', labelEn: '🛡️ Admin', color: '#202720' }
+    { id: 'farmer', path: '/farmer', labelHi: 'किसान', labelEn: 'Farmer', icon: Sprout, color: '#2E6847' },
+    { id: 'warehouse', path: '/warehouse', labelHi: 'गोदाम', labelEn: 'Warehouse', icon: Building2, color: '#D6A75C' },
+    { id: 'marketplace', path: '/marketplace', labelHi: 'मंडी', labelEn: 'Marketplace', icon: ShoppingBag, color: '#2E6847' },
+    { id: 'farmistor', path: '/farmistor', labelHi: 'फार्मिस्टर', labelEn: 'Farmistor', icon: Brain, color: '#8DBB78' },
+    { id: 'ledger', path: '/ledger', labelHi: 'डिजिटल लेजर', labelEn: 'Ledger', icon: Link2, color: '#173D2B' },
+    { id: 'admin', path: '/admin', labelHi: 'एडमिन', labelEn: 'Admin', icon: ShieldCheck, color: '#202720' }
   ];
 
   return (
@@ -39,9 +39,9 @@ export default function PortalHeaderBar({
           className="portal-back-home-btn"
           title={lang === 'hi' ? 'मुख्य पृष्ठ पर वापस जाएँ' : 'Return to Front Page'}
         >
-          <ArrowLeft size={16} className="portal-back-arrow" />
+          <ArrowLeft size={15} className="portal-back-arrow" />
           <span className="portal-back-text">
-            {lang === 'hi' ? '← मुख्य पृष्ठ' : '← Back to Home'}
+            {lang === 'hi' ? 'मुख्य पृष्ठ' : 'Front Page'}
           </span>
         </button>
 
@@ -60,6 +60,7 @@ export default function PortalHeaderBar({
       {/* 2. Center Quick Portal Switcher Pills */}
       <div className="portal-header-switcher">
         {navItems.map(item => {
+          const Icon = item.icon;
           const isActive = location.pathname === item.path || 
             (item.id === 'marketplace' && (location.pathname === '/marketplace' || location.pathname === '/buyer')) ||
             (item.id === 'ledger' && location.pathname.startsWith('/ledger')) ||
@@ -76,6 +77,7 @@ export default function PortalHeaderBar({
               style={isActive ? { borderColor: item.color, background: `${item.color}15`, color: 'var(--text-main)' } : {}}
               title={lang === 'hi' ? `${item.labelHi} खोलें` : `Switch to ${item.labelEn}`}
             >
+              <Icon size={14} style={{ color: item.color }} />
               <span>{lang === 'hi' ? item.labelHi : item.labelEn}</span>
               {isActive && <span className="portal-active-dot" style={{ background: item.color }} />}
             </button>

@@ -34,23 +34,23 @@ export default function LandingPage({ lang = 'hi' }) {
       id: 'farmer',
       path: '/farmer',
       title: lang === 'hi' ? 'किसान पोर्टल' : 'Farmer Voice Portal',
-      sub: lang === 'hi' ? 'आवाज व छूकर फसल दर्ज करें व पर्ची पाएं' : 'Natural voice & touch crop registration',
+      sub: lang === 'hi' ? 'फसल घोषणा, डिजिटल किसान पर्ची व उत्पत्ति प्रमाण' : 'Crop registration, digital receipts & provenance',
       icon: Sprout,
-      color: '#10b981',
-      bgGlow: 'rgba(16, 185, 129, 0.12)',
+      color: '#2E6847',
+      bgGlow: 'rgba(46, 104, 71, 0.12)',
       className: 'role-farmer',
-      tag: lang === 'hi' ? 'सुगम आवाज AI' : 'VOICE ASSISTED'
+      tag: lang === 'hi' ? 'सुगम आवाज' : 'VOICE ASSISTED'
     },
     {
       id: 'warehouse',
       path: '/warehouse',
       title: lang === 'hi' ? 'स्मार्ट साइलो हब' : 'Smart Warehouse Hub',
-      sub: lang === 'hi' ? 'साइलो आवक, नमी व स्टॉक प्रबंधन' : 'Automated silo custody & moisture logging',
+      sub: lang === 'hi' ? 'धर्मकांटा तौल, नमी जांच व स्टॉक प्रबंधन' : 'Weighbridge intake, moisture & stock management',
       icon: Building2,
-      color: '#f59e0b',
-      bgGlow: 'rgba(245, 158, 11, 0.12)',
+      color: '#D6A75C',
+      bgGlow: 'rgba(214, 167, 92, 0.14)',
       className: 'role-warehouse',
-      tag: lang === 'hi' ? 'लॉजिस्टिक्स' : 'SILO LOGISTICS'
+      tag: lang === 'hi' ? 'साइलो लॉजिस्टिक्स' : 'SILO LOGISTICS'
     },
     {
       id: 'buyer',
@@ -58,8 +58,8 @@ export default function LandingPage({ lang = 'hi' }) {
       title: lang === 'hi' ? 'व्यापारी मंडी' : 'Buyer Marketplace',
       sub: lang === 'hi' ? 'थोक खरीद, उम्र छूट व तत्काल सेटलमेंट' : 'Direct trade, 15-day price discounts',
       icon: ShoppingBag,
-      color: '#06b6d4',
-      bgGlow: 'rgba(6, 182, 212, 0.12)',
+      color: '#173D2B',
+      bgGlow: 'rgba(23, 61, 43, 0.12)',
       className: 'role-buyer',
       tag: lang === 'hi' ? 'सीधा व्यापार' : 'FAIR-TRADE'
     },
@@ -69,8 +69,8 @@ export default function LandingPage({ lang = 'hi' }) {
       title: lang === 'hi' ? 'एडमिन व लेजर' : 'Admin & Ledger Explorer',
       sub: lang === 'hi' ? 'SHA-256 ऑडिट, छेड़छाड़ जांच व 15-दिन चक्र' : 'Cryptographic ledger audit & aging engine',
       icon: ShieldCheck,
-      color: '#8b5cf6',
-      bgGlow: 'rgba(139, 92, 246, 0.12)',
+      color: '#202720',
+      bgGlow: 'rgba(32, 39, 32, 0.14)',
       className: 'role-admin',
       tag: lang === 'hi' ? 'शून्य छेड़छाड़' : 'ZERO-TAMPER'
     }

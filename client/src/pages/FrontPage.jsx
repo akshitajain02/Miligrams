@@ -4,21 +4,24 @@ import {
   Sprout, Building2, ShoppingBag, ShieldCheck, ArrowRight, 
   Sparkles, CheckCircle2, Star, Shield, Award, 
   Clock, Truck, Users, Layers, Globe, Sun, Moon,
-  HeartHandshake, Compass, ArrowUpRight, Check, Send,
-  Brain, Scale, Link2, MapPin, ChevronRight, BarChart3, Database
+  Compass, ArrowUpRight, Check, Send, Brain, Scale, 
+  Link2, MapPin, ChevronRight, BarChart3, Database, Activity
 } from 'lucide-react';
-import PhotoCards3D from '../components/PhotoCards3D';
-import NatureBackground from '../components/NatureBackground';
 import { soundFX } from '../utils/audioFX';
 
-export default function FrontPage({ lang = 'hi', setLang = () => {}, theme = 'light', toggleTheme = () => {} }) {
+export default function FrontPage({ 
+  lang = 'hi', 
+  setLang = () => {}, 
+  theme = 'light', 
+  toggleTheme = () => {} 
+}) {
   const navigate = useNavigate();
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [newsletterSent, setNewsletterSent] = useState(false);
 
   const handleExploreMiligrams = () => {
     soundFX.click();
-    navigate('/marketplace');
+    navigate('/role-select');
   };
 
   const handleDiscoverFarmistor = () => {
@@ -41,7 +44,7 @@ export default function FrontPage({ lang = 'hi', setLang = () => {}, theme = 'li
   const produceItems = [
     {
       id: 1,
-      nameHi: 'शरबती गेहूं (Sharbati Wheat C-306)',
+      nameHi: 'शरबती गेहूं (Sharbati C-306)',
       nameEn: 'Sharbati Golden Wheat',
       variety: 'Sharbati C-306 Bold',
       price: '₹28 / kg',
@@ -76,20 +79,20 @@ export default function FrontPage({ lang = 'hi', setLang = () => {}, theme = 'li
       location: 'Bhatinda, Punjab',
       image: '/farm-aerial-harvest.jpg',
       declaredQty: '650 kg',
-      verifiedQty: 'Awaiting Silo Intake'
+      verifiedQty: 'Farm Gate Verified'
     },
     {
       id: 4,
-      nameHi: 'पीली सरसों (Yellow Mustard Seeds)',
+      nameHi: 'पीली सरसों (Pusa Bold Mustard)',
       nameEn: 'Pusa Bold Yellow Mustard',
-      variety: 'High Oil (42%)',
+      variety: 'High Oil Content (42%)',
       price: '₹52 / kg',
       grade: 'Grade A',
       farmer: 'Sita Devi',
       location: 'Karnal, Haryana',
       image: '/farmer-thumbs-up-sold.jpg',
       declaredQty: '450 kg',
-      verifiedQty: 'Awaiting Silo Intake'
+      verifiedQty: 'Farm Gate Verified'
     }
   ];
 
@@ -99,10 +102,10 @@ export default function FrontPage({ lang = 'hi', setLang = () => {}, theme = 'li
       stage: '01',
       id: 'farm',
       role: 'FARM GATE',
-      titleHi: '1. खेत से शुरुआत (Farm Gate Logging)',
+      titleHi: '1. खेत से घोषणा (Farm Origin & Declaration)',
       titleEn: '1. Farm Origin & Declaration',
-      descHi: 'किसान का विशिष्ट Farmer ID पंजीकरण, आवाज या टच द्वारा फसल घोषणा (मात्रा, किस्म, कटाई तिथि) और ब्लॉकचेन पर प्रारंभिक किसान पर्ची का निर्माण।',
-      descEn: 'Farmer registers with unique ID. Harvest quantity, variety, and harvest date are logged via voice or mobile, minting the initial digital custody receipt.',
+      descHi: 'किसान का विशिष्ट Farmer ID पंजीकरण, फसल घोषणा (मात्रा, किस्म, कटाई तिथि) और ब्लॉकचेन पर प्रारंभिक किसान पर्ची का निर्माण।',
+      descEn: 'Farmer registers with unique ID. Harvest quantity, variety, and harvest date are logged, minting the initial digital custody receipt.',
       metricHi: 'घोषित मात्रा: 1,200 kg',
       metricEn: 'Declared: 1,200 kg',
       badge: 'PROVENANCE BIRTH',
@@ -113,10 +116,10 @@ export default function FrontPage({ lang = 'hi', setLang = () => {}, theme = 'li
       stage: '02',
       id: 'warehouse',
       role: 'SMART SILO',
-      titleHi: '2. वैज्ञानिक साइलो भंडारण (Silo Intake)',
+      titleHi: '2. धर्मकांटा वजन सत्यापन (Silo Intake)',
       titleEn: '2. Warehouse Weighbridge Verification',
-      descHi: 'धर्मकांटा पर घोषित मात्रा बनाम वास्तविक प्राप्त मात्रा का मिलान, स्वतः अंतर (Discrepancy) गणना, <12% नमी सेंसर निगरानी और साइलो बे आवंटन।',
-      descEn: 'Gate weighbridge compares farmer-declared vs received quantity, highlighting shortages or surpluses. Climate silos (<12% moisture) prevent grain rot.',
+      descHi: 'धर्मकांटा पर घोषित मात्रा बनाम वास्तविक प्राप्त मात्रा का मिलान, स्वतः अंतर (Discrepancy) गणना और साइलो बे आवंटन।',
+      descEn: 'Gate weighbridge compares farmer-declared vs received quantity, highlighting shortages or surpluses. Climate silos prevent spoilage.',
       metricHi: 'सत्यापित मात्रा: 1,200 kg (0 kg अंतर)',
       metricEn: 'Verified: 1,200 kg (Zero Variance)',
       badge: 'DISCREPANCY AUDIT',
@@ -126,11 +129,11 @@ export default function FrontPage({ lang = 'hi', setLang = () => {}, theme = 'li
     {
       stage: '03',
       id: 'buyer',
-      role: 'FAIR-TRADE MARKET',
-      titleHi: '3. थोक मंडी व सीधा व्यापार (Wholesale Settlement)',
-      titleEn: '3. Transparent Marketplace Settlement',
-      descHi: 'बिचौलियों की 8-12% कटौती के बिना सीधे प्रमाणित व्यापारियों को बिक्री। 15-दिन मूल्य सुरक्षा छूट और सीधा इलेक्ट्रॉनिक भुगतान हस्तांतरण।',
-      descEn: 'Direct procurement by institutional buyers with zero intermediary cuts. 15-day progressive discounts and immediate title transfer block minted on ledger.',
+      role: 'FAIR-TRADE MANDI',
+      titleHi: '3. पारदर्शी थोक मंडी (Wholesale Settlement)',
+      titleEn: '3. Transparent Mandi Settlement',
+      descHi: 'बिचौलियों की मनमानी कटौती के बिना सीधे प्रमाणित व्यापारियों को बिक्री। 15-दिन मूल्य सुरक्षा छूट और सीधा भुगतान।',
+      descEn: 'Direct procurement by institutional buyers with zero intermediary cuts. 15-day progressive discounts and immediate title transfer.',
       metricHi: 'सीधा भुगतान: ₹33,600 किसान खाते में',
       metricEn: 'Direct Settlement: ₹33,600 to Grower',
       badge: 'IMMEDIATE SETTLEMENT',
@@ -143,8 +146,8 @@ export default function FrontPage({ lang = 'hi', setLang = () => {}, theme = 'li
   const coreFeatures = [
     {
       id: 'traceability',
-      titleHi: 'फसल ट्रेसिबिलिटी (Crop Traceability)',
-      titleEn: 'End-to-End Crop Traceability',
+      titleHi: 'फसल ट्रेसिबिलिटी व दोहरी तौल',
+      titleEn: 'Dual-Weight Crop Traceability',
       descHi: 'हर फसल लॉट का अद्वितीय Crop ID, घोषित बनाम सत्यापित मात्रा का पारदर्शी विभाजन और खेत से खरीदार तक की संपूर्ण वर्टिकल टाइमलाइन।',
       descEn: 'Every harvest batch receives a unique Crop ID. Declared and warehouse-verified quantities are recorded separately in an intuitive chronological timeline.',
       icon: Sprout,
@@ -153,7 +156,7 @@ export default function FrontPage({ lang = 'hi', setLang = () => {}, theme = 'li
     },
     {
       id: 'farmistor',
-      titleHi: 'फार्मिस्टर स्मार्ट फसल योजना (Farmistor)',
+      titleHi: 'फार्मिस्टर स्मार्ट फसल योजना',
       titleEn: 'Farmistor Smart Crop Planning',
       descHi: 'मिट्टी, पानी, मौसम और बजट के अनुसार नियम-आधारित वैज्ञानिक सिफारिशें, शुद्ध मुनाफा अनुमान और फसलों की सीधी आमने-सामने तुलना।',
       descEn: 'Intelligent multi-step planning calibrated by soil, water availability, season, and budget. Transparent explainability and side-by-side comparison.',
@@ -163,8 +166,8 @@ export default function FrontPage({ lang = 'hi', setLang = () => {}, theme = 'li
     },
     {
       id: 'ledger',
-      titleHi: 'डिजिटल लेजर (Tamper-Evident Ledger)',
-      titleEn: 'Tamper-Evident Digital Ledger',
+      titleHi: 'छेड़छाड़-मुक्त डिजिटल लेजर',
+      titleEn: 'Tamper-Evident SHA-256 Ledger',
       descHi: 'SHA-256 हैश-लिंक्ड ब्लॉकचेन श्रृंखला, मर्कल ट्री सत्यापन और वास्तविक समय में छेड़छाड़ पहचान परीक्षण — बिना किसी पुराने रिकॉर्ड को ओवरराइट किए।',
       descEn: 'SHA-256 hash-linked event blocks with Merkle tree roots. Historical records cannot be altered; corrections append new verifiable blocks.',
       icon: Link2,
@@ -183,7 +186,7 @@ export default function FrontPage({ lang = 'hi', setLang = () => {}, theme = 'li
     },
     {
       id: 'marketplace',
-      titleHi: 'पारदर्शी थोक मंडी (Fair-Trade Mandi)',
+      titleHi: 'पारदर्शी किसान-व्यापारी मंडी',
       titleEn: 'Farmer–Buyer Direct Marketplace',
       descHi: 'केवल एग्रीस्टैक-सत्यापित किसानों से सीधी थोक खरीद, पारदर्शी स्टार रेटिंग, 15-दिन शेल्फ-लाइफ छूट और बिचौलिया-मुक्त भुगतान।',
       descEn: 'Direct connection between verified growers and commodity buyers. Dynamic 15-day aging discounts and transparent farmer rating reviews.',
@@ -199,9 +202,9 @@ export default function FrontPage({ lang = 'hi', setLang = () => {}, theme = 'li
       role: 'farmer',
       icon: Sprout,
       color: '#2E6847',
-      badgeHi: 'आवाज व टच AI',
-      badgeEn: 'VOICE ASSISTED',
-      titleHi: 'किसान पोर्टल (Farmer Dashboard)',
+      badgeHi: 'किसान पोर्टल',
+      badgeEn: 'FARMER PORTAL',
+      titleHi: 'किसान पोर्टल (Farmer Portal)',
       titleEn: 'Farmer Portal & Harvest Desk',
       descHi: 'फसल दर्ज करें, कानूनी डिजिटल किसान पर्ची प्राप्त करें, एग्रीस्टैक KYC पूरा करें और गोदाम आवक स्थिति ट्रैक करें।',
       descEn: 'Log harvests, generate digital Kisan receipts, verify AgriStack credentials, and track warehouse weighing.',
@@ -211,9 +214,9 @@ export default function FrontPage({ lang = 'hi', setLang = () => {}, theme = 'li
       role: 'warehouse',
       icon: Building2,
       color: '#D6A75C',
-      badgeHi: 'साइलो लॉजिस्टिक्स',
+      badgeHi: 'साइलो हब',
       badgeEn: 'SILO LOGISTICS',
-      titleHi: 'गोदाम / साइलो हब (Warehouse)',
+      titleHi: 'स्मार्ट गोदाम हब (Warehouse)',
       titleEn: 'Smart Silo Warehouse Hub',
       descHi: '25,000 क्विंटल क्षमता प्रबंधन, आवक वजन मिलान, मात्रा अंतर (Discrepancy) रिकॉर्डिंग और 15-दिन स्टॉक ऑडिट।',
       descEn: 'Manage silo capacity, record weighbridge intake, highlight quantity discrepancies, and execute 15-day audits.',
@@ -223,9 +226,9 @@ export default function FrontPage({ lang = 'hi', setLang = () => {}, theme = 'li
       role: 'buyer',
       icon: ShoppingBag,
       color: '#173D2B',
-      badgeHi: 'थोक खरीद',
-      badgeEn: 'FAIR-TRADE',
-      titleHi: 'व्यापारी मंडी (Commodity Buyer)',
+      badgeHi: 'व्यापारी मंडी',
+      badgeEn: 'COMMODITY BUYER',
+      titleHi: 'थोक व्यापारी मंडी (Buyer Mandi)',
       titleEn: 'Commodity Buyer Marketplace',
       descHi: '100% सत्यापित लॉट, संपूर्ण ब्लॉकचेन इतिहास, 15-दिन एजिंग छूट और बिचौलिया-मुक्त सीधी थोक खरीद।',
       descEn: 'Procure verified batches directly from growers with complete chronological provenance and zero broker cuts.',
@@ -235,7 +238,7 @@ export default function FrontPage({ lang = 'hi', setLang = () => {}, theme = 'li
       role: 'admin',
       icon: ShieldCheck,
       color: '#202720',
-      badgeHi: 'लेजर गवर्नेंस',
+      badgeHi: 'सिस्टम गवर्नेंस',
       badgeEn: 'GOVERNANCE',
       titleHi: 'सिस्टम एडमिन व लेजर (Governance)',
       titleEn: 'Cryptographic Admin Ledger',
@@ -245,14 +248,49 @@ export default function FrontPage({ lang = 'hi', setLang = () => {}, theme = 'li
     }
   ];
 
+  const fieldPhotos = [
+    {
+      id: 1,
+      image: '/farmer-sunset-field.jpg',
+      titleHi: 'लुधियाना, पंजाब — शरबती गेहूं कटाई',
+      titleEn: 'Ludhiana, Punjab — Golden Wheat Harvest',
+      captionHi: 'शाम के समय तैयार गेहूं की बालियां। खेत से सीधे साइलो आवक के लिए तैयार।',
+      captionEn: 'Prime golden grain standing ready for combine harvest and certified silo intake.'
+    },
+    {
+      id: 2,
+      image: '/farm-aerial-harvest.jpg',
+      titleHi: 'वैज्ञानिक कंबाइन हार्वेस्टिंग',
+      titleEn: 'Precision Combine Harvesting',
+      captionHi: 'आधुनिक मशीनी कटाई से दानों की टूट-फूट न्यूनतम, 12% से कम नमी स्तर सुनिश्चित।',
+      captionEn: 'Mechanized harvest preserves seed integrity and maintains optimum moisture below 12%.'
+    },
+    {
+      id: 3,
+      image: '/nature-farm-banner.jpg',
+      titleHi: 'समराला, पंजाब — शाही बासमती 1121',
+      titleEn: 'Samrala, Punjab — Export Basmati Paddy',
+      captionHi: 'उच्च गुणवत्ता की निर्यात-ग्रेड बासमती धान की जैविक खेती।',
+      captionEn: 'Organic premium extra-long grain basmati paddy ready for export-grade milling.'
+    },
+    {
+      id: 4,
+      image: '/farmer-thumbs-up-sold.jpg',
+      titleHi: 'सत्यापित किसान — त्वरित डिजिटल भुगतान',
+      titleEn: 'Verified Grower — Direct Settlement',
+      captionHi: 'मंडी में फसल बिकते ही मोबाइल पर रसीद और सीधे बैंक खाते में भुगतान।',
+      captionEn: 'Instant settlement alert directly on mobile with zero broker deductions.'
+    }
+  ];
+
   const testimonials = [
     {
       id: 1,
       nameHi: 'सरदार गुरप्रीत सिंह',
       nameEn: 'Sardar Gurpreet Singh',
-      roleHi: 'शरबती गेहूं व धान किसान, समराला (पंजाब)',
+      roleHi: 'गेहूं व धान किसान, समराला (पंजाब)',
       roleEn: 'Wheat & Paddy Grower, Samrala (Punjab)',
-      quoteHi: 'मिलीग्राम्स में फसल दर्ज करते ही मुझे पक्की किसान पर्ची मिल गई। गोदाम पर तौल होने के बाद जो वजन तय हुआ, वही लेजर में दर्ज रहा — मंडी में आढ़तियों की 5-8% मनमानी कटौती हमेशा के लिए खत्म हो गई।',
+      quoteHi: 'मिलीग्राम्स में फसल दर्ज करते ही मुझे पक्की डिजिटल किसान पर्ची मिल गई। गोदाम पर तौल होने के बाद जो वजन तय हुआ, वही लेजर में दर्ज रहा — मंडी में आढ़तियों की 5-8% मनमानी कटौती हमेशा के लिए खत्म हो गई।',
       quoteEn: 'With MiliGrams, my harvest was recorded instantly with an official receipt. The weighbridge weight at the silo matched the ledger exactly — no arbitrary weight deductions or broker commissions.',
       rating: 5,
       badgeHi: 'एग्रीस्टैक सत्यापित किसान',
@@ -285,394 +323,493 @@ export default function FrontPage({ lang = 'hi', setLang = () => {}, theme = 'li
   ];
 
   return (
-    <div className="front-page-container">
-      {/* Subtle organic ambient canvas */}
-      <NatureBackground />
-
-      {/* 1. EDITORIAL SUB-NAVBAR */}
-      <nav className="figma-top-bar">
-        <div className="figma-top-links">
-          <a href="#produce" className="figma-top-link">
-            {lang === 'hi' ? 'ताज़ा उपज (Mandi)' : 'Shop Mandi'}
-          </a>
-          <a href="#journey" className="figma-top-link">
-            {lang === 'hi' ? 'फसल यात्रा (Journey)' : 'Crop Journey'}
-          </a>
-          <button 
-            onClick={handleDiscoverFarmistor}
-            className="figma-top-link"
-            style={{ background: 'none', border: 'none', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '0.35rem', fontWeight: 700, color: '#2E6847' }}
+    <div className="luxury-landing-root">
+      {/* 1. TOP EDITORIAL NAVIGATION BAR */}
+      <header className="luxury-nav-header">
+        <div className="luxury-nav-container">
+          {/* Brand Mark */}
+          <div 
+            className="luxury-nav-brand" 
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           >
-            <span>🧠 {lang === 'hi' ? 'फार्मिस्टर प्लानर' : 'Farmistor Planner'}</span>
-          </button>
-          <a href="#features" className="figma-top-link">
-            {lang === 'hi' ? 'मुख्य स्तंभ (5 Pillars)' : '5 Pillars'}
-          </a>
-          <a href="#portals" className="figma-top-link">
-            {lang === 'hi' ? 'कार्यक्षेत्र (4 Portals)' : '4 Portals'}
-          </a>
-          <button 
-            onClick={() => navigate('/ledger')}
-            className="figma-top-link"
-            style={{ background: 'none', border: 'none', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '0.35rem', fontWeight: 600, color: 'var(--text-muted)' }}
-          >
-            <span>🔗 {lang === 'hi' ? 'डिजिटल लेजर' : 'Ledger Explorer'}</span>
-          </button>
-        </div>
+            <div className="luxury-brand-icon">
+              <Sprout size={20} />
+            </div>
+            <div className="luxury-brand-text-block">
+              <span className="luxury-brand-title">MILIGRAMS</span>
+              <span className="luxury-brand-subtitle">
+                {lang === 'hi' ? 'हर ग्राम का सच्चा हिसाब' : 'Every Gram Accountable'}
+              </span>
+            </div>
+          </div>
 
-        <div className="figma-top-actions">
-          {/* Language Switch */}
-          <button
-            onClick={() => { soundFX.click(); setLang(lang === 'hi' ? 'en' : 'hi'); }}
-            className="btn btn-secondary btn-sm"
-            style={{ fontSize: '0.8rem', padding: '0.35rem 0.75rem' }}
-            title="Switch Language"
-          >
-            <Globe size={13} />
-            <span>{lang === 'hi' ? 'English' : 'हिन्दी'}</span>
-          </button>
-
-          {/* Theme Toggle */}
-          {toggleTheme && (
-            <button
-              onClick={() => { soundFX.click(); toggleTheme(); }}
-              className="btn btn-secondary btn-sm"
-              title="Toggle Theme"
-              style={{ padding: '0.35rem 0.65rem' }}
+          {/* Center Navigation Links */}
+          <nav className="luxury-nav-links">
+            <a href="#journey" className="luxury-nav-link">
+              {lang === 'hi' ? 'फसल यात्रा' : 'Crop Journey'}
+            </a>
+            <button 
+              onClick={handleDiscoverFarmistor}
+              className="luxury-nav-link luxury-nav-pill-btn"
             >
-              {theme === 'dark' ? <Sun size={14} color="#D6A75C" /> : <Moon size={14} color="#173D2B" />}
+              <Brain size={14} className="luxury-nav-pill-icon" />
+              <span>{lang === 'hi' ? 'फार्मिस्टर प्लानर' : 'Farmistor Planner'}</span>
+              <span className="luxury-nav-dot" />
             </button>
-          )}
+            <a href="#produce" className="luxury-nav-link">
+              {lang === 'hi' ? 'प्रमाणित मंडी' : 'Mandi Shelf'}
+            </a>
+            <a href="#features" className="luxury-nav-link">
+              {lang === 'hi' ? 'मुख्य स्तंभ' : '5 Core Pillars'}
+            </a>
+            <button 
+              onClick={() => navigate('/ledger')}
+              className="luxury-nav-link"
+              style={{ background: 'none', border: 'none', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}
+            >
+              <Link2 size={14} />
+              <span>{lang === 'hi' ? 'डिजिटल लेजर' : 'Ledger'}</span>
+            </button>
+          </nav>
 
-          {/* Connect / Enter CTA */}
-          <button
-            onClick={() => { soundFX.click(); navigate('/login'); }}
-            className="figma-btn-forest"
-            style={{ padding: '0.45rem 1.15rem', fontSize: '0.82rem' }}
-          >
-            <span>{lang === 'hi' ? 'पोर्टल में प्रवेश' : 'Open Portal'}</span>
-            <ArrowRight size={14} />
-          </button>
+          {/* Right Action Controls */}
+          <div className="luxury-nav-actions">
+            {/* Language Switcher */}
+            <button
+              onClick={() => {
+                soundFX.click();
+                setLang(lang === 'hi' ? 'en' : 'hi');
+              }}
+              className="luxury-action-btn"
+              title="Toggle Hindi / English"
+            >
+              <Globe size={14} />
+              <span style={{ fontWeight: 700, fontSize: '0.8rem' }}>
+                {lang === 'hi' ? 'English' : 'हिन्दी'}
+              </span>
+            </button>
+
+            {/* Theme Toggle */}
+            {toggleTheme && (
+              <button
+                onClick={() => {
+                  soundFX.click();
+                  toggleTheme();
+                }}
+                className="luxury-action-btn"
+                title="Toggle Light / Dark Theme"
+              >
+                {theme === 'dark' ? <Sun size={15} color="#D6A75C" /> : <Moon size={15} color="#173D2B" />}
+              </button>
+            )}
+
+            {/* Primary Action Button */}
+            <button
+              onClick={handleExploreMiligrams}
+              className="luxury-enter-btn"
+            >
+              <span>{lang === 'hi' ? 'पोर्टल में प्रवेश करें' : 'Open Portal'}</span>
+              <ArrowRight size={15} />
+            </button>
+          </div>
         </div>
-      </nav>
-
-      {/* 2. REFINED EDITORIAL MASTHEAD */}
-      <header className="figma-masthead-section">
-        <h1 className="figma-masthead-logo" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-          <span>MiliGrams</span>
-          <span className="figma-registered-mark">®</span>
-        </h1>
-        <p className="figma-mission-statement">
-          {lang === 'hi'
-            ? 'खेत से खरीदार तक, हर ग्राम का सच्चा हिसाब — एक किसान-केंद्रित कृषि पारितंत्र जो फसल ट्रैकिंग, मात्रा जवाबदेही, डिजिटल लेजर और बुद्धिमान फसल योजना को जोड़ता है।'
-            : 'From Farm to Buyer, Every Gram Accountable — A farmer-centric agricultural ecosystem connecting growers, warehouses, and buyers through transparent tracking, quantity accountability, and intelligent crop planning.'}
-        </p>
       </header>
 
-      {/* 3. IMMERSIVE HERO: "EVERY GRAM HAS A JOURNEY" */}
-      <section className="figma-hero-window-wrapper">
-        <div className="figma-hero-window">
-          {/* Left Hero Content */}
-          <div className="figma-hero-content">
-            <div className="figma-hero-tag">
-              <Sparkles size={13} />
-              <span>{lang === 'hi' ? 'पारदर्शी कृषि ट्रेसिबिलिटी व डिजिटल लेजर' : 'Transparent Crop Traceability & Digital Ledger'}</span>
+      {/* 2. FULL-SCREEN EDITORIAL LUXURY HERO */}
+      <section className="luxury-hero-section">
+        <div className="luxury-hero-container">
+          {/* Left Column: Editorial Headline & Copy */}
+          <div className="luxury-hero-content">
+            {/* Live Infrastructure Tag */}
+            <div className="luxury-hero-eyebrow">
+              <span className="luxury-hero-pulse-dot" />
+              <span>
+                {lang === 'hi' 
+                  ? 'स्वायत्त कृषि ब्लॉकचेन व मात्रा जवाबदेही' 
+                  : 'Sovereign Agricultural Supply Chain • SHA-256 Validated'}
+              </span>
             </div>
 
-            <h2 className="figma-hero-title">
+            {/* Large Editorial Headline */}
+            <h1 className="luxury-hero-heading">
               {lang === 'hi' ? (
-                <>हर ग्राम की अपनी एक यात्रा है। <br /><span style={{ color: '#2E6847' }}>Every Gram Has a Journey.</span></>
+                <>
+                  हर ग्राम की अपनी <br />
+                  <span className="luxury-hero-serif-accent">एक सच्ची यात्रा है।</span>
+                </>
               ) : (
-                <>Every Gram <br />Has a Journey.</>
+                <>
+                  Every Gram <br />
+                  <span className="luxury-hero-serif-accent">Has a Journey.</span>
+                </>
               )}
-            </h2>
+            </h1>
 
-            <p className="figma-hero-sub">
+            {/* Supporting Copy */}
+            <p className="luxury-hero-description">
               {lang === 'hi'
-                ? 'किसान द्वारा घोषित मात्रा और गोदाम द्वारा सत्यापित वजन का पारदर्शी हिसाब। अपरिवर्तनीय SHA-256 डिजिटल लेजर, 15-दिन शेल्फ लाइफ मूल्य सुरक्षा और फार्मिस्टर बुद्धिमान फसल योजना।'
-                : 'Accountable crop tracking connecting verified Indian growers directly with wholesale buyers. Farmer-declared vs warehouse-verified weight transparency, tamper-evident SHA-256 records, and Farmistor smart agronomic planning.'}
+                ? 'किसान द्वारा घोषित मात्रा और गोदाम धर्मकांटा द्वारा सत्यापित वजन का पारदर्शी हिसाब। अपरिवर्तनीय SHA-256 डिजिटल लेजर, 15-दिन शेल्फ लाइफ सुरक्षा और फार्मिस्टर नियम-आधारित वैज्ञानिक फसल योजना।'
+                : 'A farmer-centric agricultural ecosystem connecting verified Indian growers, smart silos, and commercial buyers through transparent crop tracking, dual-weight accountability, and intelligent agronomic planning.'}
             </p>
 
-            {/* Primary & Secondary CTAs */}
-            <div className="figma-hero-actions">
-              <button onClick={handleExploreMiligrams} className="figma-btn-forest">
+            {/* Dual CTAs */}
+            <div className="luxury-hero-button-group">
+              <button
+                onClick={handleExploreMiligrams}
+                className="luxury-hero-primary-btn"
+              >
                 <Sprout size={18} />
                 <span>{lang === 'hi' ? 'मिलीग्राम्स देखें (Explore Miligrams)' : 'Explore Miligrams'}</span>
                 <ArrowRight size={17} />
               </button>
 
-              <button onClick={handleDiscoverFarmistor} className="figma-btn-outline">
-                <Brain size={17} />
+              <button
+                onClick={handleDiscoverFarmistor}
+                className="luxury-hero-secondary-btn"
+              >
+                <Brain size={18} />
                 <span>{lang === 'hi' ? 'फार्मिस्टर खोजें (Discover Farmistor)' : 'Discover Farmistor'}</span>
               </button>
             </div>
 
-            {/* Real Stats */}
-            <div className="figma-hero-stats">
-              <div className="figma-stat-item">
-                <span className="figma-stat-num">12,400+</span>
-                <span className="figma-stat-label">{lang === 'hi' ? 'सत्यापित किसान' : 'Verified Farmers'}</span>
-              </div>
-              <div className="figma-stat-item">
-                <span className="figma-stat-num">99.8%</span>
-                <span className="figma-stat-label">{lang === 'hi' ? 'तौल मिलान सटीकता' : 'Weighbridge Accuracy'}</span>
-              </div>
-              <div className="figma-stat-item">
-                <span className="figma-stat-num">15 Days</span>
-                <span className="figma-stat-label">{lang === 'hi' ? 'एजिंग सुरक्षा चक्र' : 'Aging Audit Cycle'}</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Right Hero Visual with Floating Verified Ledger Badge */}
-          <div className="figma-hero-media">
-            <img 
-              src="/farmer-sunset-field.jpg" 
-              alt="Golden Wheat Harvest in Punjab" 
-              className="figma-hero-img" 
-            />
-            
-            {/* Floating Provenance Badge */}
-            <div className="figma-hero-media-badge">
-              <div className="figma-badge-title">
-                <CheckCircle2 size={15} color="#8DBB78" />
-                <span>{lang === 'hi' ? 'लॉट #1042 — वजन व लेजर सत्यापित' : 'Lot #1042 — Weighbridge Verified'}</span>
-              </div>
-              <div className="figma-badge-sub">
-                {lang === 'hi' 
-                  ? 'घोषित: 1,200 kg • सत्यापित: 1,200 kg (0 kg अंतर) • किसान: रमेश पटेल • साइलो अल्फा' 
-                  : 'Declared: 1,200 kg • Verified: 1,200 kg (0 kg variance) • Farmer: Ramesh Patel'}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 4. UNIQUE VISUAL CROP JOURNEY: FARM → WAREHOUSE → BUYER */}
-      <section id="journey" className="front-section">
-        <div className="front-section-header">
-          <span className="badge" style={{ background: 'rgba(46, 104, 71, 0.1)', color: '#2E6847', borderColor: 'rgba(46, 104, 71, 0.25)' }}>
-            <Compass size={13} />
-            <span>VISUAL CROP LIFECYCLE</span>
-          </span>
-          <h2 className="front-section-title">
-            {lang === 'hi' ? 'फसल की पारदर्शी यात्रा: खेत से खरीदार तक' : 'The Visual Crop Journey: Farm → Warehouse → Buyer'}
-          </h2>
-          <p className="front-section-sub">
-            {lang === 'hi'
-              ? 'प्रत्येक महत्वपूर्ण पड़ाव पर मात्रा और गुणवत्ता की स्वतंत्र पुष्टि होती है, जिसे कोई भी बिचौलिया बदल नहीं सकता।'
-              : 'Every gram is tracked across three verified physical custody nodes, creating an unbroken chain of accountability.'}
-          </p>
-        </div>
-
-        <div className="journey-nodes-grid">
-          {journeyStages.map((stg) => {
-            const Icon = stg.icon;
-            return (
-              <div key={stg.id} className="glass-panel journey-node-card">
-                <div className="journey-node-top">
-                  <div className="journey-node-num">{stg.stage}</div>
-                  <span className="badge" style={{ background: `${stg.color}15`, color: stg.color, borderColor: `${stg.color}35` }}>
-                    {stg.badge}
-                  </span>
-                </div>
-
-                <div className="journey-node-icon" style={{ background: `${stg.color}15`, color: stg.color }}>
-                  <Icon size={24} />
-                </div>
-
-                <h3 className="journey-node-title">
-                  {lang === 'hi' ? stg.titleHi : stg.titleEn}
-                </h3>
-
-                <p className="journey-node-desc">
-                  {lang === 'hi' ? stg.descHi : stg.descEn}
-                </p>
-
-                <div className="journey-node-metric-box">
-                  <span style={{ fontSize: '0.72rem', color: 'var(--text-light)', fontWeight: 800, textTransform: 'uppercase' }}>
-                    KEY ACCOUNTABILITY DATA
-                  </span>
-                  <div style={{ fontSize: '0.92rem', fontWeight: 800, color: stg.color, marginTop: '0.2rem' }}>
-                    {lang === 'hi' ? stg.metricHi : stg.metricEn}
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* 5. FRESH CERTIFIED PRODUCE SHELF (Horizontal Cards with Declared/Verified Weights) */}
-      <section id="produce" className="figma-produce-section">
-        <div className="figma-produce-header">
-          <div>
-            <span className="badge" style={{ background: 'rgba(214, 167, 92, 0.15)', color: '#D6A75C', borderColor: 'rgba(214, 167, 92, 0.3)', marginBottom: '0.4rem' }}>
-              DIRECT COMMODITY LISTINGS
-            </span>
-            <h3 className="figma-produce-title" style={{ margin: 0 }}>
-              {lang === 'hi' ? 'मंडी में उपलब्ध ताज़ा प्रमाणित उपज' : 'Fresh Verified Batches in Marketplace'}
-            </h3>
-          </div>
-
-          <button 
-            onClick={handleExploreMiligrams}
-            className="btn-link" 
-            style={{ color: 'var(--primary)', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '0.35rem', cursor: 'pointer' }}
-          >
-            <span>{lang === 'hi' ? 'पूरी मंडी देखें (Browse All)' : 'Open Full Marketplace'}</span>
-            <ArrowUpRight size={16} />
-          </button>
-        </div>
-
-        <div className="figma-produce-grid">
-          {produceItems.map((item) => (
-            <div 
-              key={item.id} 
-              className="figma-produce-card"
-              onClick={() => { soundFX.click(); navigate(`/marketplace?crop=${encodeURIComponent(item.nameEn)}`); }}
-              title={lang === 'hi' ? `${item.nameHi} - मंडी में खरीदने के लिए क्लिक करें` : `Click to view ${item.nameEn} in Marketplace`}
-            >
-              <div className="figma-produce-img-wrap">
-                <img src={item.image} alt={item.nameEn} className="figma-produce-img" />
-                <span 
-                  className="badge" 
-                  style={{ position: 'absolute', top: '0.6rem', left: '0.6rem', background: 'rgba(23, 61, 43, 0.88)', color: '#ffffff', fontSize: '0.68rem', backdropFilter: 'blur(8px)' }}
-                >
-                  {item.grade}
+            {/* Trust Metrics Row */}
+            <div className="luxury-hero-trust-row">
+              <div className="luxury-trust-item">
+                <span className="luxury-trust-number">12,400+</span>
+                <span className="luxury-trust-label">
+                  {lang === 'hi' ? 'सत्यापित किसान' : 'Verified Farmers'}
                 </span>
               </div>
-              
-              <div className="figma-produce-footer">
-                <div>
-                  <div className="figma-produce-name">{lang === 'hi' ? item.nameHi : item.nameEn}</div>
-                  <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)' }}>📍 {item.farmer} • {item.location}</div>
-                  <div style={{ fontSize: '0.7rem', color: '#2E6847', fontWeight: 700, marginTop: '0.25rem' }}>
-                    ✓ {item.verifiedQty}
-                  </div>
-                </div>
-                <div style={{ textAlign: 'right' }}>
-                  <div className="figma-produce-price">{item.price}</div>
-                  <span style={{ fontSize: '0.7rem', color: 'var(--primary)', fontWeight: 700 }}>
-                    {lang === 'hi' ? 'सौदा करें →' : 'Trade →'}
+              <div className="luxury-trust-divider" />
+              <div className="luxury-trust-item">
+                <span className="luxury-trust-number">25,000 Qtl</span>
+                <span className="luxury-trust-label">
+                  {lang === 'hi' ? 'आधुनिक साइलो क्षमता' : 'Silo Telemetry'}
+                </span>
+              </div>
+              <div className="luxury-trust-divider" />
+              <div className="luxury-trust-item">
+                <span className="luxury-trust-number">99.8%</span>
+                <span className="luxury-trust-label">
+                  {lang === 'hi' ? 'धर्मकांटा सटीकता' : 'Weighbridge Accuracy'}
+                </span>
+              </div>
+              <div className="luxury-trust-divider" />
+              <div className="luxury-trust-item">
+                <span className="luxury-trust-number">100%</span>
+                <span className="luxury-trust-label">
+                  {lang === 'hi' ? 'लेजर अखंडता' : 'SHA-256 Verified'}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column: Layered Editorial Image & Floating Certifications */}
+          <div className="luxury-hero-visual-col">
+            <div className="luxury-hero-image-frame">
+              <img 
+                src="/farmer-sunset-field.jpg" 
+                alt="Golden Wheat Harvest in Punjab"
+                className="luxury-hero-main-img"
+              />
+
+              {/* Floating Certified Intake Badge (Top Right) */}
+              <div className="luxury-floating-badge luxury-floating-badge-top">
+                <div className="luxury-badge-header">
+                  <div className="luxury-badge-dot-green" />
+                  <span className="luxury-badge-title">
+                    {lang === 'hi' ? 'धर्मकांटा तौल सत्यापित' : 'Weighbridge Intake Verified'}
                   </span>
+                </div>
+                <div className="luxury-badge-lot">
+                  Lot #1042 • Sharbati Golden Wheat
+                </div>
+                <div className="luxury-badge-weights">
+                  <span>Declared: <strong>1,200 kg</strong></span>
+                  <span className="luxury-weight-arrow">➔</span>
+                  <span className="luxury-verified-val">Verified: <strong>1,200 kg</strong></span>
+                </div>
+                <div className="luxury-badge-zero-variance">
+                  {lang === 'hi' ? '✓ शून्य अंतर (100% Match)' : '✓ Zero Variance (100% Match)'}
+                </div>
+              </div>
+
+              {/* Floating Cryptographic Block Badge (Bottom Left) */}
+              <div className="luxury-floating-badge luxury-floating-badge-bottom">
+                <div className="luxury-badge-header">
+                  <Link2 size={13} color="#2E6847" />
+                  <span className="luxury-badge-title">
+                    {lang === 'hi' ? 'SHA-256 ब्लॉक #4' : 'SHA-256 Event Block #4'}
+                  </span>
+                </div>
+                <div className="luxury-badge-hash">
+                  Hash: 4bbcbdcd82ad315d0be6...
+                </div>
+                <div className="luxury-badge-subtext">
+                  {lang === 'hi' ? 'अपरिवर्तनीय डिजिटल लेजर पर सील' : 'Tamper-Evident Provable History'}
                 </div>
               </div>
             </div>
-          ))}
+          </div>
         </div>
       </section>
 
-      {/* 6. PREMIUM 5 CORE MODULES SHOWCASE */}
-      <section id="features" className="front-section">
-        <div className="front-section-header">
-          <span className="badge" style={{ background: 'rgba(46, 104, 71, 0.1)', color: '#2E6847', borderColor: 'rgba(46, 104, 71, 0.25)' }}>
-            <Layers size={13} />
-            <span>INTEGRATED SYSTEM ARCHITECTURE</span>
-          </span>
-          <h2 className="front-section-title">
-            {lang === 'hi' ? 'पारदर्शिता के 5 मुख्य स्तंभ' : 'The 5 Core Pillars of MiliGrams'}
-          </h2>
-          <p className="front-section-sub">
-            {lang === 'hi'
-              ? 'फसल ट्रैकिंग से लेकर स्मार्ट साइलो प्रबंधन, अपरिवर्तनीय लेजर और एग्रोनॉमिक फसल योजना।'
-              : 'Engineered from the ground up for quantity accountability, provenance truth, and intelligent farming.'}
-          </p>
-        </div>
+      {/* 3. UNIQUE VISUAL CROP JOURNEY: FARM GATE ➔ WAREHOUSE ➔ BUYER */}
+      <section id="journey" className="luxury-section-wrap luxury-journey-section">
+        <div className="luxury-section-inner">
+          <div className="luxury-section-heading-block">
+            <span className="luxury-section-pill">
+              <Compass size={13} />
+              <span>ACCOUNTABLE 3-STAGE LIFECYCLE</span>
+            </span>
+            <h2 className="luxury-section-title">
+              {lang === 'hi' 
+                ? 'फसल की पारदर्शी यात्रा: खेत से खरीदार तक' 
+                : 'The Visual Crop Journey: Farm → Warehouse → Buyer'}
+            </h2>
+            <p className="luxury-section-subtitle">
+              {lang === 'hi'
+                ? 'प्रत्येक भौतिक पड़ाव पर मात्रा और गुणवत्ता की स्वतंत्र पुष्टि होती है, जिसे कोई भी बिचौलिया बदल नहीं सकता।'
+                : 'Every gram is measured and cryptographically logged across three sovereign custody nodes, eliminating phantom deductions.'}
+            </p>
+          </div>
 
-        <div className="front-features-grid">
-          {coreFeatures.map((feat) => {
-            const Icon = feat.icon;
-            return (
-              <div 
-                key={feat.id} 
-                className="glass-panel front-feature-box"
-                onClick={() => { soundFX.click(); navigate(feat.link); }}
-                style={{ cursor: 'pointer' }}
-              >
-                <div className="front-feature-icon" style={{ background: `${feat.color}15`, color: feat.color, borderColor: `${feat.color}30` }}>
-                  <Icon size={24} />
+          <div className="luxury-journey-grid">
+            {journeyStages.map((stage) => {
+              const Icon = stage.icon;
+              return (
+                <div key={stage.id} className="luxury-journey-card">
+                  <div className="luxury-journey-card-top">
+                    <span className="luxury-journey-num">{stage.stage}</span>
+                    <span 
+                      className="luxury-journey-badge"
+                      style={{ color: stage.color, borderColor: `${stage.color}35`, background: `${stage.color}12` }}
+                    >
+                      {stage.badge}
+                    </span>
+                  </div>
+
+                  <div 
+                    className="luxury-journey-icon-wrap"
+                    style={{ background: `${stage.color}15`, color: stage.color }}
+                  >
+                    <Icon size={26} />
+                  </div>
+
+                  <h3 className="luxury-journey-card-title">
+                    {lang === 'hi' ? stage.titleHi : stage.titleEn}
+                  </h3>
+
+                  <p className="luxury-journey-card-desc">
+                    {lang === 'hi' ? stage.descHi : stage.descEn}
+                  </p>
+
+                  <div className="luxury-journey-metric-pill">
+                    <span className="luxury-metric-tag">KEY ACCOUNTABILITY PROOF</span>
+                    <div className="luxury-metric-value" style={{ color: stage.color }}>
+                      {lang === 'hi' ? stage.metricHi : stage.metricEn}
+                    </div>
+                  </div>
                 </div>
-                <h3 className="front-feature-title">
-                  {lang === 'hi' ? feat.titleHi : feat.titleEn}
-                </h3>
-                <p className="front-feature-desc">
-                  {lang === 'hi' ? feat.descHi : feat.descEn}
-                </p>
-                <div className="front-feature-link" style={{ color: feat.color }}>
-                  <span>{lang === 'hi' ? 'विस्तार से देखें' : 'Explore Feature'}</span>
-                  <ArrowRight size={14} />
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* 4. FRESH CERTIFIED COMMODITY MANDI SHELF */}
+      <section id="produce" className="luxury-section-wrap luxury-produce-section">
+        <div className="luxury-section-inner">
+          <div className="luxury-produce-header-flex">
+            <div>
+              <span className="luxury-section-pill" style={{ color: '#D6A75C', borderColor: 'rgba(214, 167, 92, 0.35)', background: 'rgba(214, 167, 92, 0.12)' }}>
+                <Award size={13} />
+                <span>DIRECT MANDI LISTINGS</span>
+              </span>
+              <h2 className="luxury-section-title" style={{ margin: '0.4rem 0 0' }}>
+                {lang === 'hi' ? 'मंडी में उपलब्ध ताज़ा प्रमाणित उपज' : 'Fresh Verified Batches in Mandi'}
+              </h2>
+            </div>
+
+            <button
+              onClick={() => {
+                soundFX.click();
+                navigate('/marketplace');
+              }}
+              className="luxury-produce-view-all-btn"
+            >
+              <span>{lang === 'hi' ? 'पूरी मंडी ब्राउज़ करें' : 'Browse Full Mandi'}</span>
+              <ArrowUpRight size={16} />
+            </button>
+          </div>
+
+          <div className="luxury-produce-grid">
+            {produceItems.map((item) => (
+              <div 
+                key={item.id} 
+                className="luxury-produce-card"
+                onClick={() => {
+                  soundFX.click();
+                  navigate('/marketplace');
+                }}
+              >
+                <div className="luxury-produce-img-box">
+                  <img src={item.image} alt={item.nameEn} className="luxury-produce-img" />
+                  <span className="luxury-produce-grade-tag">
+                    {item.grade}
+                  </span>
+                </div>
+
+                <div className="luxury-produce-details">
+                  <div className="luxury-produce-name">
+                    {lang === 'hi' ? item.nameHi : item.nameEn}
+                  </div>
+                  <div className="luxury-produce-meta">
+                    <MapPin size={13} />
+                    <span>{item.farmer} • {item.location}</span>
+                  </div>
+
+                  <div className="luxury-produce-verified-row">
+                    <CheckCircle2 size={13} color="#2E6847" />
+                    <span>{item.verifiedQty}</span>
+                  </div>
+
+                  <div className="luxury-produce-footer">
+                    <span className="luxury-produce-price">{item.price}</span>
+                    <span className="luxury-produce-trade-link">
+                      {lang === 'hi' ? 'सौदा करें →' : 'Trade →'}
+                    </span>
+                  </div>
                 </div>
               </div>
-            );
-          })}
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* 7. SPOTLIGHT: FARMISTOR CROP PLANNER TEASER */}
-      <section className="front-section" style={{ paddingTop: '1rem' }}>
-        <div className="glass-panel farmistor-front-banner">
-          <div className="farmistor-banner-grid">
-            <div>
-              <div className="farmistor-pill-tag">
+      {/* 5. THE 5 CORE ARCHITECTURAL PILLARS SHOWCASE */}
+      <section id="features" className="luxury-section-wrap luxury-pillars-section">
+        <div className="luxury-section-inner">
+          <div className="luxury-section-heading-block">
+            <span className="luxury-section-pill">
+              <Layers size={13} />
+              <span>INTEGRATED SYSTEM ARCHITECTURE</span>
+            </span>
+            <h2 className="luxury-section-title">
+              {lang === 'hi' ? 'पारदर्शिता के 5 मुख्य स्तंभ' : 'The 5 Core Pillars of MiliGrams'}
+            </h2>
+            <p className="luxury-section-subtitle">
+              {lang === 'hi'
+                ? 'मात्रा जवाबदेही, उत्पत्ति सत्यता और किसान सशक्तीकरण के लिए शुरू से अंत तक निर्मित।'
+                : 'Engineered from the ground up for quantity accountability, provenance truth, and intelligent farming.'}
+            </p>
+          </div>
+
+          <div className="luxury-pillars-grid">
+            {coreFeatures.map((feat) => {
+              const Icon = feat.icon;
+              return (
+                <div 
+                  key={feat.id} 
+                  className="luxury-pillar-card"
+                  onClick={() => {
+                    soundFX.click();
+                    navigate(feat.link);
+                  }}
+                >
+                  <div 
+                    className="luxury-pillar-icon"
+                    style={{ background: `${feat.color}15`, color: feat.color, borderColor: `${feat.color}30` }}
+                  >
+                    <Icon size={24} />
+                  </div>
+                  <h3 className="luxury-pillar-title">
+                    {lang === 'hi' ? feat.titleHi : feat.titleEn}
+                  </h3>
+                  <p className="luxury-pillar-desc">
+                    {lang === 'hi' ? feat.descHi : feat.descEn}
+                  </p>
+                  <div className="luxury-pillar-link" style={{ color: feat.color }}>
+                    <span>{lang === 'hi' ? 'विस्तार से देखें' : 'Explore Feature'}</span>
+                    <ArrowRight size={14} />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* 6. SPOTLIGHT: FARMISTOR CROP PLANNER BANNER */}
+      <section className="luxury-section-wrap luxury-farmistor-banner-wrap">
+        <div className="luxury-section-inner">
+          <div className="luxury-farmistor-banner">
+            <div className="luxury-farmistor-banner-content">
+              <div className="luxury-farmistor-pill">
                 <Brain size={14} />
                 <span>INTELLIGENT PLANNING ENGINE</span>
               </div>
 
-              <h3 className="farmistor-banner-heading">
+              <h3 className="luxury-farmistor-heading">
                 {lang === 'hi'
                   ? 'फार्मिस्टर: बुवाई से पहले मिट्टी, पानी व बजट के अनुसार सही फसल का चयन'
                   : 'Farmistor: Agronomic Intelligence Before You Sow'}
               </h3>
 
-              <p className="farmistor-banner-sub">
+              <p className="luxury-farmistor-sub">
                 {lang === 'hi'
-                  ? 'अंधेरे में बुवाई करने के दिन खत्म। फार्मिस्टर आपकी जमीन के प्रकार (जलोढ़, काली, दोमट), उपलब्ध पानी (नहर, ट्यूबवेल, ड्रिप) और बजट के अनुसार उपयुक्तता स्कोर (जैसे 96% Match), कुल लागत और शुद्ध लाभ का पारदर्शी नियम-आधारित अनुमान प्रदान करता है।'
+                  ? 'अंधेरे में बुवाई करने के दिन खत्म। फार्मिस्टर आपकी जमीन (जलोढ़, काली, दोमट), उपलब्ध पानी (नहर, ट्यूबवेल, ड्रिप) और बजट के अनुसार उपयुक्तता स्कोर (जैसे 96% Match), कुल लागत और शुद्ध लाभ का पारदर्शी नियम-आधारित अनुमान प्रदान करता है।'
                   : 'Input your soil texture, water availability, target season, and financial budget. Farmistor calculates explainable suitability scores, cost breakdowns, and yield projections with side-by-side comparison.'}
               </p>
 
-              <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginTop: '1.75rem' }}>
-                <button onClick={handleDiscoverFarmistor} className="figma-btn-forest" style={{ padding: '0.8rem 1.8rem' }}>
+              <div className="luxury-farmistor-btn-group">
+                <button 
+                  onClick={handleDiscoverFarmistor}
+                  className="luxury-hero-primary-btn"
+                >
                   <Brain size={18} />
                   <span>{lang === 'hi' ? 'फार्मिस्टर प्लानर शुरू करें' : 'Launch Farmistor Planner'}</span>
                   <ArrowRight size={17} />
                 </button>
 
-                <button onClick={() => navigate('/ledger')} className="figma-btn-outline" style={{ padding: '0.8rem 1.6rem' }}>
+                <button 
+                  onClick={() => navigate('/ledger')}
+                  className="luxury-hero-secondary-btn"
+                >
                   <Link2 size={17} />
                   <span>{lang === 'hi' ? 'डिजिटल लेजर देखें' : 'Audit Digital Ledger'}</span>
                 </button>
               </div>
             </div>
 
-            {/* Visual Teaser Cards */}
-            <div className="farmistor-teaser-preview">
-              <div className="farmistor-teaser-card">
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                  <span style={{ fontSize: '0.74rem', fontWeight: 800, color: '#2E6847' }}>#1 SUITABILITY MATCH</span>
-                  <span className="badge" style={{ background: '#2E6847', color: '#ffffff' }}>96% MATCH</span>
+            {/* Farmistor Teaser Preview Box */}
+            <div className="luxury-farmistor-preview-cards">
+              <div className="luxury-farmistor-card-featured">
+                <div className="luxury-farmistor-card-header">
+                  <span className="luxury-farmistor-rank">#1 SUITABILITY MATCH</span>
+                  <span className="luxury-farmistor-match-badge">96% MATCH</span>
                 </div>
-                <h4 style={{ margin: '0 0 0.35rem', fontSize: '1.25rem', fontWeight: 700, color: 'var(--text-main)' }}>
+                <h4 className="luxury-farmistor-crop-name">
                   Sharbati Wheat (शरबती गेहूं)
                 </h4>
-                <div style={{ fontSize: '0.82rem', color: 'var(--text-muted)', marginBottom: '0.75rem' }}>
+                <div className="luxury-farmistor-specs">
                   Alluvial Soil • Canal Water • Rabi Season • 115–125 Days
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.84rem', borderTop: '1px solid var(--border)', paddingTop: '0.5rem' }}>
+                <div className="luxury-farmistor-profit-row">
                   <span>Est. Net Profit:</span>
-                  <strong style={{ color: '#2E6847' }}>₹32,000 – ₹43,000 / Acre</strong>
+                  <strong className="luxury-profit-green">₹32,000 – ₹43,000 / Acre</strong>
                 </div>
               </div>
 
-              <div className="farmistor-teaser-card" style={{ opacity: 0.85, transform: 'scale(0.97)' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                  <span style={{ fontSize: '0.74rem', fontWeight: 800, color: '#D6A75C' }}>#2 SUITABILITY MATCH</span>
-                  <span className="badge" style={{ background: 'rgba(214, 167, 92, 0.2)', color: '#D6A75C' }}>91% MATCH</span>
+              <div className="luxury-farmistor-card-secondary">
+                <div className="luxury-farmistor-card-header">
+                  <span className="luxury-farmistor-rank" style={{ color: '#D6A75C' }}>#2 SUITABILITY MATCH</span>
+                  <span className="luxury-farmistor-match-badge" style={{ background: 'rgba(214, 167, 92, 0.2)', color: '#D6A75C' }}>91% MATCH</span>
                 </div>
-                <h4 style={{ margin: '0 0 0.35rem', fontSize: '1.15rem', fontWeight: 700, color: 'var(--text-main)' }}>
-                  Yellow Mustard (पीली सरसों)
+                <h4 className="luxury-farmistor-crop-name">
+                  Pusa Bold Mustard (पीली सरसों)
                 </h4>
-                <div style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>
+                <div className="luxury-farmistor-specs">
                   Sandy Loam • 1–2 Irrigations • Low Water Risk
                 </div>
               </div>
@@ -681,234 +818,241 @@ export default function FrontPage({ lang = 'hi', setLang = () => {}, theme = 'li
         </div>
       </section>
 
-      {/* 8. THE 4 DEDICATED WORKSPACES */}
-      <section id="portals" className="front-section">
-        <div className="front-section-header">
-          <span className="badge" style={{ background: 'rgba(23, 61, 43, 0.08)', color: 'var(--primary)', borderColor: 'rgba(23, 61, 43, 0.2)' }}>
-            <Users size={13} />
-            <span>PURPOSE-BUILT ROLE WORKSPACES</span>
-          </span>
-          <h2 className="front-section-title">
-            {lang === 'hi' ? 'हर हितधारक के लिए अलग पोर्टल' : 'Dedicated Portals for Every Actor'}
-          </h2>
-          <p className="front-section-sub">
-            {lang === 'hi'
-              ? 'किसान, गोदाम प्रबंधक, थोक व्यापारी और सरकारी ऑडिटर — सभी के लिए सुगम और सुरक्षित इंटरफेस।'
-              : 'Farmers, warehouse operators, grain traders, and state regulators each enjoy a purpose-built workspace.'}
-          </p>
-        </div>
+      {/* 7. DEDICATED STAKEHOLDER PORTALS */}
+      <section id="portals" className="luxury-section-wrap luxury-portals-section">
+        <div className="luxury-section-inner">
+          <div className="luxury-section-heading-block">
+            <span className="luxury-section-pill">
+              <Users size={13} />
+              <span>PURPOSE-BUILT ROLE WORKSPACES</span>
+            </span>
+            <h2 className="luxury-section-title">
+              {lang === 'hi' ? 'हर हितधारक के लिए समर्पित पोर्टल' : 'Dedicated Portals for Every Actor'}
+            </h2>
+            <p className="luxury-section-subtitle">
+              {lang === 'hi'
+                ? 'किसान, गोदाम प्रबंधक, थोक व्यापारी और सरकारी ऑडिटर — सभी के लिए सुगम और सुरक्षित इंटरफेस।'
+                : 'Farmers, warehouse operators, grain traders, and state regulators each enjoy a purpose-built workspace.'}
+            </p>
+          </div>
 
-        <div className="front-portals-grid">
-          {portalCards.map((p) => {
-            const Icon = p.icon;
-            return (
-              <div 
-                key={p.role} 
-                className="front-portal-card glass-panel"
-                style={{ borderTop: `4px solid ${p.color}`, cursor: 'pointer' }}
-                onClick={() => {
-                  soundFX.click();
-                  navigate(p.path);
-                }}
-                title={lang === 'hi' ? `${p.titleHi} खोलें` : `Open ${p.titleEn}`}
-              >
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
-                  <div 
-                    style={{ 
-                      width: '46px', 
-                      height: '46px', 
-                      borderRadius: '12px', 
-                      background: `${p.color}15`, 
-                      color: p.color, 
-                      display: 'flex', 
-                      alignItems: 'center', 
-                      justifyContent: 'center',
-                      border: `1px solid ${p.color}30`
-                    }}
-                  >
-                    <Icon size={24} />
+          <div className="luxury-portals-grid">
+            {portalCards.map((portal) => {
+              const Icon = portal.icon;
+              return (
+                <div 
+                  key={portal.role} 
+                  className="luxury-portal-card"
+                  style={{ borderTop: `4px solid ${portal.color}` }}
+                  onClick={() => {
+                    soundFX.click();
+                    navigate(portal.path);
+                  }}
+                >
+                  <div className="luxury-portal-card-top">
+                    <div 
+                      className="luxury-portal-icon-box"
+                      style={{ background: `${portal.color}15`, color: portal.color, borderColor: `${portal.color}30` }}
+                    >
+                      <Icon size={24} />
+                    </div>
+                    <span 
+                      className="luxury-portal-badge"
+                      style={{ background: `${portal.color}15`, color: portal.color, borderColor: `${portal.color}35` }}
+                    >
+                      {lang === 'hi' ? portal.badgeHi : portal.badgeEn}
+                    </span>
                   </div>
-                  <span className="badge" style={{ background: `${p.color}15`, color: p.color, borderColor: `${p.color}35` }}>
-                    {lang === 'hi' ? p.badgeHi : p.badgeEn}
-                  </span>
+
+                  <h3 className="luxury-portal-title">
+                    {lang === 'hi' ? portal.titleHi : portal.titleEn}
+                  </h3>
+                  <p className="luxury-portal-desc">
+                    {lang === 'hi' ? portal.descHi : portal.descEn}
+                  </p>
+
+                  <div className="luxury-portal-footer">
+                    <span className="luxury-portal-action-text">
+                      {lang === 'hi' ? 'कार्यक्षेत्र खोलें' : 'Open Workspace'}
+                    </span>
+                    <div className="luxury-portal-action-link" style={{ color: portal.color }}>
+                      <span>{lang === 'hi' ? 'प्रवेश करें' : 'Enter'}</span>
+                      <ArrowRight size={14} />
+                    </div>
+                  </div>
                 </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
 
-                <h3 style={{ fontSize: '1.22rem', fontWeight: 800, color: 'var(--text-main)', marginBottom: '0.45rem' }}>
-                  {lang === 'hi' ? p.titleHi : p.titleEn}
-                </h3>
-                <p style={{ fontSize: '0.86rem', color: 'var(--text-muted)', lineHeight: 1.55, marginBottom: '1.5rem' }}>
-                  {lang === 'hi' ? p.descHi : p.descEn}
-                </p>
+      {/* 8. AUTHENTIC FIELD PERSPECTIVES: REAL INDIAN AGRICULTURE PHOTOGRAPHY */}
+      <section className="luxury-section-wrap luxury-gallery-section">
+        <div className="luxury-section-inner">
+          <div className="luxury-section-heading-block">
+            <span className="luxury-section-pill">
+              <Sparkles size={13} />
+              <span>AUTHENTIC FIELD PERSPECTIVES</span>
+            </span>
+            <h2 className="luxury-section-title">
+              {lang === 'hi' ? 'भारतीय कृषि का नया डिजिटल सवेरा' : 'A New Digital Dawn for Indian Agriculture'}
+            </h2>
+            <p className="luxury-section-subtitle">
+              {lang === 'hi'
+                ? 'पंजाब और हरियाणा के उपजाऊ खेतों से लेकर 25,000 क्विंटल आधुनिक साइलो तक की वास्तविक तस्वीरें।'
+                : 'Real photography capturing the harvest rhythm, silo custody, and direct farmer empowerment across Punjab and Haryana.'}
+            </p>
+          </div>
 
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '0.85rem', borderTop: '1px solid var(--border)' }}>
-                  <span style={{ fontSize: '0.78rem', color: 'var(--text-light)', fontWeight: 700 }}>
-                    {lang === 'hi' ? 'क्लिक कर प्रवेश करें' : 'Open Workspace'}
-                  </span>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', color: p.color, fontWeight: 800, fontSize: '0.84rem' }}>
-                    <span>{lang === 'hi' ? 'प्रवेश करें' : 'Open'}</span>
-                    <ArrowRight size={14} />
-                  </div>
+          <div className="luxury-gallery-grid">
+            {fieldPhotos.map((photo) => (
+              <div key={photo.id} className="luxury-gallery-card">
+                <div className="luxury-gallery-img-wrap">
+                  <img src={photo.image} alt={photo.titleEn} className="luxury-gallery-img" />
+                </div>
+                <div className="luxury-gallery-info">
+                  <h4 className="luxury-gallery-title">
+                    {lang === 'hi' ? photo.titleHi : photo.titleEn}
+                  </h4>
+                  <p className="luxury-gallery-caption">
+                    {lang === 'hi' ? photo.captionHi : photo.captionEn}
+                  </p>
                 </div>
               </div>
-            );
-          })}
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* 9. REALISTIC 3D PHOTO CARDS OF INDIAN AGRICULTURE */}
-      <section className="front-section" style={{ paddingTop: 0 }}>
-        <div className="front-section-header">
-          <span className="badge" style={{ background: 'rgba(23, 61, 43, 0.08)', color: 'var(--primary)', borderColor: 'rgba(23, 61, 43, 0.2)' }}>
-            <Sparkles size={13} />
-            <span>FIELD PERSPECTIVES</span>
-          </span>
-          <h2 className="front-section-title">
-            {lang === 'hi' ? 'भारतीय कृषि का नया डिजिटल सवेरा' : 'A New Digital Dawn for Indian Agriculture'}
-          </h2>
-        </div>
-        <PhotoCards3D lang={lang} />
-      </section>
+      {/* 9. SUPPLY CHAIN IMPACT TESTIMONIALS */}
+      <section id="testimonials" className="luxury-section-wrap luxury-testimonials-section">
+        <div className="luxury-section-inner">
+          <div className="luxury-section-heading-block">
+            <span className="luxury-section-pill" style={{ color: '#D6A75C', borderColor: 'rgba(214, 167, 92, 0.35)', background: 'rgba(214, 167, 92, 0.12)' }}>
+              <Star size={13} />
+              <span>GROUND-LEVEL IMPACT</span>
+            </span>
+            <h2 className="luxury-section-title">
+              {lang === 'hi' ? 'खेत और मंडी से वास्तविक अनुभव' : 'Verified Voices Across the Supply Chain'}
+            </h2>
+          </div>
 
-      {/* 10. AUTHENTIC COMMUNITY TESTIMONIALS */}
-      <section id="testimonials" className="front-section">
-        <div className="front-section-header">
-          <span className="badge" style={{ background: 'rgba(214, 167, 92, 0.15)', color: '#D6A75C', borderColor: 'rgba(214, 167, 92, 0.3)' }}>
-            <Star size={13} />
-            <span>GROUND-LEVEL IMPACT</span>
-          </span>
-          <h2 className="front-section-title">
-            {lang === 'hi' ? 'खेत और मंडी से वास्तविक अनुभव' : 'Verified Voices Across the Supply Chain'}
-          </h2>
-        </div>
-
-        <div className="front-testimonials-grid">
-          {testimonials.map((test) => (
-            <div key={test.id} className="front-testimonial-card glass-panel">
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.25rem' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                  <div 
-                    style={{ 
-                      width: '42px', 
-                      height: '42px', 
-                      borderRadius: '50%', 
-                      background: '#2E6847', 
-                      color: '#ffffff', 
-                      display: 'flex', 
-                      alignItems: 'center', 
-                      justifyContent: 'center', 
-                      fontWeight: 800, 
-                      fontSize: '1rem' 
-                    }}
-                  >
+          <div className="luxury-testimonials-grid">
+            {testimonials.map((test) => (
+              <div key={test.id} className="luxury-testimonial-card">
+                <div className="luxury-testimonial-header">
+                  <div className="luxury-testimonial-avatar">
                     {test.nameEn.charAt(0)}
                   </div>
                   <div>
-                    <h4 style={{ margin: 0, fontSize: '0.98rem', fontWeight: 800, color: 'var(--text-main)' }}>
+                    <h4 className="luxury-testimonial-name">
                       {lang === 'hi' ? test.nameHi : test.nameEn}
                     </h4>
-                    <span style={{ fontSize: '0.74rem', color: 'var(--text-muted)' }}>
+                    <span className="luxury-testimonial-role">
                       {lang === 'hi' ? test.roleHi : test.roleEn}
                     </span>
                   </div>
                 </div>
 
-                <span className="badge" style={{ background: 'rgba(46, 104, 71, 0.12)', color: '#2E6847', borderColor: 'rgba(46, 104, 71, 0.25)', fontSize: '0.66rem' }}>
-                  {lang === 'hi' ? test.badgeHi : test.badgeEn}
-                </span>
+                <p className="luxury-testimonial-quote">
+                  "{lang === 'hi' ? test.quoteHi : test.quoteEn}"
+                </p>
+
+                <div className="luxury-testimonial-footer">
+                  <div className="luxury-testimonial-stars">
+                    {[...Array(test.rating)].map((_, i) => (
+                      <Star key={i} size={14} color="#D6A75C" fill="#D6A75C" />
+                    ))}
+                  </div>
+                  <span className="luxury-testimonial-badge">
+                    {lang === 'hi' ? test.badgeHi : test.badgeEn}
+                  </span>
+                </div>
               </div>
-
-              <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', lineHeight: 1.65, fontStyle: 'italic', margin: 0 }}>
-                "{lang === 'hi' ? test.quoteHi : test.quoteEn}"
-              </p>
-
-              <div style={{ display: 'flex', gap: '0.2rem', marginTop: '1.25rem' }}>
-                {[...Array(test.rating)].map((_, i) => (
-                  <Star key={i} size={14} color="#D6A75C" fill="#D6A75C" />
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* 11. NEWSLETTER & EDITORIAL FOOTER */}
-      <section className="figma-newsletter-section">
-        <div className="figma-newsletter-box">
-          <div>
-            <span style={{ fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#D6A75C' }}>
-              AGRITECH DISPATCH & MANDI BULLETIN
-            </span>
-            <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '2rem', fontWeight: 500, color: 'var(--text-main)', margin: '0.5rem 0' }}>
-              {lang === 'hi' ? 'ताज़ा मंडी भाव व लेजर बुलेटिन प्राप्त करें' : 'Fresh Harvest Alerts & Daily Mandi Rates'}
-            </h3>
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.92rem', margin: 0 }}>
-              {lang === 'hi' 
-                ? 'सीधे अपने ईमेल पर पाएं 15-दिन शेल्फ लाइफ छूट, सत्यापित साइलो क्षमता और नए फसल लॉट की सूचना।'
-                : 'Subscribe to receive certified lot alerts, wholesale price indices, and transparent ledger dispatches.'}
-            </p>
+            ))}
           </div>
-
-          <form onSubmit={handleNewsletterSubmit} className="figma-newsletter-form">
-            <div style={{ display: 'flex', gap: '0.5rem' }}>
-              <input
-                type="email"
-                placeholder={lang === 'hi' ? 'अपना ईमेल दर्ज करें...' : 'Enter your work email...'}
-                value={newsletterEmail}
-                onChange={(e) => setNewsletterEmail(e.target.value)}
-                className="figma-newsletter-input"
-                required
-              />
-              <button type="submit" className="figma-btn-forest" style={{ padding: '0 1.5rem', whiteSpace: 'nowrap' }}>
-                {newsletterSent ? <Check size={16} /> : <Send size={16} />}
-                <span>{newsletterSent ? (lang === 'hi' ? 'जुड़ गए!' : 'Subscribed') : (lang === 'hi' ? 'सब्सक्राइब' : 'Subscribe')}</span>
-              </button>
-            </div>
-          </form>
         </div>
       </section>
 
-      {/* 12. MINIMALIST EDITORIAL FOOTER */}
-      <footer className="figma-editorial-footer">
-        <div className="figma-footer-content">
-          <div>
-            <h2 className="figma-footer-brand-title">MiliGrams®</h2>
-            <p style={{ fontSize: '0.84rem', color: 'var(--text-muted)', maxWidth: '320px', lineHeight: 1.6 }}>
+      {/* 10. NEWSLETTER & AGRI BULLETIN DISPATCH */}
+      <section className="luxury-section-wrap luxury-newsletter-section">
+        <div className="luxury-section-inner">
+          <div className="luxury-newsletter-box">
+            <div>
+              <span className="luxury-newsletter-tag">AGRITECH DISPATCH & MANDI BULLETIN</span>
+              <h3 className="luxury-newsletter-heading">
+                {lang === 'hi' ? 'ताज़ा मंडी भाव व लेजर बुलेटिन प्राप्त करें' : 'Fresh Harvest Alerts & Daily Mandi Rates'}
+              </h3>
+              <p className="luxury-newsletter-sub">
+                {lang === 'hi' 
+                  ? 'सीधे अपने ईमेल पर पाएं 15-दिन शेल्फ लाइफ छूट, सत्यापित साइलो क्षमता और नए फसल लॉट की सूचना।'
+                  : 'Subscribe to receive certified lot alerts, wholesale price indices, and transparent ledger dispatches.'}
+              </p>
+            </div>
+
+            <form onSubmit={handleNewsletterSubmit} className="luxury-newsletter-form">
+              <div className="luxury-newsletter-input-group">
+                <input
+                  type="email"
+                  placeholder={lang === 'hi' ? 'अपना ईमेल दर्ज करें...' : 'Enter your email...'}
+                  value={newsletterEmail}
+                  onChange={(e) => setNewsletterEmail(e.target.value)}
+                  className="luxury-newsletter-input"
+                  required
+                />
+                <button type="submit" className="luxury-newsletter-submit-btn">
+                  {newsletterSent ? <Check size={16} /> : <Send size={16} />}
+                  <span>{newsletterSent ? (lang === 'hi' ? 'जुड़ गए!' : 'Subscribed') : (lang === 'hi' ? 'सब्सक्राइब' : 'Subscribe')}</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      {/* 11. REFINED EDITORIAL FOOTER */}
+      <footer className="luxury-footer">
+        <div className="luxury-footer-container">
+          <div className="luxury-footer-brand-col">
+            <div className="luxury-footer-brand-title">MiliGrams®</div>
+            <p className="luxury-footer-brand-desc">
               {lang === 'hi'
                 ? 'खेत से खरीदार तक, हर ग्राम का सच्चा हिसाब। अपरिवर्तनीय SHA-256 लेजर और किसान-केंद्रित एग्रोटेक प्लेटफॉर्म।'
-                : 'From Farm to Buyer, Every Gram Accountable. A tamper-evident digital ledger ecosystem for Indian agriculture.'}
+                : 'From Farm to Buyer, Every Gram Accountable. A tamper-evident digital ledger and agronomic planning platform for Indian agriculture.'}
             </p>
-            <div style={{ fontSize: '0.74rem', color: 'var(--text-light)', marginTop: '1.25rem' }}>
+            <div className="luxury-footer-copyright">
               © 2026 MiliGrams AgriTech. All rights reserved.
             </div>
           </div>
 
-          <div>
-            <div className="figma-footer-col-title">{lang === 'hi' ? 'प्लेटफॉर्म' : 'Platform'}</div>
-            <ul className="figma-footer-links">
-              <li><a onClick={() => navigate('/marketplace')} className="figma-footer-link">{lang === 'hi' ? 'ताज़ा मंडी (Marketplace)' : 'Marketplace'}</a></li>
-              <li><a onClick={() => navigate('/farmistor')} className="figma-footer-link">{lang === 'hi' ? 'फार्मिस्टर (Crop Planner)' : 'Farmistor Planner'}</a></li>
-              <li><a onClick={() => navigate('/ledger')} className="figma-footer-link">{lang === 'hi' ? 'डिजिटल लेजर (Explorer)' : 'Ledger Explorer'}</a></li>
-              <li><a onClick={() => navigate('/farmer')} className="figma-footer-link">{lang === 'hi' ? 'किसान पोर्टल (Farmer)' : 'Farmer Portal'}</a></li>
+          <div className="luxury-footer-links-col">
+            <h5 className="luxury-footer-col-title">{lang === 'hi' ? 'प्लेटफॉर्म' : 'Platform'}</h5>
+            <ul className="luxury-footer-list">
+              <li><a onClick={() => navigate('/marketplace')}>{lang === 'hi' ? 'ताज़ा मंडी (Marketplace)' : 'Marketplace'}</a></li>
+              <li><a onClick={() => navigate('/farmistor')}>{lang === 'hi' ? 'फार्मिस्टर (Crop Planner)' : 'Farmistor Planner'}</a></li>
+              <li><a onClick={() => navigate('/ledger')}>{lang === 'hi' ? 'डिजिटल लेजर (Explorer)' : 'Ledger Explorer'}</a></li>
+              <li><a onClick={() => navigate('/farmer')}>{lang === 'hi' ? 'किसान पोर्टल (Farmer)' : 'Farmer Portal'}</a></li>
             </ul>
           </div>
 
-          <div>
-            <div className="figma-footer-col-title">{lang === 'hi' ? 'कार्यक्षेत्र' : 'Workspaces'}</div>
-            <ul className="figma-footer-links">
-              <li><a onClick={() => navigate('/warehouse')} className="figma-footer-link">{lang === 'hi' ? 'गोदाम साइलो (Warehouse)' : 'Silo Warehouse'}</a></li>
-              <li><a onClick={() => navigate('/admin')} className="figma-footer-link">{lang === 'hi' ? 'गवर्नेंस व ऑडिट (Admin)' : 'Admin Governance'}</a></li>
-              <li><a onClick={() => navigate('/notifications')} className="figma-footer-link">{lang === 'hi' ? 'सूचना केंद्र (Alerts)' : 'Notifications'}</a></li>
-              <li><a onClick={() => navigate('/settings')} className="figma-footer-link">{lang === 'hi' ? 'सिस्टम सेटिंग्स (Settings)' : 'Settings'}</a></li>
+          <div className="luxury-footer-links-col">
+            <h5 className="luxury-footer-col-title">{lang === 'hi' ? 'कार्यक्षेत्र' : 'Workspaces'}</h5>
+            <ul className="luxury-footer-list">
+              <li><a onClick={() => navigate('/warehouse')}>{lang === 'hi' ? 'गोदाम साइलो (Warehouse)' : 'Silo Warehouse'}</a></li>
+              <li><a onClick={() => navigate('/admin')}>{lang === 'hi' ? 'गवर्नेंस व ऑडिट (Admin)' : 'Admin Governance'}</a></li>
+              <li><a onClick={() => navigate('/notifications')}>{lang === 'hi' ? 'सूचना केंद्र (Alerts)' : 'Notifications'}</a></li>
+              <li><a onClick={() => navigate('/settings')}>{lang === 'hi' ? 'सिस्टम सेटिंग्स (Settings)' : 'Settings'}</a></li>
             </ul>
           </div>
 
-          <div>
-            <div className="figma-footer-col-title">{lang === 'hi' ? 'सुरक्षा व तकनीक' : 'Governance & Tech'}</div>
-            <ul className="figma-footer-links">
-              <li><span style={{ fontSize: '0.84rem', color: 'var(--text-muted)' }}>SHA-256 Chained Hash</span></li>
-              <li><span style={{ fontSize: '0.84rem', color: 'var(--text-muted)' }}>Merkle Tree Root Proof</span></li>
-              <li><span style={{ fontSize: '0.84rem', color: 'var(--text-muted)' }}>AgriStack KYC Integration</span></li>
-              <li><span style={{ fontSize: '0.84rem', color: 'var(--text-muted)' }}>15-Day Aging Protection</span></li>
+          <div className="luxury-footer-links-col">
+            <h5 className="luxury-footer-col-title">{lang === 'hi' ? 'सुरक्षा व तकनीक' : 'Governance & Tech'}</h5>
+            <ul className="luxury-footer-list">
+              <li><span>SHA-256 Chained Hash</span></li>
+              <li><span>Merkle Tree Root Proof</span></li>
+              <li><span>AgriStack KYC Integration</span></li>
+              <li><span>15-Day Aging Protection</span></li>
             </ul>
           </div>
         </div>

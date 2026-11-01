@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import Sidebar from './components/Sidebar';
-import FarmerMascot from './components/FarmerMascot';
-import InteractiveCanvas3D from './components/InteractiveCanvas3D';
 import FrontPage from './pages/FrontPage';
 import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
@@ -125,9 +123,6 @@ function AppContent({ lang, setLang, theme, toggleTheme }) {
           <Route path="*" element={<NotFound lang={lang} />} />
         </Routes>
       </div>
-
-      {/* Global AI Farmer Mascot ("Kisan Mitra") for contextual guidance */}
-      {!isStandalonePage && <FarmerMascot lang={lang} />}
     </div>
   );
 }
@@ -150,9 +145,6 @@ export default function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
-        {/* Interactive 3D Star & Node Constellation Canvas */}
-        <InteractiveCanvas3D />
-
         <AppContent 
           lang={lang} 
           setLang={setLang} 
